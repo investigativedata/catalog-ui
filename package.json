@@ -11,8 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@investigativedata/ftmq": "^0.1.0",
-    "@investigativedata/style": "^0.1.0",
+    "@investigativedata/ftmq": "^0.1.1",
+    "@investigativedata/style": "^0.1.1",
     "@mui/joy": "^5.0.0-beta.32",
     "next": "14.1.4",
     "react": "^18",
