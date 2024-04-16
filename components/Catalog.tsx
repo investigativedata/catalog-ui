@@ -1,16 +1,16 @@
 import type { ICatalog } from "@investigativedata/ftmq";
-import Link from "next/link";
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
+import Grid from "@mui/joy/Grid";
+
+import Dataset from "./Dataset";
 
 export default function Catalog({ catalog }: { catalog: ICatalog }) {
   return (
-   <List>
+   <Grid container spacing={2} sx={{ flexGrow: 1 }}>
      {catalog.datasets?.map((d) => (
-       <ListItem key={d.name}>
-         <Link href={`/${d.name}`}>{d.title || d.name}</Link>
-       </ListItem>
+       <Grid xs={12} md={6}>
+        <Dataset key={d.name} dataset={d} />
+       </Grid>
      ))}
-   </List>
+   </Grid>
   );
 }
