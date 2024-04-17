@@ -3,6 +3,7 @@
 import CssBaseline from "@mui/joy/CssBaseline";
 import { CssVarsProvider } from "@mui/joy/styles";
 import { theme } from "@investigativedata/style";
+import Box from "@mui/joy/Box";
 
 import type { TBreadrumb } from "./Breadcrumbs";
 
@@ -20,9 +21,15 @@ export default function Page({
     <CssVarsProvider theme={theme}>
       <CssBaseline />
       <Header crumbs={crumbs} isRoot={isRoot} />
-      <section className={styles.page}>
-        {children}
-      </section>
+      <Box
+        sx={theme => ({
+          backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[100],
+        })}
+      >
+        <section className={styles.page}>
+          {children}
+        </section>
+      </Box>
     </CssVarsProvider>
   );
 }
