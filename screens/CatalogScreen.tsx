@@ -15,7 +15,6 @@ import FilterGroup from "~/components/FilterGroup";
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   return (
     <Stack>
-      <Typography level="h1">Data catalog</Typography>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
         <Grid xs={3}>
           <Search />
