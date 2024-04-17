@@ -31,7 +31,7 @@ export default async function DatasetPage({ params }: { params: Params }) {
   const dataset = await getDataset(params.dataset);
   const breadcrumbs = [
     {
-      label: "Catalog",
+      label: "Data Catalog",
       url: "/",
     },
     { label: dataset.title || dataset.name },

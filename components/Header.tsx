@@ -62,7 +62,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
            </Typography>
          </StackItem>
          <StackItem justifyContent="right">
-           <Typography level="body-md">A project by</Typography>
+           <Typography level="body-md" noWrap>A project by</Typography>
            <Link
             underline="always"
             target="_blank"
@@ -83,7 +83,9 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
         <Typography level="h1" sx={{ textAlign: "center" }}>Data catalog</Typography>
       )}
       {!isRoot && (
+       <Container maxWidth="xl">
         <Breadcrumbs crumbs={crumbs} />
+        </Container>
       )}
     </Box>
   );
