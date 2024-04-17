@@ -5,8 +5,7 @@ import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import IconButton from '@mui/joy/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
-import { Logo } from "@investigativedata/style";
+import AspectRatio from "@mui/joy/AspectRatio";
 
 import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
 
@@ -61,8 +60,13 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
            </Typography>
          </StackItem>
          <StackItem justifyContent="right">
-           <Typography level="body-sm">A project by</Typography>
-           <Logo />  
+           <Typography level="body-md">A project by</Typography>
+           <Link underline="always" target="_blank" rel="noopener" href="https://investigativedata.io/">
+            <AspectRatio style={{ width: "61px" }} variant="plain">
+             <img src={`/images/logos/IDIO_basic_light.svg`} />
+            </AspectRatio>
+           </Link>
+           
          </StackItem>
                  
           
