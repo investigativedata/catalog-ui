@@ -30,6 +30,8 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
    <Box
      sx={theme => ({
        width: "100%",
+       position: "fixed",
+       zIndex: 10,
        backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[300],
      })}
     >
@@ -48,8 +50,8 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
          <StackItem justifyContent="center">
            <Typography level="h3" sx={{ fs: "1.3125rem", p: 0 }}>
              <Link
+               underline="none"
                sx={{
-                 color: "inherit",
                  textDecoration: "none",
                  "&:hover": { textDecoration: "none" },
                }}
@@ -61,18 +63,28 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
          </StackItem>
          <StackItem justifyContent="right">
            <Typography level="body-md">A project by</Typography>
-           <Link underline="always" target="_blank" rel="noopener" href="https://investigativedata.io/">
+           <Link
+            underline="always"
+            target="_blank"
+            rel="noopener"
+            href="https://investigativedata.io/"
+            sx={{
+             textDecoration: "underline"
+           }}
+           >
             <AspectRatio style={{ width: "61px" }} variant="plain">
              <img src={`/images/logos/IDIO_basic_light.svg`} />
             </AspectRatio>
            </Link>
-           
          </StackItem>
-                 
-          
         </Stack>
       </Container>
-      <Breadcrumbs crumbs={crumbs} />
+      {isRoot && (
+        <Typography level="h1" sx={{ textAlign: "center" }}>Data catalog</Typography>
+      )}
+      {!isRoot && (
+        <Breadcrumbs crumbs={crumbs} />
+      )}
     </Box>
   );
 }
