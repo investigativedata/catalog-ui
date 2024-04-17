@@ -14,7 +14,7 @@ const breadcrumbs = [
 export default async function CatalogPage() {
   const catalog = await getCatalog(CATALOG_URI);
   return (
-    <Page crumbs={breadcrumbs}>
+    <Page crumbs={breadcrumbs} isRoot>
       <CatalogScreen catalog={catalog} />
     </Page>
   );
