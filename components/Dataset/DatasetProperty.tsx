@@ -10,8 +10,8 @@ type DatasetPropertyProps = {
 export default function DatasetProperty({ label, value }: DatasetPropertyProps) {
   return (
    <Stack>
-     <Typography level="body-sm">{label}</Typography>
-     <Typography level="body-sm">{value}</Typography>
+     <Typography level="body-sm" sx={{ textTransform: 'capitalize' }}>{label}</Typography>
+     <Typography level="body-sm" sx={{ fontWeight: 'bold' }}>{value}</Typography>
    </Stack>
   );
 }
