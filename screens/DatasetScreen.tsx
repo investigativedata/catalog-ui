@@ -1,6 +1,6 @@
 "use client";
 
-import type { IDataset } from "@investigativedata/ftmq";
+import type { IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Grid from '@mui/joy/Grid';
@@ -25,7 +25,7 @@ import DatasetProperty from "~/components/Dataset/DatasetProperty";
 //   </>
 // );
 
-const DatasetSectionHeader = ({ label, active, count }: {  }) => {
+const DatasetSectionHeader = ({ label, active, count }: { label: string, active: boolean, count?: number }) => {
   return (
     <Typography level="h3" sx={{ textTransform: 'capitalize' }}>{label}</Typography>
   );
@@ -55,50 +55,75 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
 }
 
 const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
+  const { entity_count } = dataset;
+
+  const things = dataset.things as ISchemataStats
+  const intervals = dataset.intervals as ISchemataStats
+
+  const schemataMerged = [...(things?.schemata || []), ...(intervals?.schemata || [])]
+    .sort((a, b) => a.count > b.count ? -1 : 1);
+
+  const countriesMerged = [...(things?.countries || []), ...(intervals?.countries || [])]
+    .sort((a, b) => a.count > b.count ? -1 : 1);
+
   return (
     <Stack spacing={2}>
-      <DatasetProperty label="entities" value={dataset.entity_count} />
-      <DatasetSectionHeader label="schemas" active={true} count={20} />
+      <DatasetProperty label="entities" value={entity_count} />
+      <DatasetSectionHeader label="schemas" active={!!schemataMerged.length} count={schemataMerged.length} />
+      {schemataMerged.map((d: ISchema) => (
+        <div key={d.name}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            spacing={3}
+          >
+            <Typography level="body-sm">{d.plural}</Typography>
+            <Typography level="body-sm">{d.count}</Typography>
+          </Stack>
+        </div>
+      ))}
       <DatasetSectionHeader label="countries" active={true} />
     </Stack>
   );
 }
 
 const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
+  const { publisher, maintainer } = dataset;
+
   return (
     <Stack spacing={2}>
       <Button component="a" href="" variant="outlined">
         Browse this data
       </Button>
-      <DatasetSectionHeader label="publisher" active={!!dataset.publisher} />
-      {dataset.publisher && (
+      <DatasetSectionHeader label="publisher" active={!!publisher} />
+      {publisher && (
         <div>
-          {dataset.publisher.url ? (
-            <Link href={dataset.publisher.url}>{dataset.publisher.name}</Link>
+          {publisher.url ? (
+            <Link href={publisher.url}>{publisher.name}</Link>
           ) : (
-            <Typography>{dataset.publisher.name}</Typography>
+            <Typography>{publisher.name}</Typography>
           )}
-          {dataset.publisher.description && (
-            <Typography level="body-sm">{dataset.publisher.description}</Typography>
+          {publisher.description && (
+            <Typography level="body-sm">{publisher.description}</Typography>
           )}
-          {dataset.publisher.country && (
-            <Typography level="body-sm">{dataset.publisher.country}</Typography>
+          {publisher.country && (
+            <Typography level="body-sm">{publisher.country}</Typography>
           )}
         </div>
       )}
-      <DatasetSectionHeader label="maintainer" active={!!dataset.maintainer} />
-      {dataset.maintainer && (
+      <DatasetSectionHeader label="maintainer" active={!!maintainer} />
+      {maintainer && (
         <div>
-          {dataset.maintainer.url ? (
-            <Link href={dataset.maintainer.url}>{dataset.maintainer.name}</Link>
+          {maintainer.url ? (
+            <Link href={maintainer.url}>{maintainer.name}</Link>
           ) : (
-            <Typography>{dataset.maintainer.name}</Typography>
+            <Typography>{maintainer.name}</Typography>
           )}
-          {dataset.maintainer.description && (
-            <Typography level="body-sm">{dataset.maintainer.description}</Typography>
+          {maintainer.description && (
+            <Typography level="body-sm">{maintainer.description}</Typography>
           )}
-          {dataset.maintainer.country && (
-            <Typography level="body-sm">{dataset.maintainer.country}</Typography>
+          {maintainer.country && (
+            <Typography level="body-sm">{maintainer.country}</Typography>
           )}
         </div>
       )}
@@ -119,7 +144,7 @@ export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
       <Stack
         direction="row"
         justifyContent="space-between"
-        spacing={2}
+        spacing={3}
       >
         <DatasetMetadataMain dataset={dataset} />
         <DatasetMetadataEntities dataset={dataset} />
