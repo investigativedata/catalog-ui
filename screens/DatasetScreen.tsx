@@ -1,14 +1,17 @@
 "use client";
 
-import type { IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
+import type { ICountryStats, IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
+import Chip from "@mui/joy/Chip";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Grid from '@mui/joy/Grid';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import { Link } from "@mui/joy";
+import Card from "@mui/joy/Card"
 
 import DatasetProperty from "~/components/Dataset/DatasetProperty";
+import CountryLabel from "~/components/CountryLabel";
 
 // const Coverage = ({ coverage }: { coverage: ICoverage }) => (
 //   <>
@@ -27,7 +30,16 @@ import DatasetProperty from "~/components/Dataset/DatasetProperty";
 
 const DatasetSectionHeader = ({ label, active, count }: { label: string, active: boolean, count?: number }) => {
   return (
-    <Typography level="h3" sx={{ textTransform: 'capitalize' }}>{label}</Typography>
+    <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px" }}>
+      <Stack
+        direction="row"
+        justifyContent="flex-start"
+        spacing={3}
+      >
+        <Typography level="h5" sx={{ textTransform: 'capitalize' }}>{label}</Typography>
+        {count && <Chip variant="soft" color="neutral" size="sm">{count}</Chip>}
+      </Stack>
+    </Card>
   );
 }
 
@@ -63,7 +75,16 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
   const schemataMerged = [...(things?.schemata || []), ...(intervals?.schemata || [])]
     .sort((a, b) => a.count > b.count ? -1 : 1);
 
-  const countriesMerged = [...(things?.countries || []), ...(intervals?.countries || [])]
+  const countries = [...(things?.countries || []), ...(intervals?.countries || [])]
+
+  const countriesMerged = Object.values(
+      countries.reduce((acc, item) => {
+        acc[item.code] = acc[item.code]
+          ? { ...item, count: item.count + acc[item.code].count }
+          : item;
+        return acc;
+      }, {})
+    )
     .sort((a, b) => a.count > b.count ? -1 : 1);
 
   return (
@@ -78,11 +99,16 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
             spacing={3}
           >
             <Typography level="body-sm">{d.plural}</Typography>
-            <Typography level="body-sm">{d.count}</Typography>
+            <Chip variant="soft" color="neutral" size="sm">{d.count}</Chip>
           </Stack>
         </div>
       ))}
       <DatasetSectionHeader label="countries" active={true} />
+      {countriesMerged.map((country: ICountryStats) => (
+        <div key={country.code}>
+          <CountryLabel iso={country.code} label={country.label} />
+        </div>
+      ))}
     </Stack>
   );
 }
@@ -107,7 +133,7 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
             <Typography level="body-sm">{publisher.description}</Typography>
           )}
           {publisher.country && (
-            <Typography level="body-sm">{publisher.country}</Typography>
+            <CountryLabel iso={publisher.country} label={publisher.country_label} />
           )}
         </div>
       )}
@@ -123,7 +149,7 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
             <Typography level="body-sm">{maintainer.description}</Typography>
           )}
           {maintainer.country && (
-            <Typography level="body-sm">{maintainer.country}</Typography>
+            <CountryLabel iso={maintainer.country} label={maintainer.country_label} />
           )}
         </div>
       )}
