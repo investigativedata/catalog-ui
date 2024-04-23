@@ -7,23 +7,12 @@ function CountryFlag({ iso }: { iso?: string }) {
 }
 
 export default function CountryLabel({ iso, label }: { iso: string | null, label?: string }) {
-  if (!iso && !CountryLabel) {
+  if (!iso && !label) {
     return null;
   }
 
   const countryLabel = label === 'eu' ? "European Union" : label;
   return (
-    <Stack
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="center"
-    >
-      {!!iso && (
-        <CountryFlag iso={iso.toLowerCase()} />
-      )}
-      {!!countryLabel && (
-        <Typography level="body-sm">{countryLabel}</Typography>
-      )}
-    </Stack>
+    <Typography level="body-sm" startDecorator={<CountryFlag iso={iso.toLowerCase()} />}>{countryLabel}</Typography>
   )
 }
