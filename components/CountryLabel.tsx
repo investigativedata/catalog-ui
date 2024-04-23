@@ -6,7 +6,11 @@ function CountryFlag({ iso }: { iso?: string }) {
   return iso ? <i className={`${iso.toLowerCase()} flag`}></i> : null;
 }
 
-export default function CountryLabel({ iso, label }: { iso: string, label: string }) {
+export default function CountryLabel({ iso, label }: { iso: string | null, label?: string }) {
+  if (!iso && !CountryLabel) {
+    return null;
+  }
+
   const countryLabel = label === 'eu' ? "European Union" : label;
   return (
     <Stack
@@ -14,8 +18,12 @@ export default function CountryLabel({ iso, label }: { iso: string, label: strin
       justifyContent="flex-start"
       alignItems="center"
     >
-      <CountryFlag iso={iso.toLowerCase()} />
-      <Typography level="body-sm">{countryLabel}</Typography>
+      {!!iso && (
+        <CountryFlag iso={iso.toLowerCase()} />
+      )}
+      {!!countryLabel && (
+        <Typography level="body-sm">{countryLabel}</Typography>
+      )}
     </Stack>
   )
 }
