@@ -13,32 +13,17 @@ import Card from "@mui/joy/Card"
 import DatasetProperty from "~/components/Dataset/DatasetProperty";
 import CountryLabel from "~/components/CountryLabel";
 
-// const Coverage = ({ coverage }: { coverage: ICoverage }) => (
-//   <>
-//     <div>
-//       <Typography level="body-sm">Entities:</Typography>
-//       <Typography fontWeight="lg">{coverage.entities}</Typography>
-//     </div>
-//     {coverage.countries.length > 0 && (
-//       <div>
-//         <Typography level="body-sm">Countries:</Typography>
-//         <Typography fontWeight="lg">{coverage.countries.length}</Typography>
-//       </div>
-//     )}
-//   </>
-// );
 
 const DatasetSectionHeader = ({ label, active, count }: { label: string, active: boolean, count?: number }) => {
   return (
     <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px" }}>
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        spacing={3}
+      <Typography
+        level="h5"
+        endDecorator={count && <Chip variant="soft" color="neutral" size="sm">{count}</Chip>}
+        sx={{ textTransform: 'capitalize' }}
       >
-        <Typography level="h5" sx={{ textTransform: 'capitalize' }}>{label}</Typography>
-        {count && <Chip variant="soft" color="neutral" size="sm">{count}</Chip>}
-      </Stack>
+        {label}
+      </Typography>
     </Card>
   );
 }
@@ -46,7 +31,7 @@ const DatasetSectionHeader = ({ label, active, count }: { label: string, active:
 const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
   return (
     <Stack spacing={2}>
-      <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
         <Grid xs={6}>
           <DatasetProperty label="frequency" value={dataset.coverage?.frequency} />
         </Grid>
@@ -54,7 +39,7 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
           <DatasetProperty label="type" value={dataset.coverage?.frequency} />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="last updated" value={dataset.updated_at} />
+          <DatasetProperty label="last updated" value={dataset.updated_at} type="date" />
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="category" value={dataset.category || "Other"} />
@@ -89,7 +74,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
 
   return (
     <Stack spacing={2}>
-      <DatasetProperty label="entities" value={entity_count} />
+      <DatasetProperty label="entities" value={entity_count} type="number" />
       <DatasetSectionHeader label="schemas" active={!!schemataMerged.length} count={schemataMerged.length} />
       {schemataMerged.map((d: ISchema) => (
         <div key={d.name}>
@@ -103,10 +88,17 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
           </Stack>
         </div>
       ))}
-      <DatasetSectionHeader label="countries" active={true} />
+      <DatasetSectionHeader label="countries" active={!!countriesMerged.length} count={countriesMerged.length} />
       {countriesMerged.map((country: ICountryStats) => (
         <div key={country.code}>
-          <CountryLabel iso={country.code} label={country.label} />
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            spacing={3}
+          >
+            <CountryLabel iso={country.code} label={country.label} />
+            <Chip variant="soft" color="neutral" size="sm">{country.count}</Chip>
+          </Stack>
         </div>
       ))}
     </Stack>
@@ -159,44 +151,22 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
 
 
 export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
-  // const entitiesUrl = `/entities?dataset=${dataset.name}`;
-  // const getSearchUrl = (param: string, value: string) =>
-  //   `${entitiesUrl}&${param}=${value}`;
-
   return (
     <Stack>
       <Typography level="h2">{dataset.title || dataset.name}</Typography>
 
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        spacing={3}
-      >
-        <DatasetMetadataMain dataset={dataset} />
-        <DatasetMetadataEntities dataset={dataset} />
-        <DatasetMetadataSecondary dataset={dataset} />
-      </Stack>
+      <Grid container spacing={6}>
+        <Grid xs={12} sm={6} md={5}>
+          <DatasetMetadataMain dataset={dataset} />
+        </Grid>
+        <Grid xs={12} sm={6} md={3.5}>
+          <DatasetMetadataEntities dataset={dataset} />
+        </Grid>
+        <Grid xs={12} sm={6} md={3.5}>
+          <DatasetMetadataSecondary dataset={dataset} />
+        </Grid>
+      </Grid>
 
-      
-    
-      {/* <DatasetLink dataset={dataset} />
-      <Dataset dataset={dataset} />
-      <DatasetMeta dataset={dataset} />
-      <PublisherMeta publisher={dataset.publisher} /> */}
-
-      {/* {dataset.coverage && <Coverage coverage={dataset.coverage} />} */}
-
-      {/* {dataset.publisher && (
-        <div>
-          <Typography level="body-sm">Publisher:</Typography>
-          {dataset.publisher.url ? (
-            <Link href={dataset.publisher.url}>{dataset.publisher.name}</Link>
-          ) : (
-            <Typography>{dataset.publisher.name}</Typography>
-          )}
-          <Typography level="body-sm">{dataset.publisher.description}</Typography>
-        </div>
-      )} */}
       <code>
         <pre>{JSON.stringify(dataset, null, 2)}</pre>
       </code>
