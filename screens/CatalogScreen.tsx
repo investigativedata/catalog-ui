@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { ICatalog, IDataset } from "@investigativedata/ftmq";
+import type { ICatalog, IDataset, TDatasetFrequency } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
@@ -13,37 +13,55 @@ import Filters from "~/components/Filter/Filters";
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
-    keys: ["title", "summary", "coverage.frequency"],
+    keys: ["title", "coverage.frequency"],
   });
+}
+
+const initialFilters = {
+  'coverage.frequency': []
 }
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
-  const [activeFilters, setActiveFilters] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([])
+  const [activeFilters, setActiveFilters] = useState(initialFilters);
+  const [filteredItems, setFilteredItems] = useState([]);
   
   useEffect(() => {
-    console.log('changed', searchValue)
+    let searchPredicate = [];
 
-    if (searchValue.length === 0) {
+    if (searchValue.length > 0) {
+      searchPredicate.push({ title: searchValue })
+    }
+
+    const filtersFlat = Object.entries(activeFilters)
+      .map(([field, values]) => (
+        !!values.length ? values.map(v => ({ [field]: v })) : []
+      ))
+      .filter(d => !!d.length)
+      .map(d => ({$or: d}))
+
+    if (filtersFlat.length > 0) {
+      searchPredicate = [...searchPredicate, ...filtersFlat];
+    }
+
+    if (searchPredicate.length === 0) {
       setFilteredItems(catalog.datasets)
     } else {
-      const results = searchIndex.search({
-          $and: [...activeFilters, { title: searchValue }] 
-        })
+      
+      const results = searchIndex.search({ $and: searchPredicate })
         .map((result) => result.item);
 
       setFilteredItems(results)
     }
-  }, [searchValue]);
+  }, [searchValue, activeFilters]);
 
   return (
     <Stack>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
         <Grid xs={3}>
           <Search value={searchValue} setValue={setSearchValue} />
-          <Filters filters={activeFilters} setFilters={setActiveFilters} />
+          <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
         </Grid>
         <Grid xs={6}>
           <Catalog datasets={filteredItems} />
