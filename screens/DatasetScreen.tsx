@@ -1,7 +1,6 @@
 "use client";
 
 import type { ICountryStats, IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
-import Chip from "@mui/joy/Chip";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Grid from '@mui/joy/Grid';
@@ -13,6 +12,7 @@ import Card from "@mui/joy/Card"
 import DatasetProperty from "~/components/Dataset/DatasetProperty";
 import DatasetLastUpdated from "~/components/Dataset/DatasetLastUpdated";
 import CountryLabel from "~/components/CountryLabel";
+import Count from "~/components/Count";
 
 
 const DatasetSectionHeader = ({ label, active, count }: { label: string, active: boolean, count?: number }) => {
@@ -20,7 +20,7 @@ const DatasetSectionHeader = ({ label, active, count }: { label: string, active:
     <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px" }}>
       <Typography
         level="h5"
-        endDecorator={count && <Chip variant="soft" color="neutral" size="sm">{count}</Chip>}
+        endDecorator={count && <Count value={count} />}
         sx={{ textTransform: 'capitalize' }}
       >
         {label}
@@ -86,7 +86,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
             spacing={3}
           >
             <Typography level="body-sm">{d.plural}</Typography>
-            <Chip variant="soft" color="neutral" size="sm">{d.count}</Chip>
+            <Count value={d.count} />
           </Stack>
         </div>
       ))}
@@ -99,7 +99,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
             spacing={3}
           >
             <CountryLabel iso={country.code} label={country.label} />
-            <Chip variant="soft" color="neutral" size="sm">{country.count}</Chip>
+            <Count value={country.count} />
           </Stack>
         </div>
       ))}
