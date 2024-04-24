@@ -9,17 +9,18 @@ import Fuse from "fuse.js";
 
 import Catalog from "~/components/Catalog";
 import Search from "~/components/Search";
-import FilterGroup from "~/components/FilterGroup";
+import FilterGroup from "~/components/Filter/FilterGroup";
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
-    keys: ["title", "summary"],
+    keys: ["title", "summary", "coverage.frequency"],
   });
 }
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
+  const [activeFilters, setActiveFilters] = useState({});
   const [filteredItems, setFilteredItems] = useState([])
   
   useEffect(() => {
@@ -28,7 +29,9 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
     if (searchValue.length === 0) {
       setFilteredItems(catalog.datasets)
     } else {
-      const results = searchIndex.search(searchValue)
+      const results = searchIndex.search({
+          $and: [{ title: searchValue }] 
+        })
         .map((result) => result.item);
 
       setFilteredItems(results)
@@ -40,10 +43,13 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
         <Grid xs={3}>
           <Search value={searchValue} setValue={setSearchValue} />
-          <FilterGroup />
+          <FilterGroup filters={activeFilters} setFilters={setActiveFilters} />
         </Grid>
         <Grid xs={6}>
           <Catalog datasets={filteredItems} />
+          <code>
+            <pre>{JSON.stringify(catalog.datasets, null, 2)}</pre>
+          </code>
         </Grid>
         <Grid xs={3}>
           <Typography level="h3">Welcome to the Investigraph Data Catalog.</Typography>
@@ -51,6 +57,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
         </Grid>
       </Grid>
+
     </Stack>
   );
 }
