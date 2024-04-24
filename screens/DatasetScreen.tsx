@@ -11,6 +11,7 @@ import { Link } from "@mui/joy";
 import Card from "@mui/joy/Card"
 
 import DatasetProperty from "~/components/Dataset/DatasetProperty";
+import DatasetLastUpdated from "~/components/Dataset/DatasetLastUpdated";
 import CountryLabel from "~/components/CountryLabel";
 
 
@@ -40,6 +41,7 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="last updated" value={dataset.updated_at} type="date" />
+          <DatasetLastUpdated datetime={dataset.updated_at} />
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="category" value={dataset.category || "Other"} />
