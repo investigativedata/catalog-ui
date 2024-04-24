@@ -9,7 +9,7 @@ import Fuse from "fuse.js";
 
 import Catalog from "~/components/Catalog";
 import Search from "~/components/Search";
-import FilterGroup from "~/components/Filter/FilterGroup";
+import Filters from "~/components/Filter/Filters";
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
@@ -20,7 +20,7 @@ const initializeSearchIndex = (items: IDataset[]) => {
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
-  const [activeFilters, setActiveFilters] = useState({});
+  const [activeFilters, setActiveFilters] = useState([]);
   const [filteredItems, setFilteredItems] = useState([])
   
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
       setFilteredItems(catalog.datasets)
     } else {
       const results = searchIndex.search({
-          $and: [{ title: searchValue }] 
+          $and: [...activeFilters, { title: searchValue }] 
         })
         .map((result) => result.item);
 
@@ -43,7 +43,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
         <Grid xs={3}>
           <Search value={searchValue} setValue={setSearchValue} />
-          <FilterGroup filters={activeFilters} setFilters={setActiveFilters} />
+          <Filters filters={activeFilters} setFilters={setActiveFilters} />
         </Grid>
         <Grid xs={6}>
           <Catalog datasets={filteredItems} />
