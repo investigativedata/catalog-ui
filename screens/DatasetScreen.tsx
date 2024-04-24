@@ -33,7 +33,7 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
     <Stack spacing={2}>
       <Grid container spacing={2}>
         <Grid xs={6}>
-          <DatasetProperty label="frequency" value={dataset.coverage?.frequency} />
+          <DatasetProperty label="frequency" value={dataset.coverage?.frequency} type="frequency" />
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="type" value={dataset.coverage?.frequency} />
@@ -110,9 +110,11 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
 
   return (
     <Stack spacing={2}>
-      <Button component="a" href="" variant="outlined">
-        Browse this data
-      </Button>
+      <div>
+        <Button component="a" href="" variant="outlined" size="md">
+          Browse this data
+        </Button>
+      </div>
       <DatasetSectionHeader label="publisher" active={!!publisher} />
       {publisher && (
         <div>
