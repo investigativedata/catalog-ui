@@ -33,6 +33,8 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
        position: "fixed",
        zIndex: 10,
        backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[300],
+       boxShadow: `0px 4px 32px 0px`,
+       height: "128px"
      })}
     >
       <Container maxWidth="xl">
@@ -43,9 +45,6 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
           spacing={2}
         >
          <StackItem justifyContent="left">
-           <IconButton>
-             <MenuIcon />
-           </IconButton>
          </StackItem>
          <StackItem justifyContent="center">
            <Typography level="h3" sx={{ fs: "1.3125rem", p: 0 }}>
@@ -57,7 +56,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
                }}
                href="/"
              >
-               investigraph
+              Investigraph Data Catalog
              </Link>
            </Typography>
          </StackItem>
@@ -73,15 +72,12 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
            }}
            >
             <AspectRatio style={{ width: "61px" }} variant="plain">
-             <img src={`/images/logos/IDIO_basic_light.svg`} />
+             <img src={`/static/IDIO_basic_light.svg`} />
             </AspectRatio>
            </Link>
          </StackItem>
         </Stack>
       </Container>
-      {isRoot && (
-        <Typography level="h1" sx={{ textAlign: "center" }}>Data catalog</Typography>
-      )}
       {!isRoot && (
        <Container maxWidth="xl">
         <Breadcrumbs crumbs={crumbs} />

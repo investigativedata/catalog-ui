@@ -59,23 +59,26 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   return (
     <Stack>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-        <Grid xs={3}>
-          <Search value={searchValue} setValue={setSearchValue} />
-          <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
+        <Grid xs={12} md={3}>
+          <div>
+            <Typography level="h1">Find the data for your investigations</Typography>
+            <Typography level="body-md">Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
+            <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
+          </div>
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} md={6}>
           <Catalog datasets={filteredItems} />
           <code>
             <pre>{JSON.stringify(catalog.datasets, null, 2)}</pre>
           </code>
         </Grid>
-        <Grid xs={3}>
-          <Typography level="h3">Welcome to the Investigraph Data Catalog.</Typography>
-          <Typography level="body-md">Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
-          <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
+        <Grid xs={12} md={3}>
+          <div>
+            <Search value={searchValue} setValue={setSearchValue} />
+            <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
+          </div>
         </Grid>
       </Grid>
-
     </Stack>
   );
 }
