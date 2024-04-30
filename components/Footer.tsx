@@ -1,5 +1,4 @@
 import Box from "@mui/joy/Box";
-import Chip from "@mui/joy/Chip";
 import Container from "@mui/joy/Container";
 import Link from "@mui/joy/Link";
 import Stack from "@mui/joy/Stack";
@@ -18,14 +17,15 @@ interface IFooterLink {
 }
 
 const FooterLink = ({ href, label }: React.PropsWithChildren<IFooterLink>) => (
-  <Chip variant="plain" color="neutral" size="sm" slotProps={{ action: { component: 'a', href: href } }} sx={{ textDecoration: "underline" }}>
-     {label}
-  </Chip>
+  <Link href={href}>
+    <Typography level="body-sm">{label}</Typography>
+  </Link>
 );
 
 const commonStyle = {
   width: "100%",
   zIndex: 10,
+  padding: "1.5rem"
 }
 
 const FooterMobile = () => {
@@ -43,11 +43,11 @@ const FooterMobile = () => {
        alignItems="flex-start"
        spacing={2}
      >
-      <Container sx={{ display: "inline-flex", gap: "1rem" }}>
+      <Stack direction="row" alignItems="center" spacing={2}>
         <FooterLink href={"/"} label="Legal Notice" />
         <FooterLink href={"/"} label="Code of Conduct" />
         <FooterLink href={"/"} label="About investigativedata.io" />
-      </Container>
+      </Stack>
        <Typography level="body-sm" sx={{ display: "inline-flex", whiteSpace: "nowrap", fontWeight: "bold" }}>
           This project has been funded by
           <FooterLink href={"/"} label="Media Lab Bayern" />

@@ -44,8 +44,6 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
        position: "fixed",
        zIndex: 10,
        backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[300],
-      //  boxShadow: `0px 4px 32px 0px`,
-      //  height: "128px"
      })}
     >
         <Stack
