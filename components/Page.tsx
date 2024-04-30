@@ -8,6 +8,7 @@ import Box from "@mui/joy/Box";
 import type { TBreadrumb } from "./Breadcrumbs";
 
 import Header from './Header';
+import Footer from './Footer';
 import styles from "./Page.module.css";
 
 type TPage = { crumbs: TBreadrumb[], isRoot?: boolean };
@@ -23,13 +24,15 @@ export default function Page({
       <Header crumbs={crumbs} isRoot={isRoot} />
       <Box
         sx={theme => ({
-          backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[100],
+          paddingTop: isRoot ? '80px' : 0,
+          backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[50],
         })}
       >
         <section className={styles.page}>
           {children}
         </section>
       </Box>
+      <Footer />
     </CssVarsProvider>
   );
 }
