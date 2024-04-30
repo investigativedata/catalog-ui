@@ -33,8 +33,8 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
        position: "fixed",
        zIndex: 10,
        backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[300],
-       boxShadow: `0px 4px 32px 0px`,
-       height: "128px"
+      //  boxShadow: `0px 4px 32px 0px`,
+      //  height: "128px"
      })}
     >
       <Container maxWidth="xl">
@@ -45,6 +45,11 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
           spacing={2}
         >
          <StackItem justifyContent="left">
+         {!isRoot && (
+            <Container maxWidth="xl">
+              <Breadcrumbs crumbs={crumbs} />
+            </Container>
+          )}
          </StackItem>
          <StackItem justifyContent="center">
            <Typography level="h3" sx={{ fs: "1.3125rem", p: 0 }}>
@@ -78,11 +83,6 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
          </StackItem>
         </Stack>
       </Container>
-      {!isRoot && (
-       <Container maxWidth="xl">
-        <Breadcrumbs crumbs={crumbs} />
-        </Container>
-      )}
     </Box>
   );
 }

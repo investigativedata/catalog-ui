@@ -31,10 +31,10 @@ export default async function DatasetPage({ params }: { params: Params }) {
   const dataset = await getDataset(params.dataset);
   const breadcrumbs = [
     {
-      label: "Data Catalog",
+      label: "Back to Data Catalog",
       url: "/",
     },
-    { label: dataset.title || dataset.name },
+    // { label: dataset.title || dataset.name },
   ];
 
   return (
