@@ -13,13 +13,13 @@ function CatalogItemDetails({ dataset }: CatalogItemProps) {
   return (
     <Box sx={theme => ({
       padding: "1rem",
-      backgroundColor: theme.vars.palette.success[100],
+      backgroundColor: theme.vars.palette.success[50],
+      // minWidth: "15rem"
     })}>
       <Stack
         direction="row"
         justifyContent="space-evenly"
         spacing={3}
-       
       >
         <Stack
           spacing={2}

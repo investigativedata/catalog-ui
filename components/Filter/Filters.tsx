@@ -1,8 +1,7 @@
 import Stack from "@mui/joy/Stack";
 import type { IDataset, } from "@investigativedata/ftmq";
-
+import AccordionGroup from "@mui/joy/AccordionGroup";
 import FilterGroup from "./FilterGroup";
-import FilterSummary from "./FilterSummary";
 import { filterOptions } from '../../util';
 
 
@@ -25,17 +24,17 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
   }
 
   return (
-    <Stack>
-      <FilterSummary />
-      <FilterGroup
-        items={items}
-        label="frequency"
-        field="coverage.frequency"
-        options={filterOptions["coverage.frequency"]}
-        activeValues={filters["coverage.frequency"]}
-        onChange={toggleFilter}
-      />
-
-    </Stack>
+    <AccordionGroup>
+      {/* {Object.entries(filterOptions).map(([field, options]) => ( */}
+        <FilterGroup
+          items={items}
+          label="frequency"
+          field="coverage.frequency"
+          options={filterOptions["coverage.frequency"]}
+          activeValues={filters["coverage.frequency"]}
+          onChange={toggleFilter}
+        />
+      {/* ))} */}
+    </AccordionGroup>
   );
 }

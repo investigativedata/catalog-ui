@@ -12,7 +12,7 @@ type DatasetPropertyValueProps = {
   type?: string
 }
 
-function DatasetPropertyValue({ value, type }: DatasetPropertyValueProps) {
+export function DatasetPropertyValue({ value, type }: DatasetPropertyValueProps) {
   if (isValidElement(value)) {
     return value;
   }

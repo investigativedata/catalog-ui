@@ -5,11 +5,13 @@ import type { ICatalog, IDataset, TDatasetFrequency } from "@investigativedata/f
 import Stack from "@mui/joy/Stack";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
+import Divider from '@mui/joy/Divider';
 import Fuse from "fuse.js";
 
 import Catalog from "~/components/Catalog";
 import Search from "~/components/Search";
 import Filters from "~/components/Filter/Filters";
+import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
@@ -56,12 +58,17 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
     }
   }, [searchValue, activeFilters]);
 
+
+  const clearFilters = () => {
+    setActiveFilters(initialFilters)
+  }
+
   return (
     <Stack>
-      <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2} sx={{ flexGrow: 1, position: '' }}>
         <Grid xs={12} md={3}>
-          <div>
-            <Typography level="h1">Find the data for your investigations</Typography>
+          <div style={{ position: "fixed", width: "inherit", top: "58px", overflow: "hidden" }}>
+            <Typography level="h1" sx={{ fontSize: "48px" }}>Find the data for your investigations</Typography>
             <Typography level="body-md">Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
             <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
           </div>
@@ -73,8 +80,9 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           </code>
         </Grid>
         <Grid xs={12} md={3}>
-          <div>
-            <Search value={searchValue} setValue={setSearchValue} />
+          <div style={{ position: "fixed", width: "inherit", top: "58px", overflow: "hidden" }}>
+            <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
+            <Search value={searchValue} setValue={setSearchValue} filterCount={5} clearFilters={clearFilters} />
             <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
           </div>
         </Grid>
