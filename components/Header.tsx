@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AspectRatio from "@mui/joy/AspectRatio";
 
 import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
+import Logo from "./Logo";
 
 export type HeaderProps = {
   crumbs: TBreadrumb[],
@@ -66,20 +67,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
            </Typography>
          </StackItem>
          <StackItem justifyContent="right">
-           <Typography level="body-md" noWrap>A project by</Typography>
-           <Link
-            underline="always"
-            target="_blank"
-            rel="noopener"
-            href="https://investigativedata.io/"
-            sx={{
-             textDecoration: "underline"
-           }}
-           >
-            <AspectRatio style={{ width: "61px" }} variant="plain">
-             <img src={`/static/IDIO_basic_light.svg`} />
-            </AspectRatio>
-           </Link>
+            <Logo />
          </StackItem>
         </Stack>
       </Container>

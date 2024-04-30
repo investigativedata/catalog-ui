@@ -1,7 +1,6 @@
 import Box from "@mui/joy/Box";
 import Chip from "@mui/joy/Chip";
 import Container from "@mui/joy/Container";
-
 import Link from "@mui/joy/Link";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
@@ -9,7 +8,7 @@ import IconButton from '@mui/joy/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AspectRatio from "@mui/joy/AspectRatio";
 
-import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
+import Logo from "./Logo";
 
 export type FooterProps = {};
 
@@ -27,7 +26,6 @@ const FooterLink = ({ href, label }: React.PropsWithChildren<IFooterLink>) => (
 const Footer = ({ }: FooterProps) => {
   return (
    <>
-     
      <Box
        sx={theme => ({
          width: "100%",
@@ -53,8 +51,17 @@ const Footer = ({ }: FooterProps) => {
            </Typography>
         </Stack>
       </Box>
+      <Box
+        sx={theme => ({
+         width: "100%",
+         zIndex: 10,
+         backgroundColor: theme.vars.palette.success[300],
+         display: { xs: 'block', md: 'none' }
+        })}
+      >
+        <Logo />
+      </Box>
     </>
-
   );
 }
 
