@@ -23,46 +23,64 @@ const FooterLink = ({ href, label }: React.PropsWithChildren<IFooterLink>) => (
   </Chip>
 );
 
-const Footer = ({ }: FooterProps) => {
+const commonStyle = {
+  width: "100%",
+  zIndex: 10,
+}
+
+const FooterMobile = () => {
+ return (
+  <Box
+    sx={theme => ({
+      ...commonStyle,
+      backgroundColor: theme.vars.palette.success[300],
+      display: { xs: 'none', md: 'block' }
+    })}
+   >
+     <Stack
+       direction="row"
+       justifyContent="space-between"
+       alignItems="flex-start"
+       spacing={2}
+     >
+      <Container sx={{ display: "inline-flex", gap: "1rem" }}>
+        <FooterLink href={"/"} label="Legal Notice" />
+        <FooterLink href={"/"} label="Code of Conduct" />
+        <FooterLink href={"/"} label="About investigativedata.io" />
+      </Container>
+       <Typography level="body-sm" sx={{ display: "inline-flex", whiteSpace: "nowrap", fontWeight: "bold" }}>
+          This project has been funded by
+          <FooterLink href={"/"} label="Media Lab Bayern" />
+        </Typography>
+     </Stack>
+   </Box>
+ )
+}
+
+const FooterDesktop = () => {
   return (
-   <>
-     <Box
-       sx={theme => ({
-         width: "100%",
-         zIndex: 10,
-         backgroundColor: theme.vars.palette.success[300],
-         display: { xs: 'none', md: 'block' }
-       })}
-      >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          spacing={2}
-        >
-         <Container sx={{ display: "inline-flex", gap: "1rem" }}>
-           <FooterLink href={"/"} label="Legal Notice" />
-           <FooterLink href={"/"} label="Code of Conduct" />
-           <FooterLink href={"/"} label="About investigativedata.io" />
-         </Container>
-          <Typography level="body-sm" sx={{ display: "inline-flex", whiteSpace: "nowrap", fontWeight: "bold" }}>
-             This project has been funded by
-             <FooterLink href={"/"} label="Media Lab Bayern" />
-           </Typography>
-        </Stack>
-      </Box>
-      <Box
-        sx={theme => ({
-         width: "100%",
-         zIndex: 10,
-         backgroundColor: theme.vars.palette.success[300],
-         display: { xs: 'block', md: 'none' }
-        })}
-      >
-        <Logo />
-      </Box>
-    </>
+    <Box
+      sx={theme => ({
+       ...commonStyle,
+       backgroundColor: 'inherit',
+       justifyContent: 'center',
+       display: { xs: 'flex', md: 'none' },
+      })}
+    >
+     <Box> 
+       <Logo />
+     </Box>
+    </Box>
   );
+}
+
+const Footer = () => {
+ return (
+  <>
+    <FooterMobile />
+    <FooterDesktop />
+  </>
+ )
 }
 
 export default Footer;

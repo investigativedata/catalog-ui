@@ -15,15 +15,25 @@ export type HeaderProps = {
   isRoot?: boolean
 };
 
-interface IStackItem {
- readonly justifyContent: "left" | "right" | "center";
+type IStackItem = {
+  justifyContent: string,
+  mobileHide: boolean
 }
 
 const StackItem = ({
  children,
  justifyContent,
+ mobileHide
 }: React.PropsWithChildren<IStackItem>) => (
- <Box sx={{ width: "33.3%", display: "flex", alignItems: 'center', justifyContent }}>{children}</Box>
+  <Box sx={{
+    width: "33.3%",
+    display: mobileHide ? { xs: "none", md:"flex" } : "flex",
+    alignItems: 'center',
+    justifyContent,
+
+  }}>
+    {children}
+  </Box>
 );
 
 const Header = ({ crumbs, isRoot }: HeaderProps) => {
@@ -38,14 +48,13 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
       //  height: "128px"
      })}
     >
-      <Container maxWidth="xl">
         <Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
           spacing={2}
         >
-         <StackItem justifyContent="left">
+         <StackItem justifyContent="left" mobileHide>
          {!isRoot && (
             <Container maxWidth="xl">
               <Breadcrumbs crumbs={crumbs} />
@@ -53,7 +62,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
           )}
          </StackItem>
          <StackItem justifyContent="center">
-           <Typography level="h3" sx={{ fs: "1.3125rem", p: 0 }}>
+           <Typography level="h3" sx={{ fs: "1.3125rem", p: 0 }} noWrap>
              <Link
                underline="none"
                sx={{
@@ -66,11 +75,10 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
              </Link>
            </Typography>
          </StackItem>
-         <StackItem justifyContent="right">
+         <StackItem justifyContent="right" mobileHide>
             <Logo />
          </StackItem>
         </Stack>
-      </Container>
     </Box>
   );
 }

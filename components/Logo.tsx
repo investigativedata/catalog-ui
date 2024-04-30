@@ -1,13 +1,13 @@
 import Box from '@mui/system/Box';
-import Typography from '@mui/system/Typography';
+import Typography from "@mui/joy/Typography";
 import Link from "@mui/joy/Link";
 import AspectRatio from "@mui/joy/AspectRatio";
 
 
 export default function Logo() {
   return (
-   <Box>
-     <Typography level="body-md" noWrap>A project by</Typography>
+   <Box sx={{ display: "flex" }}>
+     <Typography level="body-md">A project by</Typography>
      <Link
       underline="always"
       target="_blank"
@@ -22,5 +22,5 @@ export default function Logo() {
       </AspectRatio>
      </Link>
    </Box>
-  )
+  );
 }
