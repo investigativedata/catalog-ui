@@ -10,7 +10,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: TBreadrumb[] }) {
     <MuiBreadcrumbs sx={{ padding: 0, fontSize: "sm" }}>
       {crumbs.map(({ label, url }, ix) =>
         url ? (
-          <Link key={ix} href={url}>
+          <Link key={ix} href={url} >
             {label}
           </Link>
         ) : (

@@ -1,11 +1,11 @@
 import Box from "@mui/joy/Box";
 import Container from "@mui/joy/Container";
-import Link from "@mui/joy/Link";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import IconButton from '@mui/joy/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AspectRatio from "@mui/joy/AspectRatio";
+import Link from "next/link";
 
 import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
 import Logo from "./Logo";
@@ -28,9 +28,8 @@ const StackItem = ({
   <Box sx={{
     width: "33.3%",
     display: mobileHide ? { xs: "none", md:"flex" } : "flex",
-    alignItems: 'center',
     justifyContent,
-
+    overflow: "visible"
   }}>
     {children}
   </Box>
@@ -38,44 +37,46 @@ const StackItem = ({
 
 const Header = ({ crumbs, isRoot }: HeaderProps) => {
   return (
-   <Box
-     sx={theme => ({
-       width: "100%",
-       position: "fixed",
-       zIndex: 10,
-       backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[300],
-     })}
-    >
+    <Box
+      sx={theme => ({
+        width: "100%",
+        position: "fixed",
+        zIndex: 10,
+        backgroundColor: isRoot ? theme.vars.palette.common.white : theme.vars.palette.success[300],
+        height: { xs: "96px", sm: "120px" },
+        padding: "0 26px",
+        boxShadow: isRoot ? `0px 4px 32px 0px ${theme.vars.palette.common.white}` : "none"
+      })}
+      >
         <Stack
           direction="row"
-          justifyContent="space-between"
-          alignItems="center"
+          justifyContent="center"
+          alignItems="baseline"
           spacing={2}
+          sx={{ paddingTop: "50px" }}
         >
-         <StackItem justifyContent="left" mobileHide>
-         {!isRoot && (
-            <Container maxWidth="xl">
+          <StackItem justifyContent="left" mobileHide>
+            {!isRoot && (
               <Breadcrumbs crumbs={crumbs} />
-            </Container>
-          )}
-         </StackItem>
-         <StackItem justifyContent="center">
-           <Typography level="h3" sx={{ fs: "1.3125rem", p: 0 }} noWrap>
-             <Link
-               underline="none"
-               sx={{
-                 textDecoration: "none",
-                 "&:hover": { textDecoration: "none" },
-               }}
-               href="/"
-             >
-              Investigraph Data Catalog
-             </Link>
-           </Typography>
-         </StackItem>
-         <StackItem justifyContent="right" mobileHide>
+            )}
+          </StackItem>
+          <StackItem justifyContent="center">
+            <Typography level="title-lg" sx={{ overflow: "visible", fontSize: { xs: "1.5rem", sm: "inherit" } }} noWrap>
+              <Link
+                underline="none"
+                style={{
+                  textDecoration: "none",
+                  "&:hover": { textDecoration: "none" },
+                }}
+                href="/"
+              >
+                Investigraph Data Catalog
+              </Link>
+            </Typography>
+          </StackItem>
+          <StackItem justifyContent="right" mobileHide>
             <Logo />
-         </StackItem>
+          </StackItem>
         </Stack>
     </Box>
   );
