@@ -24,7 +24,7 @@ export default function Page({
       <Header crumbs={crumbs} isRoot={isRoot} />
       <Box
         sx={theme => ({
-          paddingTop: isRoot ? '80px' : 0,
+          paddingTop: { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
           backgroundColor: isRoot ? 'inherit' : theme.vars.palette.success[50],
         })}
       >

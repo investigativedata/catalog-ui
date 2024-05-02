@@ -43,7 +43,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
         position: "fixed",
         zIndex: 10,
         backgroundColor: isRoot ? theme.vars.palette.common.white : theme.vars.palette.success[300],
-        height: { xs: "96px", sm: "120px" },
+        height: { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
         padding: "0 26px",
         boxShadow: isRoot ? `0px 4px 32px 0px ${theme.vars.palette.common.white}` : "none"
       })}
@@ -53,7 +53,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
           justifyContent="center"
           alignItems="baseline"
           spacing={2}
-          sx={{ paddingTop: "50px" }}
+          style={{ paddingTop: "50px" }}
         >
           <StackItem justifyContent="left" mobileHide>
             {!isRoot && (
