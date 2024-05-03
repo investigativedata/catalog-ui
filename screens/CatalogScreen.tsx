@@ -5,7 +5,7 @@ import type { ICatalog, IDataset, TDatasetFrequency } from "@investigativedata/f
 import Stack from "@mui/joy/Stack";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
-import Divider from '@mui/joy/Divider';
+import Box from '@mui/joy/Box';
 import Fuse from "fuse.js";
 
 import Catalog from "~/components/Catalog";
@@ -65,26 +65,26 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
 
   return (
     <Stack>
-      <Grid container spacing={2} sx={{ flexGrow: 1, position: '' }}>
-        <Grid xs={12} md={3}>
-          <div style={{ position: "fixed", width: "inherit", top: "58px", overflow: "hidden" }}>
-            <Typography level="h1" sx={{ fontSize: "48px" }}>Find the data for your investigations</Typography>
-            <Typography level="body-md">Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
+      <Grid container spacing={4} sx={{ flexGrow: 1, position: '' }}>
+        <Grid xs={12} md={4} lg={3}>
+          <Box>
+            <Typography level="h1" sx={{ fontSize: { xs: "3rem", md: "2.2rem", xl: "3rem" } }}>Find the data for your investigations</Typography>
+            <Typography level="body-md" style={{ marginBottom: '25px' }}>Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
             <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
-          </div>
+          </Box>
         </Grid>
-        <Grid xs={12} md={6}>
+        <Grid xs={12} md={4} lg={6}>
           <Catalog datasets={filteredItems} />
-          <code>
+          {/* <code>
             <pre>{JSON.stringify(catalog.datasets, null, 2)}</pre>
-          </code>
+          </code> */}
         </Grid>
-        <Grid xs={12} md={3}>
-          <div style={{ position: "fixed", width: "inherit", top: "58px", overflow: "hidden" }}>
+        <Grid xs={12} md={4} lg={3}>
+          <Box>
             <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
             <Search value={searchValue} setValue={setSearchValue} filterCount={5} clearFilters={clearFilters} />
             <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
-          </div>
+          </Box>
         </Grid>
       </Grid>
     </Stack>
