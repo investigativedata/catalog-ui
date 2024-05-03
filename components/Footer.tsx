@@ -22,64 +22,33 @@ const FooterLink = ({ href, label }: React.PropsWithChildren<IFooterLink>) => (
   </Link>
 );
 
-const commonStyle = {
-  width: "100%",
-  zIndex: 10,
-  padding: "1.5rem"
-}
-
-const FooterMobile = () => {
+const Footer = () => {
  return (
   <Box
     sx={theme => ({
-      ...commonStyle,
+      width: "100%",
+      zIndex: 10,
+      padding: "1.5rem",
       backgroundColor: theme.vars.palette.success[300],
-      display: { xs: 'none', md: 'block' }
     })}
    >
      <Stack
-       direction="row"
+       direction={{ xs: "column", md: "row" }}
        justifyContent="space-between"
        alignItems="flex-start"
        spacing={2}
      >
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <FooterLink href={"/"} label="Legal Notice" />
-        <FooterLink href={"/"} label="Code of Conduct" />
-        <FooterLink href={"/"} label="About investigativedata.io" />
-      </Stack>
-       <Typography level="body-sm" sx={{ display: "inline-flex", whiteSpace: "nowrap", fontWeight: "bold" }}>
-          This project has been funded by
+        <Stack direction={{ xs: "column", md: "row" }} alignItems="center" spacing={2} alignSelf="center">
+          <FooterLink href={"/"} label="Legal Notice" />
+          <FooterLink href={"/"} label="Code of Conduct" />
+          <FooterLink href={"/"} label="About investigativedata.io" />
+        </Stack>
+        <Typography level="body-sm" sx={{ display: "inline-flex", whiteSpace: "nowrap", fontWeight: "bold", alignSelf:"center" }}>
+          <span>This project has been funded by</span>
           <FooterLink href={"/"} label="Media Lab Bayern" />
         </Typography>
      </Stack>
    </Box>
- )
-}
-
-const FooterDesktop = () => {
-  return (
-    <Box
-      sx={theme => ({
-       ...commonStyle,
-       backgroundColor: 'inherit',
-       justifyContent: 'center',
-       display: { xs: 'flex', md: 'none' },
-      })}
-    >
-     <Box> 
-       <Logo />
-     </Box>
-    </Box>
-  );
-}
-
-const Footer = () => {
- return (
-  <>
-    <FooterMobile />
-    <FooterDesktop />
-  </>
  )
 }
 
