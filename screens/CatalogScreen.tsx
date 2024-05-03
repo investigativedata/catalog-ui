@@ -87,6 +87,12 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           </Box>
         </Grid>
       </Grid>
+      <Box padding="4rem 0 1rem" textAlign="center">
+        <img src={`/static/icons/ok.svg`} />
+        <Typography level="body-md">You have seen all datasets.</Typography>
+        <Typography level="body-md">Keep checking – we add datasets regularly.</Typography>
+      </Box>
+
     </Stack>
   );
 }
