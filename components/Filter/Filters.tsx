@@ -24,7 +24,7 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
   }
 
   return (
-    <AccordionGroup>
+    <AccordionGroup sx={{ backgroundColor: "none" }}>
       {/* {Object.entries(filterOptions).map(([field, options]) => ( */}
         <FilterGroup
           items={items}

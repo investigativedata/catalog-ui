@@ -14,7 +14,19 @@ export default function FilterCount({ onClear, value, verbose }: TFilterCount) {
       variant="solid"
       color="neutral"
       size="sm"
-      endDecorator={<ChipDelete onDelete={onClear} />}
+      endDecorator={
+        <ChipDelete
+          onDelete={onClear}
+          sx={(theme) => ({
+            backgroundColor: theme.vars.palette.common.black
+          })}
+        />
+      }
+      sx={(theme) => ({
+        height: "2rem",
+        backgroundColor: theme.vars.palette.common.black,
+        color: theme.vars.palette.common.white
+      })}
     >
       <span>{value}</span>
       {verbose && <span> selected</span>}

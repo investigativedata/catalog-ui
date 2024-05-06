@@ -73,18 +73,20 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
             <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
           </Box>
         </Grid>
-        <Grid xs={12} md={4} lg={6}>
+        <Grid xs={12} md={4} lg={6} sx={{ order: { xs: "2", md: "1" }}}>
           <Catalog datasets={filteredItems} />
           {/* <code>
             <pre>{JSON.stringify(catalog.datasets, null, 2)}</pre>
           </code> */}
         </Grid>
-        <Grid xs={12} md={4} lg={3}>
-          <Box>
+        <Grid xs={12} md={4} lg={3} sx={{ order: { xs: "1", md: "2" }}}>
+          <Stack gap={2}>
             <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
             <Search value={searchValue} setValue={setSearchValue} filterCount={5} clearFilters={clearFilters} />
-            <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
-          </Box>
+            <Box sx={{ diplay: { xs: "none", md: "block" } }}>
+              <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
+            </Box>
+          </Stack>
         </Grid>
       </Grid>
       <Box padding="4rem 0 1rem" textAlign="center">

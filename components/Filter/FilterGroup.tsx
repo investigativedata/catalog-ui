@@ -28,19 +28,43 @@ export type TFilterGroup = {
 
 export default function FilterGroup({ items, label, field, options, activeValues, onChange }: TFilterGroup) {
   const isActive = activeValues.length > 0;
-  const endDecorator = isActive ? <FilterCount value={activeValues.length} verbose /> : `(${options.length})`
+  const endDecorator = isActive 
+    ? <FilterCount value={activeValues.length} verbose /> 
+    : <span style={{ fontWeight: "normal" }}>{`(${options.length})`}</span>
 
   return (
     <Accordion
       variant="soft"
-      disabled={true}
-      expanded={true}
-      color={isActive ? 'success' : undefined}
+      defaultExpanded
+      sx={theme => ({ backgroundColor: theme.vars.palette.common.white })}
+
     >
-      <AccordionSummary indicator={null}>
-        <Typography level="body-md" endDecorator={endDecorator}>{label}</Typography>
+      <AccordionSummary
+        indicator={null}
+        variant="soft"
+        slotProps={{ 
+          button: { 
+            sx: theme => ({
+              backgroundColor: `${isActive ? theme.vars.palette.success[300] : theme.vars.palette.common.white} !important`,
+              borderBottom: "1px solid",
+              borderBottomColor: isActive ? theme.vars.palette.success[600] : theme.vars.palette.common.black,
+            })
+          }
+        }}
+      >
+        <Typography
+          level="body-sm"
+          fontWeight="bold"
+          endDecorator={endDecorator}
+          sx={(theme) => ({
+            textTransform: "capitalize",
+            color: theme.vars.palette.common.black
+          })}
+        >
+          {label}
+        </Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails  sx={theme => ({ backgroundColor: theme.vars.palette.common.white })}>
         <div role="group" aria-labelledby={label}>
           <List>
             {options.map(({ label, value }) => (

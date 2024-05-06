@@ -11,7 +11,7 @@ export default function FilterResultSummary({ active, total }: TFilterResultSumm
     <div>
       <Typography level="body-md">
         <b>{active} Datasets</b>
-        <span> out of {total}</span>
+        {active !== total && <span> out of {total}</span>}
       </Typography>
       <Divider />
     </div>

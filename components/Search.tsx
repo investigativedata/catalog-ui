@@ -11,11 +11,13 @@ export type TSearch = {
 };
 
 export default function Search({ filterCount, clearFilters, value, setValue }): TSearch {
+  const filterIconPath = `/static/icons/${filterCount > 0 ? 'filter_filled' : 'filter'}.svg`
   return (
     <Stack
       direction="row"
-      justifyContent="space-evenly"
-      spacing={3}
+      justifyContent="space-between"
+      alignItems="center"
+      spacing={0}
     >
       <Input
         color="neutral"
@@ -24,8 +26,22 @@ export default function Search({ filterCount, clearFilters, value, setValue }): 
         placeholder="Search in Data Catalog"
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        startDecorator={<img src={`/static/icons/search.svg`} />}
+        sx={{
+          '--Input-focusedThickness': '0rem',
+          background: "#fff",
+          padding: "13px 18px"
+        }}
       />
-      <FilterCount value={filterCount} onClear={clearFilters} />
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={0}
+      >
+        <FilterCount value={filterCount} onClear={clearFilters} />
+        <img src={filterIconPath} style={{ width: "2rem", height: "2rem" }} />
+      </Stack>
     </Stack>
     
   )
