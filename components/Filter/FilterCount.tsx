@@ -25,7 +25,8 @@ export default function FilterCount({ onClear, value, verbose }: TFilterCount) {
       sx={(theme) => ({
         height: "2rem",
         backgroundColor: theme.vars.palette.common.black,
-        color: theme.vars.palette.common.white
+        color: theme.vars.palette.common.white,
+        padding: "2px 8px"
       })}
     >
       <span>{value}</span>

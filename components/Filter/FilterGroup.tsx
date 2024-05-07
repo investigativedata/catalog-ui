@@ -29,7 +29,7 @@ export type TFilterGroup = {
 export default function FilterGroup({ items, label, field, options, activeValues, onChange }: TFilterGroup) {
   const isActive = activeValues.length > 0;
   const endDecorator = isActive 
-    ? <FilterCount value={activeValues.length} verbose /> 
+    ? <FilterCount value={activeValues.length} verbose onClear={() => console.log('changing')}/> 
     : <span style={{ fontWeight: "normal" }}>{`(${options.length})`}</span>
 
   return (
@@ -45,7 +45,7 @@ export default function FilterGroup({ items, label, field, options, activeValues
         slotProps={{ 
           button: { 
             sx: theme => ({
-              backgroundColor: `${isActive ? theme.vars.palette.success[300] : theme.vars.palette.common.white} !important`,
+              backgroundColor: `${isActive ? theme.vars.palette.success[200] : theme.vars.palette.common.white} !important`,
               borderBottom: "1px solid",
               borderBottomColor: isActive ? theme.vars.palette.success[600] : theme.vars.palette.common.black,
             })
@@ -71,8 +71,18 @@ export default function FilterGroup({ items, label, field, options, activeValues
               <ListItem key={value}>
                 <Checkbox
                   label={label}
+                  variant="soft"
+                  color="neutral"
                   checked={activeValues.includes(value)}
                   onChange={() => onChange(field, value)}
+                  slotProps={{ 
+                    checkbox: { 
+                      sx: theme => ({
+                        backgroundColor: "#fff",
+                        "&:hover": { backgroundColor: theme.vars.palette.success[50] },
+                      })
+                    }
+                  }}
                 />
                 <Count value={getFilterValueCount(items, field, value)} />
               </ListItem>
