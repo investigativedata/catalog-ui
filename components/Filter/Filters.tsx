@@ -23,18 +23,21 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
     setFilters({...filters})
   }
 
+  console.log(filters)
+
   return (
     <AccordionGroup sx={{ backgroundColor: "none" }}>
-      {/* {Object.entries(filterOptions).map(([field, options]) => ( */}
+      {filterOptions.map(({ label, field, values }) => (
         <FilterGroup
+          key={field}
           items={items}
-          label="frequency"
-          field="coverage.frequency"
-          options={filterOptions["coverage.frequency"]}
-          activeValues={filters["coverage.frequency"]}
+          label={label}
+          field={field}
+          options={values}
+          activeValues={filters[field]}
           onChange={toggleFilter}
         />
-      {/* ))} */}
+      ))}
     </AccordionGroup>
   );
 }

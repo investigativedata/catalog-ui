@@ -12,6 +12,7 @@ import Catalog from "~/components/Catalog";
 import Search from "~/components/Search";
 import Filters from "~/components/Filter/Filters";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
+import { filterOptions } from "~/util";
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
@@ -19,9 +20,8 @@ const initializeSearchIndex = (items: IDataset[]) => {
   });
 }
 
-const initialFilters = {
-  'coverage.frequency': []
-}
+let initialFilters = [];
+filterOptions.forEach(({ field }) => initialFilters[field] = [])
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   const searchIndex = initializeSearchIndex(catalog?.datasets)
