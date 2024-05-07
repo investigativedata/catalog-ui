@@ -63,7 +63,6 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
 
 
   const clearFilters = () => {
-    console.log("calling clear filters", getInitialFilters())
     setActiveFilters(getInitialFilters())
   }
 

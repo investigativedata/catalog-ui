@@ -23,6 +23,13 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
     setFilters({...filters})
   }
 
+  const clearFilterGroup = (field) => {
+    setFilters({
+      ...filters,
+      [field]: []
+    })
+  }
+
   console.log(filters)
 
   return (
@@ -37,6 +44,7 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
           type={type}
           activeValues={filters[field]}
           onChange={toggleFilter}
+          onClear={clearFilterGroup}
         />
       ))}
     </AccordionGroup>

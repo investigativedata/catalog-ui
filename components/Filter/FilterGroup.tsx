@@ -26,12 +26,21 @@ export type TFilterGroup = {
   options: TFilter[],
   activeValues: string[],
   onChange: (field: string, value: string) => void
+  onClear: (field: string) => void
 };
 
-export default function FilterGroup({ items, label, field, options, activeValues, onChange, type }: TFilterGroup) {
+export default function FilterGroup({ items, label, field, options, activeValues, onChange, onClear, type }: TFilterGroup) {
   const isActive = activeValues.length > 0;
   const endDecorator = isActive 
-    ? <FilterCount value={activeValues.length} verbose onClear={() => console.log('changing')}/> 
+    ? <FilterCount
+      value={activeValues.length}
+      verbose
+      onClear={(evt) => {
+        evt.preventDefault();
+        evt.stopPropagation();
+        onClear(field);
+      }}
+    /> 
     : <span style={{ fontWeight: "normal" }}>{`(${options.length})`}</span>
 
   return (
@@ -39,7 +48,6 @@ export default function FilterGroup({ items, label, field, options, activeValues
       variant="soft"
       defaultExpanded
       sx={theme => ({ backgroundColor: theme.vars.palette.common.white })}
-
     >
       <AccordionSummary
         indicator={null}
