@@ -7,7 +7,9 @@ import Typography from "@mui/joy/Typography";
 import Link from '@mui/joy/Link';
 import type { IDataset } from "@investigativedata/ftmq";
 
-import DatasetProperty from "./Dataset/DatasetProperty";
+import DatasetProperty, { DatasetPropertyValue } from "./Dataset/DatasetProperty";
+import DatasetLastUpdated from "./Dataset/DatasetLastUpdated";
+import Property from "./Property";
 import CountryLabel from "./CountryLabel";
 
 function CatalogItemDetails({ dataset }: CatalogItemProps) {
@@ -47,7 +49,21 @@ function CatalogItemDetails({ dataset }: CatalogItemProps) {
             )}
           </Stack>
         </Stack>
-        <DatasetProperty label="last updated" value={dataset.updated_at} />
+        <Typography
+          level="body-xs"
+          sx={theme => ({ 
+            textTransform: 'uppercase',
+            fontSize: "0.65rem",
+            color: theme.vars.palette.common.black,
+            fontWeight: '400',
+            lineHeight: "130%",
+            letterSpacing: "0.2px"
+          })}
+        >
+          <span>Last updated: </span>
+          <Property value={dataset.updated_at} type="date" />
+          {/* <DatasetLastUpdated datetime={dataset.updated_at} /> */}
+        </Typography>
       </Stack>
     </Box>
     
@@ -73,6 +89,12 @@ export default function CatalogItem({ dataset }: CatalogItemProps) {
     >
       <CardContent>
         <Box sx={{ padding: "1rem" }}>
+          <DatasetPropertyValue
+            displayValue="Documents"
+            value="documents"
+            type="datatype"
+            style={{ marginBottom: "0.5rem" }}
+          />
           <Link
             overlay
             underline="none"
