@@ -11,6 +11,7 @@ import Chip from '@mui/joy/Chip';
 import Count from "../Count";
 import { getFilterValueCount } from "../../util";
 import FilterCount from "./FilterCount";
+import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
 
 export type TFilter = {
   label: string,
@@ -21,12 +22,13 @@ export type TFilterGroup = {
   items: IDataset[],
   label: string,
   field: string,
+  type: string,
   options: TFilter[],
   activeValues: string[],
   onChange: (field: string, value: string) => void
 };
 
-export default function FilterGroup({ items, label, field, options, activeValues, onChange }: TFilterGroup) {
+export default function FilterGroup({ items, label, field, options, activeValues, onChange, type }: TFilterGroup) {
   const isActive = activeValues.length > 0;
   const endDecorator = isActive 
     ? <FilterCount value={activeValues.length} verbose onClear={() => console.log('changing')}/> 
@@ -70,7 +72,7 @@ export default function FilterGroup({ items, label, field, options, activeValues
             {options.map(({ label, value }) => (
               <ListItem key={value}>
                 <Checkbox
-                  label={label}
+                  label={<DatasetPropertyValue displayValue={label} value={value} type={type} />}
                   variant="soft"
                   color="neutral"
                   checked={activeValues.includes(value)}

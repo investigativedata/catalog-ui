@@ -8,23 +8,30 @@ import Link from 'next/link';
 // import FrequencyIcon from "/static/icons/frequency.svg";
 
 import Property from '../Property';
+import { CountryFlag } from '../CountryLabel';
 
 type DatasetPropertyValueProps = {
   value: string | Element,
+  displayValue: string | Element,
   type?: string,
   href?: string
+  style?: any
 }
 
-export function DatasetPropertyValue({ value, type, href }: DatasetPropertyValueProps) {
+export function DatasetPropertyValue({ displayValue, value, type, href, style }: DatasetPropertyValueProps) {
   let startDecorator;
 
   if (type === "frequency") {
     startDecorator = <img src={`/static/icons/frequency.svg`} />
+  } else if (type === "country") {
+    startDecorator = <CountryFlag iso={value} />
+  } else if (type === "datatype") {
+    startDecorator = <img src={`/static/icons/${value}.svg`} />
   }
 
   const content = (
-    <Typography level="body-sm" sx={theme => ({ fontWeight: !href ? 'bold' : '400', color: theme.vars.palette.common.black, lineHeight: "130%" })} startDecorator={startDecorator}>
-      <Property value={value} type={type} />
+    <Typography level="body-sm" startDecorator={startDecorator} sx={style}>
+      <Property value={displayValue || value} type={type} />
     </Typography>
   );
 
@@ -62,7 +69,16 @@ export default function DatasetProperty({ label, labelEndDecorator, value, type,
       >
         {label}
       </Typography>
-      <DatasetPropertyValue value={value} type={type} href={href} />
+      <DatasetPropertyValue
+        value={value}
+        type={type}
+        href={href}
+        style={theme => ({ 
+          fontWeight: !href ? 'bold' : '400', 
+          color: theme.vars.palette.common.black, 
+          lineHeight: "130%" 
+        })}
+      />
    </Stack>
   );
 }

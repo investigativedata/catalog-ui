@@ -27,13 +27,14 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
 
   return (
     <AccordionGroup sx={{ backgroundColor: "none" }}>
-      {filterOptions.map(({ label, field, values }) => (
+      {filterOptions.map(({ label, field, values, type }) => (
         <FilterGroup
           key={field}
           items={items}
           label={label}
           field={field}
           options={values}
+          type={type}
           activeValues={filters[field]}
           onChange={toggleFilter}
         />
