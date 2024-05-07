@@ -10,6 +10,6 @@ type DatasetLastUpdatedProps = {
 export default function DatasetLastUpdated({ datetime }: DatasetLastUpdatedProps) {
   const fromNow = dayjs(datetime).fromNow()
   return (
-   <Typography level="body-md">{fromNow}</Typography>
+   <Typography level="body-sm">{fromNow}</Typography>
   )
 }
