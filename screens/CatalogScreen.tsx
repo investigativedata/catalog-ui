@@ -83,10 +83,10 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           </code> */}
         </Grid>
         <Grid xs={12} md={4} lg={3} sx={{ order: { xs: "1", md: "2" }}}>
-          <Search 
+          <Search
             value={searchValue}
             setValue={setSearchValue}
-            filterCount={5}
+            filterCount={Object.values(activeFilters).flat().length}
             clearFilters={clearFilters}
             resultSummary={
               <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />

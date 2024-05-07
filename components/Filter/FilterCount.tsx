@@ -9,6 +9,10 @@ export type TFilterCount = {
 };
 
 export default function FilterCount({ onClear, value, verbose }: TFilterCount) {
+  if (value === 0) {
+    return null;
+  }
+  
   return (
     <Chip
       variant="solid"
