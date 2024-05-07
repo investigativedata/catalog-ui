@@ -11,12 +11,15 @@ export type TSearch = {
   value: string,
   setValue: (value: string) => void,
   filterCount: number,
-  clearFilters: () => void
+  clearFilters: () => void,
+  filters: any,
+  resultSummary: any
 };
 
-export default function Search({ filterCount, clearFilters, value, setValue, children }): TSearch {
+export default function Search({ filterCount, clearFilters, value, setValue, filters, resultSummary }): TSearch {
   return (
-    <>
+    <Stack gap={2}>
+      {resultSummary}
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -45,12 +48,13 @@ export default function Search({ filterCount, clearFilters, value, setValue, chi
           spacing={0}
         >
           <FilterCount value={filterCount} onClear={clearFilters} />
-          <FilterModal filtersActive={filterCount > 0}>
-            {children}
+          <FilterModal filterCount={filterCount}>
+            {resultSummary}
+            {filters}
           </FilterModal>
         </Stack>
       </Stack>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>{children}</Box>
-    </>
+      <Box sx={{ display: { xs: "none", md: "block" } }}>{filters}</Box>
+    </Stack>
   )
 }

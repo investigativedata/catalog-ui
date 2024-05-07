@@ -80,17 +80,18 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           </code> */}
         </Grid>
         <Grid xs={12} md={4} lg={3} sx={{ order: { xs: "1", md: "2" }}}>
-          <Stack gap={2}>
-            <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
-            <Search 
-              value={searchValue}
-              setValue={setSearchValue}
-              filterCount={5}
-              clearFilters={clearFilters}
-            >
+          <Search 
+            value={searchValue}
+            setValue={setSearchValue}
+            filterCount={5}
+            clearFilters={clearFilters}
+            resultSummary={
+              <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
+            }
+            filters={
               <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
-            </Search>
-          </Stack>
+            }
+          />
         </Grid>
       </Grid>
       <Box padding="4rem 0 1rem" textAlign="center">
@@ -98,7 +99,6 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
         <Typography level="body-md">You have seen all datasets.</Typography>
         <Typography level="body-md">Keep checking – we add datasets regularly.</Typography>
       </Box>
-
     </Stack>
   );
 }
