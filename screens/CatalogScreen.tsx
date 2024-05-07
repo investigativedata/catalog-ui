@@ -20,13 +20,16 @@ const initializeSearchIndex = (items: IDataset[]) => {
   });
 }
 
-let initialFilters = [];
-filterOptions.forEach(({ field }) => initialFilters[field] = [])
+const getInitialFilters = () => filterOptions.reduce(
+  (acc, { field }) => ({ ...acc, [field]: [] }),
+  {}
+);
+
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
-  const [activeFilters, setActiveFilters] = useState(initialFilters);
+  const [activeFilters, setActiveFilters] = useState(getInitialFilters());
   const [filteredItems, setFilteredItems] = useState([]);
   
   useEffect(() => {
@@ -60,7 +63,8 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
 
 
   const clearFilters = () => {
-    setActiveFilters(initialFilters)
+    console.log("calling clear filters", getInitialFilters())
+    setActiveFilters(getInitialFilters())
   }
 
   return (
