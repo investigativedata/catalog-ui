@@ -82,10 +82,14 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
         <Grid xs={12} md={4} lg={3} sx={{ order: { xs: "1", md: "2" }}}>
           <Stack gap={2}>
             <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
-            <Search value={searchValue} setValue={setSearchValue} filterCount={5} clearFilters={clearFilters} />
-            <Box sx={{ diplay: { xs: "none", md: "block" } }}>
+            <Search 
+              value={searchValue}
+              setValue={setSearchValue}
+              filterCount={5}
+              clearFilters={clearFilters}
+            >
               <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
-            </Box>
+            </Search>
           </Stack>
         </Grid>
       </Grid>
