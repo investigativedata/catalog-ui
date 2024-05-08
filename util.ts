@@ -23,6 +23,18 @@ export const filterOptions = [
     ]
   },
   {
+    label: 'Tags',
+    field: 'tags',
+    type: 'tag',
+    values: [
+      { value: 'corruption', label: 'Corruption' },
+      { value: 'finance', label: 'Finance' },
+      { value: 'lobbyism', label: 'Lobbyism' },
+      { value: 'sanctions', label: 'Sanctions' },
+      { value: 'another_tag', label: 'Another tag' },
+    ]
+  },
+  {
     label: 'Country / Region',
     field: 'country',
     type: "country",

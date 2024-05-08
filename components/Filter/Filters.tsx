@@ -4,11 +4,15 @@ import AccordionGroup from "@mui/joy/AccordionGroup";
 import FilterGroup from "./FilterGroup";
 import { filterOptions } from '../../util';
 
+export type TFilter = {
+  label: string,
+  value: string,
+}
 
 export type TFilters = { 
   items: IDataset[],
-  filters: any,
-  setFilters: (filters: any) => void
+  filters: TFilter[],
+  setFilters: (filters: TFilter[]) => void
 };
 
 export default function Filters({ items, filters, setFilters }: TFilters) {

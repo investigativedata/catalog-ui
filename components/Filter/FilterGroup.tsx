@@ -11,12 +11,12 @@ import Chip from '@mui/joy/Chip';
 import Count from "../Count";
 import { getFilterValueCount } from "../../util";
 import FilterCount from "./FilterCount";
+import FilterGroupItems from "./FilterGroupItems";
 import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
+import Tags from "../Tags";
+import { TFilter } from "./Filter/Filters";
 
-export type TFilter = {
-  label: string,
-  value: string,
-}
+
 
 export type TFilterGroup = { 
   items: IDataset[],
@@ -76,28 +76,22 @@ export default function FilterGroup({ items, label, field, options, activeValues
       </AccordionSummary>
       <AccordionDetails  sx={theme => ({ backgroundColor: theme.vars.palette.common.white })}>
         <div role="group" aria-labelledby={label}>
-          <List>
-            {options.map(({ label, value }) => (
-              <ListItem key={value}>
-                <Checkbox
-                  label={<DatasetPropertyValue displayValue={label} value={value} type={type} />}
-                  variant="soft"
-                  color="neutral"
-                  checked={activeValues.includes(value)}
-                  onChange={() => onChange(field, value)}
-                  slotProps={{ 
-                    checkbox: { 
-                      sx: theme => ({
-                        backgroundColor: "#fff",
-                        "&:hover": { backgroundColor: theme.vars.palette.success[50] },
-                      })
-                    }
-                  }}
-                />
-                <Count value={getFilterValueCount(items, field, value)} />
-              </ListItem>
-            ))}
-          </List>
+          {type === 'tag' && (
+            <Tags
+              items={options}
+              activeValues={activeValues}
+              onClick={(value) => onChange(field, value)}
+            />
+          )}
+          {type !== 'tag' && (
+            <FilterGroupItems 
+              type={type}
+              items={options}
+              activeValues={activeValues}
+              onChange={(value) => onChange(field, value)}
+            />
+          )}
+          
         </div>
       </AccordionDetails>
     </Accordion>
