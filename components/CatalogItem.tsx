@@ -26,9 +26,9 @@ function CatalogItemDetails({ dataset }: CatalogItemProps) {
           spacing={3}
         >
           <Stack spacing={2} width="50%">
-            <DatasetProperty label="frequency" value={dataset.coverage?.frequency} />
-            <DatasetProperty label="type" value={dataset.coverage?.frequency} />
+            <DatasetProperty label="entities" value={dataset.entity_count} type="number" />
             <DatasetProperty label="category" value={dataset.category || "Other"} />
+            <DatasetProperty label="frequency" value={dataset.coverage?.frequency} type="string" />
           </Stack>
           <Stack spacing={2} width="50%">
             {publisher && (

@@ -53,6 +53,8 @@ type DatasetPropertyProps = {
 };
 
 export default function DatasetProperty({ label, labelEndDecorator, value, type, href }: DatasetPropertyProps) {
+  const capitalize = type === 'string' || type === 'frequency';
+
   return (
    <Stack>
       <Typography
@@ -64,7 +66,8 @@ export default function DatasetProperty({ label, labelEndDecorator, value, type,
           color: theme.vars.palette.common.black,
           fontWeight: '400',
           lineHeight: "130%",
-          letterSpacing: "0.2px"
+          letterSpacing: "0.2px",
+          alignItems: 'flex-start'
         })}
       >
         {label}
@@ -76,7 +79,8 @@ export default function DatasetProperty({ label, labelEndDecorator, value, type,
         style={theme => ({ 
           fontWeight: !href ? 'bold' : '400', 
           color: theme.vars.palette.common.black, 
-          lineHeight: "130%" 
+          lineHeight: "130%",
+          textTransform: capitalize ? 'capitalize' : 'none'
         })}
       />
    </Stack>
