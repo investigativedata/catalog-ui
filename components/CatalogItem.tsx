@@ -81,11 +81,15 @@ export default function CatalogItem({ dataset }: CatalogItemProps) {
       color="success"
       variant="soft"
       size="sm"
-      sx={{
+      sx={theme => ({
         padding: "0",
-        border: "1px solid #1DE9B6",
+        border: `1px solid ${theme.vars.palette.success[600]}`,
         overflow: "hidden",
-      }}
+        transition: "box-shadow 200ms",
+        "&:hover": { 
+          boxShadow: `4px 4px 0 0 ${theme.vars.palette.success[600]}`
+        },
+      })}
     >
       <CardContent>
         <Box sx={{ padding: "1rem" }}>

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import type { ICatalog, IDataset, TDatasetFrequency } from "@investigativedata/ftmq";
-import Stack from "@mui/joy/Stack";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
 import Box from '@mui/joy/Box';
@@ -33,7 +32,7 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
   <Grid xs={12} md={4} lg={3} sx={{ 
     position: "sticky",
     top: { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
-    maxHeight: { xs: "calc(100vh - var(--header-height-mobile) - 4rem)", sm: "calc(100vh - var(--header-height) - 4rem)" },
+    maxHeight: { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
     marginBottom: "auto",
     overflow: "scroll",
     ...style 
@@ -44,6 +43,11 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
 
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
+  console.log(catalog)
+
+  if (!catalog?.datasets) {
+    return null;
+  }
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
   const [activeFilters, setActiveFilters] = useState(getInitialFilters());
