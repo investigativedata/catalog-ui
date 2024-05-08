@@ -62,7 +62,8 @@ function CatalogItemDetails({ dataset }: CatalogItemProps) {
         >
           <span>Last updated: </span>
           <Property value={dataset.updated_at} type="date" />
-          {/* <DatasetLastUpdated datetime={dataset.updated_at} /> */}
+          <span> </span>
+          <DatasetLastUpdated datetime={dataset.updated_at} onlyShowToday level="body-xs" />
         </Typography>
       </Stack>
     </Box>

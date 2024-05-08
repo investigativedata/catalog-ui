@@ -1,11 +1,13 @@
 import numeral from "numeral";
+import dayjs from 'dayjs'
 
 type Value = {
  readonly value: string;
 };
 
 const renderDate = ({ value }: Value): string => {
- return new Date(value).toISOString().slice(0, 10);
+  const isToday = dayjs().isSame(value, 'day')
+  return dayjs(value).format(isToday ? 'YYYY-MM-DD, HH:MM' : 'YYYY-MM-DD')
 };
 
 const renderNumeric = ({ value }: Value): string => {
