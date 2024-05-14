@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import type { ICountryStats, IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
@@ -13,6 +14,7 @@ import DatasetProperty from "~/components/Dataset/DatasetProperty";
 import DatasetLastUpdated from "~/components/Dataset/DatasetLastUpdated";
 import CountryLabel from "~/components/CountryLabel";
 import Count from "~/components/Count";
+import CTADrawer from "~/components/CTADrawer";
 
 
 const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
@@ -118,7 +120,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
   );
 }
 
-const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
+const DatasetMetadataSecondary = ({ dataset, openDrawer }: { dataset: IDataset, openDrawer: any }) => {
   const { publisher, maintainer } = dataset;
 
   return (
@@ -161,7 +163,7 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
         </>
       )}
       <div>
-        <Button component="a" href="" variant="outlined" size="md">
+        <Button variant="outlined" size="md" onClick={openDrawer}>
           Use this data
         </Button>
       </div>
@@ -171,25 +173,31 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
 
 
 export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+
   return (
-    <Stack>
-      <Typography level="h2">{dataset.title || dataset.name}</Typography>
+    <>
+      <Stack>
+        <Typography level="h2">{dataset.title || dataset.name}</Typography>
 
-      <Grid container spacing={6}>
-        <Grid xs={12} sm={6} md={5}>
-          <DatasetMetadataMain dataset={dataset} />
+        <Grid container spacing={6}>
+          <Grid xs={12} sm={6} md={5}>
+            <DatasetMetadataMain dataset={dataset} />
+          </Grid>
+          <Grid xs={12} sm={6} md={3.5}>
+            <DatasetMetadataEntities dataset={dataset} />
+          </Grid>
+          <Grid xs={12} sm={6} md={3.5}>
+            <DatasetMetadataSecondary dataset={dataset} openDrawer={() => setDrawerOpen(true)} />
+          </Grid>
         </Grid>
-        <Grid xs={12} sm={6} md={3.5}>
-          <DatasetMetadataEntities dataset={dataset} />
-        </Grid>
-        <Grid xs={12} sm={6} md={3.5}>
-          <DatasetMetadataSecondary dataset={dataset} />
-        </Grid>
-      </Grid>
 
-      <code>
-        <pre>{JSON.stringify(dataset, null, 2)}</pre>
-      </code>
-    </Stack>    
+        <code>
+          <pre>{JSON.stringify(dataset, null, 2)}</pre>
+        </code>
+      </Stack>
+      <CTADrawer open={drawerOpen} onClose={() => setDrawerOpen(false)}/>
+    </>
+  
   );
 }
