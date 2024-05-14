@@ -7,8 +7,8 @@ export const filterOptions = [
     type: "datatype",
     values: [
       { value: 'documents', label: 'Documents' },
-      { value: 'structured', label: 'Structured (ftm)' },
-      { value: 'both', label: 'Both' }
+      { value: 'structured', label: 'Structured' },
+      { value: 'mixed', label: 'Mixed' }
     ]
   },
   {

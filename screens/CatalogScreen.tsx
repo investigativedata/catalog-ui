@@ -53,12 +53,10 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
     {}
   );
 
-
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
   const [activeFilters, setActiveFilters] = useState(getFiltersFromUrl());
   const [filteredItems, setFilteredItems] = useState([]);
-
 
   useEffect(() => {
     const filterObj = getFiltersFromUrl()

@@ -77,7 +77,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
   return (
     <Stack spacing={2}>
       <DatasetProperty label="entities" value={entity_count} type="number" />
-      <DatasetSectionHeader label="schemas" active={!!schemataMerged.length} count={schemataMerged.length} />
+      <DatasetSectionHeader label="entity types" active={!!schemataMerged.length} count={schemataMerged.length} />
       {schemataMerged.map((d: ISchema) => (
         <div key={d.name}>
           <Stack
