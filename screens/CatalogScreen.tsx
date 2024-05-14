@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { ICatalog, IDataset, TDatasetFrequency } from "@investigativedata/ftmq";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
@@ -13,6 +13,8 @@ import Search from "~/components/Search";
 import Filters from "~/components/Filter/Filters";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 import { filterOptions } from "~/util";
+import { HeaderScrollContext } from '../components/PageContext';
+
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
@@ -24,20 +26,24 @@ type IFixedColumn = {
   style?: any
 }
 
-const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedColumn>) => (
-  <Grid xs={12} md={4} lg={3} sx={{ 
-    position: { xs: "static", sm: "sticky" },
-    top: { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
-    maxHeight: { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
-    marginBottom: "auto",
-    overflow: "scroll",
-    boxShadow: "0px 4px 32px 0px #FFF8F1",
-    ...style 
-  }}>
-    {children}
-  </Grid>
-);
+const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedColumn>) => {
+  const headerCollapsed = useContext(HeaderScrollContext)
 
+  return (
+    <Grid xs={12} md={4} lg={3} sx={{ 
+      position: { xs: "static", sm: "sticky" },
+      top: headerCollapsed ? "var(--header-height-collapsed)" : { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
+      maxHeight: headerCollapsed ? "calc(100vh - var(--header-height-collapsed))" : { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
+      marginBottom: "auto",
+      overflow: "scroll",
+      boxShadow: "0px 4px 32px 0px #FFF8F1",
+      transition: "var(--header-transition)",
+      ...style 
+    }}>
+      {children}
+    </Grid>
+  );
+}
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   if (!catalog?.datasets) {

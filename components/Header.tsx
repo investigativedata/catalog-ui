@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import Box from "@mui/joy/Box";
 import Container from "@mui/joy/Container";
 import Stack from "@mui/joy/Stack";
@@ -9,6 +10,7 @@ import Link from "next/link";
 
 import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
 import Logo from "./Logo";
+import { HeaderScrollContext } from "./PageContext"
 
 export type HeaderProps = {
   crumbs: TBreadrumb[],
@@ -36,6 +38,7 @@ const StackItem = ({
 );
 
 const Header = ({ crumbs, isRoot }: HeaderProps) => {
+  const headerCollapsed = useContext(HeaderScrollContext)
   return (
     <Box
       sx={theme => ({
@@ -43,9 +46,10 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
         position: "fixed",
         zIndex: 10,
         backgroundColor: isRoot ? theme.vars.palette.common.white : theme.vars.palette.success[300],
-        height: { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
+        height: headerCollapsed ? "var(--header-height-collapsed)" : { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
         padding: "0 26px",
-        boxShadow: isRoot ? `0px 4px 32px 0px ${theme.vars.palette.common.white}` : "none"
+        boxShadow: isRoot ? `0px 4px 32px 0px ${theme.vars.palette.common.white}` : "none",
+        transition: "var(--header-transition)"
       })}
       >
         <Stack
@@ -53,7 +57,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
           justifyContent="center"
           alignItems="baseline"
           spacing={2}
-          style={{ paddingTop: "50px" }}
+          style={{ paddingTop: headerCollapsed ? "15px" : "50px", transition: "var(--header-transition)" }}
         >
           <StackItem justifyContent="left" mobileHide>
             {!isRoot && (
@@ -61,7 +65,15 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
             )}
           </StackItem>
           <StackItem justifyContent="center">
-            <Typography level="title-lg" sx={{ overflow: "visible", fontSize: { xs: "1.5rem", sm: "inherit" } }} noWrap>
+            <Typography
+              level="title-lg"
+              noWrap
+              sx={{ 
+                overflow: "visible", 
+                fontSize: { xs: "1.5rem", sm: headerCollapsed ? "1.5rem" : "2.5rem" },
+                transition: "var(--header-transition)"
+              }}
+            >
               <Link
                 underline="none"
                 style={{

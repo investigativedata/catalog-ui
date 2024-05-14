@@ -33,10 +33,13 @@ const DatasetSectionHeader = ({ label, count }: { label: string, count?: number 
 
 const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
   return (
-    <Stack spacing={2}>
-      <Grid container spacing={2}>
+    <Stack spacing={3}>
+      <Grid container spacing={0}>
         <Grid xs={6}>
           <DatasetProperty label="entities" value={dataset.entity_count} type="number" />
+        </Grid>
+        <Grid xs={6}>
+          <DatasetProperty label="category" value={dataset.category || "Other"} />
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="frequency" value={dataset.coverage?.frequency} type="frequency" />
@@ -47,9 +50,6 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
         <Grid xs={6}>
           <DatasetProperty label="last updated" value={dataset.updated_at} type="date" />
           <DatasetLastUpdated datetime={dataset.updated_at} />
-        </Grid>
-        <Grid xs={6}>
-          <DatasetProperty label="category" value={dataset.category || "Other"} />
         </Grid>
       </Grid>
       <Typography level="body-sm">{dataset.summary}</Typography>
