@@ -6,6 +6,7 @@ import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
 import Box from '@mui/joy/Box';
 import Fuse from "fuse.js";
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 
 import Catalog from "~/components/Catalog";
 import Search from "~/components/Search";
@@ -19,11 +20,6 @@ const initializeSearchIndex = (items: IDataset[]) => {
   });
 }
 
-const getInitialFilters = () => filterOptions.reduce(
-  (acc, { field }) => ({ ...acc, [field]: [] }),
-  {}
-);
-
 type IFixedColumn = {
   style?: any
 }
@@ -35,6 +31,7 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
     maxHeight: { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
     marginBottom: "auto",
     overflow: "scroll",
+    boxShadow: "0px 4px 32px 0px #FFF8F1",
     ...style 
   }}>
     {children}
@@ -43,15 +40,31 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
 
 
 export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
-  console.log(catalog)
-
   if (!catalog?.datasets) {
     return null;
   }
+
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const getFiltersFromUrl = () => filterOptions.reduce(
+    (acc, { field }) => ({ ...acc, [field]: searchParams.getAll(field) }),
+    {}
+  );
+
+
   const searchIndex = initializeSearchIndex(catalog?.datasets)
   const [searchValue, setSearchValue] = useState('');
-  const [activeFilters, setActiveFilters] = useState(getInitialFilters());
+  const [activeFilters, setActiveFilters] = useState(getFiltersFromUrl());
   const [filteredItems, setFilteredItems] = useState([]);
+
+
+  useEffect(() => {
+    const filterObj = getFiltersFromUrl()
+    setActiveFilters(filterObj)
+  }, [searchParams]);
+  
   
   useEffect(() => {
     let searchPredicate = [];
@@ -84,10 +97,8 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
 
 
   const clearFilters = () => {
-    setActiveFilters(getInitialFilters())
+    router.push(pathname)
   }
-
-  
 
   return (
     <Grid container spacing={4} sx={{ flexGrow: 1 }}>
