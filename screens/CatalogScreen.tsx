@@ -26,7 +26,7 @@ type IFixedColumn = {
 
 const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedColumn>) => (
   <Grid xs={12} md={4} lg={3} sx={{ 
-    position: "sticky",
+    position: { xs: "static", sm: "sticky" },
     top: { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
     maxHeight: { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
     marginBottom: "auto",
