@@ -46,10 +46,9 @@ export default function FilterGroup({ items, label, field, options, activeValues
     <Accordion
       variant="soft"
       defaultExpanded
-      sx={theme => ({ backgroundColor: theme.vars.palette.common.white })}
+      sx={theme => ({ backgroundColor: theme.vars.palette.common.white, border: "none" })}
     >
       <AccordionSummary
-        indicator={null}
         variant="soft"
         slotProps={{ 
           button: { 
@@ -57,6 +56,13 @@ export default function FilterGroup({ items, label, field, options, activeValues
               backgroundColor: `${isActive ? theme.vars.palette.success[200] : theme.vars.palette.common.white} !important`,
               borderBottom: "1px solid",
               borderBottomColor: isActive ? theme.vars.palette.success[600] : theme.vars.palette.common.black,
+            })
+          },
+          indicator: {
+            sx: theme => ({
+              "svg": {
+                color: theme.vars.palette.common.black
+              }
             })
           }
         }}

@@ -18,7 +18,7 @@ export default function FilterModal({ filterCount, children }): TFilterModal {
 
   return (
     <Fragment>
-      <IconButton onClick={() => setOpen(true)} sx={{ pointerEvents: { xs: "all", md: "none" } }}>
+      <IconButton onClick={() => setOpen(true)} sx={{ display: { xs: "block", md: "none" } }}>
         <img src={filterIconPath} style={{ width: "2rem", height: "2rem" }} />
       </IconButton>
       <Modal
