@@ -15,7 +15,7 @@ import CountryLabel from "~/components/CountryLabel";
 import Count from "~/components/Count";
 
 
-const DatasetSectionHeader = ({ label, active, count }: { label: string, active: boolean, count?: number }) => {
+const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
   return (
     <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px" }}>
       <Typography
@@ -33,6 +33,9 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
   return (
     <Stack spacing={2}>
       <Grid container spacing={2}>
+        <Grid xs={6}>
+          <DatasetProperty label="entities" value={dataset.entity_count} type="number" />
+        </Grid>
         <Grid xs={6}>
           <DatasetProperty label="frequency" value={dataset.coverage?.frequency} type="frequency" />
         </Grid>
@@ -76,33 +79,41 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
 
   return (
     <Stack spacing={2}>
-      <DatasetProperty label="entities" value={entity_count} type="number" />
-      <DatasetSectionHeader label="entity types" active={!!schemataMerged.length} count={schemataMerged.length} />
-      {schemataMerged.map((d: ISchema) => (
-        <div key={d.name}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            spacing={3}
-          >
-            <Typography level="body-sm">{d.plural}</Typography>
-            <Count value={d.count} />
-          </Stack>
-        </div>
-      ))}
-      <DatasetSectionHeader label="countries" active={!!countriesMerged.length} count={countriesMerged.length} />
-      {countriesMerged.map((country: ICountryStats) => (
-        <div key={country.code}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            spacing={3}
-          >
-            <CountryLabel iso={country.code} label={country.label} />
-            <Count value={country.count} />
-          </Stack>
-        </div>
-      ))}
+      {schemataMerged.length > 0 && (
+        <>
+          <DatasetSectionHeader label="entity types" active={!!schemataMerged.length} count={schemataMerged.length} />
+          {schemataMerged.map((d: ISchema) => (
+            <div key={d.name}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                spacing={3}
+              >
+                <Typography level="body-sm">{d.plural}</Typography>
+                <Count value={d.count} />
+              </Stack>
+            </div>
+          ))}
+        </>
+      )}
+      {countriesMerged.length > 0 && (
+        <>
+          <DatasetSectionHeader label="countries" active={!!countriesMerged.length} count={countriesMerged.length} />
+          {countriesMerged.map((country: ICountryStats) => (
+            <div key={country.code}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                spacing={3}
+              >
+                <CountryLabel iso={country.code} label={country.label} />
+                <Count value={country.count} />
+              </Stack>
+            </div>
+          ))}
+        </>
+      )}
+      
     </Stack>
   );
 }
@@ -112,43 +123,48 @@ const DatasetMetadataSecondary = ({ dataset }: { dataset: IDataset }) => {
 
   return (
     <Stack spacing={2}>
+      {publisher && (
+        <>
+          <DatasetSectionHeader label="publisher" active={!!publisher} />
+          <div>
+            {publisher.url ? (
+              <Link href={publisher.url}>{publisher.name}</Link>
+            ) : (
+              <Typography>{publisher.name}</Typography>
+            )}
+            {publisher.description && (
+              <Typography level="body-sm">{publisher.description}</Typography>
+            )}
+            {publisher.country && (
+              <CountryLabel iso={publisher.country} label={publisher.country_label} />
+            )}
+          </div>
+        </>
+      )}
+      
+      {maintainer && (
+        <>
+          <DatasetSectionHeader label="maintainer" />
+          <div>
+            {maintainer.url ? (
+              <Link href={maintainer.url}>{maintainer.name}</Link>
+            ) : (
+              <Typography>{maintainer.name}</Typography>
+            )}
+            {maintainer.description && (
+              <Typography level="body-sm">{maintainer.description}</Typography>
+            )}
+            {maintainer.country && (
+              <CountryLabel iso={maintainer.country} label={maintainer.country_label} />
+            )}
+          </div>
+        </>
+      )}
       <div>
         <Button component="a" href="" variant="outlined" size="md">
-          Browse this data
+          Use this data
         </Button>
       </div>
-      <DatasetSectionHeader label="publisher" active={!!publisher} />
-      {publisher && (
-        <div>
-          {publisher.url ? (
-            <Link href={publisher.url}>{publisher.name}</Link>
-          ) : (
-            <Typography>{publisher.name}</Typography>
-          )}
-          {publisher.description && (
-            <Typography level="body-sm">{publisher.description}</Typography>
-          )}
-          {publisher.country && (
-            <CountryLabel iso={publisher.country} label={publisher.country_label} />
-          )}
-        </div>
-      )}
-      <DatasetSectionHeader label="maintainer" active={!!maintainer} />
-      {maintainer && (
-        <div>
-          {maintainer.url ? (
-            <Link href={maintainer.url}>{maintainer.name}</Link>
-          ) : (
-            <Typography>{maintainer.name}</Typography>
-          )}
-          {maintainer.description && (
-            <Typography level="body-sm">{maintainer.description}</Typography>
-          )}
-          {maintainer.country && (
-            <CountryLabel iso={maintainer.country} label={maintainer.country_label} />
-          )}
-        </div>
-      )}
     </Stack>
   );
 }
