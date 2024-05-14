@@ -6,9 +6,8 @@ import Checkbox from '@mui/joy/Checkbox';
 import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
-import Chip from '@mui/joy/Chip';
+import Box from '@mui/joy/Box';
 
-import Count from "../Count";
 import { getFilterValueCount } from "../../util";
 import FilterCount from "./FilterCount";
 import FilterGroupItems from "./FilterGroupItems";
@@ -77,11 +76,13 @@ export default function FilterGroup({ items, label, field, options, activeValues
       <AccordionDetails  sx={theme => ({ backgroundColor: theme.vars.palette.common.white })}>
         <div role="group" aria-labelledby={label}>
           {type === 'tag' && (
-            <Tags
-              items={options}
-              activeValues={activeValues}
-              onClick={(value) => onChange(field, value)}
-            />
+            <Box sx={{ paddingTop: "1rem" }}>
+              <Tags
+                items={options}
+                activeValues={activeValues}
+                onClick={(value) => onChange(field, value)}
+              />
+            </Box>
           )}
           {type !== 'tag' && (
             <FilterGroupItems 

@@ -20,7 +20,7 @@ export default function FilterGroupItems({ items, activeValues, onChange, type }
       {items.map(({ label, value }) => (
         <ListItem key={value}>
           <Checkbox
-            label={<DatasetPropertyValue displayValue={label} value={value} type={type} />}
+            label={<DatasetPropertyValue displayValue={label} value={value} type={type} style={theme => ({ color: theme.vars.palette.common.black })} />}
             variant="soft"
             color="neutral"
             checked={activeValues.includes(value)}

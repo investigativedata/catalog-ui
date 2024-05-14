@@ -8,6 +8,8 @@ export type TTag = {
 };
 
 export default function Tag({ label, active, onClick }: TTag) {
+  const isStatic = !onClick;
+
   return (
     <Chip
       variant="soft"
@@ -18,13 +20,13 @@ export default function Tag({ label, active, onClick }: TTag) {
           sx: theme => ({
             backgroundColor: active ? theme.vars.palette.success[200] : "#fff",
             padding: "2px 8px",
+            pointerEvents: isStatic ? 'none' : 'all',
             "&:hover": { backgroundColor: theme.vars.palette.success[50] },
           })
         }
       }}
       
     >
-      <span># </span>
       <span>{label}</span>
     </Chip>
   );

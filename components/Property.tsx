@@ -12,7 +12,6 @@ const renderDate = ({ value }: Value): string => {
 
 const renderNumeric = ({ value }: Value): string => {
  const parsedValue = numeral(value);
- console.log(parsedValue, value)
  return parsedValue.format("0,0");
 };
 
