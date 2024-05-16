@@ -5,18 +5,20 @@ import IconButton from '@mui/joy/IconButton';
 
 import FilterCount from './Filter/FilterCount';
 import FilterModal from './Filter/FilterModal';
-import { Children } from 'react';
+import Filters from './Filter/Filters';
 
 export type TSearch = {
   value: string,
   setValue: (value: string) => void,
-  filterCount: number,
+  activeFilters: any,
+  setActiveFilters: () => void,
   clearFilters: () => void,
-  filters: any,
   resultSummary: any
 };
 
-export default function Search({ filterCount, clearFilters, value, setValue, filters, resultSummary }): TSearch {
+export default function Search({ activeFilters, setActiveFilters, clearFilters, value, setValue, resultSummary }): TSearch {
+  const filterCount = Object.values(activeFilters).flat().length;
+
   return (
     <Stack gap={2}>
       {resultSummary}
@@ -50,11 +52,13 @@ export default function Search({ filterCount, clearFilters, value, setValue, fil
           <FilterCount value={filterCount} onClear={clearFilters} withIcon />
           <FilterModal filterCount={filterCount}>
             {resultSummary}
-            {filters}
+            <Filters filters={activeFilters} defaultExpanded={false} />
           </FilterModal>
         </Stack>
       </Stack>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>{filters}</Box>
+      <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <Filters filters={activeFilters} defaultExpanded />
+      </Box>
     </Stack>
   )
 }

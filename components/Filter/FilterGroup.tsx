@@ -18,17 +18,17 @@ import { TFilter } from "./Filter/Filters";
 
 
 export type TFilterGroup = { 
-  items: IDataset[],
   label: string,
   field: string,
   type: string,
   options: TFilter[],
   activeValues: string[],
   onChange: (field: string, value: string) => void
-  onClear: (field: string) => void
+  onClear: (field: string) => void,
+  defaultExpanded: boolean
 };
 
-export default function FilterGroup({ items, label, field, options, activeValues, onChange, onClear, type }: TFilterGroup) {
+export default function FilterGroup({ label, field, options, activeValues, onChange, onClear, type, defaultExpanded }: TFilterGroup) {
   const isActive = activeValues.length > 0;
   const endDecorator = isActive 
     ? <FilterCount
@@ -45,7 +45,7 @@ export default function FilterGroup({ items, label, field, options, activeValues
   return (
     <Accordion
       variant="soft"
-      defaultExpanded
+      defaultExpanded={defaultExpanded}
       sx={theme => ({ backgroundColor: theme.vars.palette.common.white, border: "none" })}
     >
       <AccordionSummary
@@ -56,6 +56,7 @@ export default function FilterGroup({ items, label, field, options, activeValues
               backgroundColor: `${isActive ? theme.vars.palette.success[200] : theme.vars.palette.common.white} !important`,
               borderBottom: "1px solid",
               borderBottomColor: isActive ? theme.vars.palette.success[600] : theme.vars.palette.common.black,
+              paddingLeft: { xs: "0", md: "12px" }
             })
           },
           indicator: {

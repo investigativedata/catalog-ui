@@ -13,12 +13,11 @@ export type TFilter = {
 }
 
 export type TFilters = { 
-  items: IDataset[],
   filters: TFilter[],
-  setFilters: (filters: TFilter[]) => void
+  defaultExpanded: boolean
 };
 
-export default function Filters({ items, filters, setFilters }: TFilters) {
+export default function Filters({ filters, defaultExpanded }: TFilters) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -55,7 +54,8 @@ export default function Filters({ items, filters, setFilters }: TFilters) {
       {filterOptions.map(({ label, field, values, type }) => (
         <FilterGroup
           key={field}
-          items={items}
+          defaultExpanded={defaultExpanded}
+          // items={items}
           label={label}
           field={field}
           options={values}

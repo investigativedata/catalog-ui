@@ -32,8 +32,8 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
   return (
     <Grid xs={12} md={4} lg={3} sx={{ 
       position: { xs: "static", md: "sticky" },
-      top: headerCollapsed ? "var(--header-height-collapsed)" : { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
-      maxHeight: headerCollapsed ? "calc(100vh - var(--header-height-collapsed))" : { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
+      top: headerCollapsed ? "var(--header-height-collapsed)" : { xs: "var(--header-height-mobile)", md: "var(--header-height)" },
+      maxHeight: { xs: "0", md: headerCollapsed ? "calc(100vh - var(--header-height-collapsed))" : "calc(100vh - var(--header-height) - 2rem)" },
       marginBottom: "auto",
       overflow: "scroll",
       transition: "var(--header-transition)",
@@ -128,13 +128,11 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
         <Search
           value={searchValue}
           setValue={setSearchValue}
-          filterCount={Object.values(activeFilters).flat().length}
+          activeFilters={activeFilters}
+          setActiveFilters={setActiveFilters}
           clearFilters={clearFilters}
           resultSummary={
             <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
-          }
-          filters={
-            <Filters items={filteredItems} filters={activeFilters} setFilters={setActiveFilters} />
           }
         />
       </FixedColumn>

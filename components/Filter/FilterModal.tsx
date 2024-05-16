@@ -33,14 +33,26 @@ export default function FilterModal({ filterCount, children }): TFilterModal {
           <Box
             sx={{
               overflow: "scroll",
-              marginTop: "4rem"
+              marginTop: "5rem",
             }}
           >
             {children}
+            {/* <Button
+              size="md"
+              fullWidth={false}
+              onClick={() => setOpen(false)}
+              sx={{
+                display: "inline-block",
+                marginTop: "2rem",
+                position: "relative",
+                left: "50%",
+                transform: "translateX(-50%)"
+              }}
+            >
+              Apply {filterCount} filters
+            </Button> */}
           </Box>
-          <Button size="md" fullWidth={false} onClick={() => setOpen(false)}>
-            Apply {filterCount} filters
-          </Button>
+         
         </ModalDialog>
       </Modal>
     </Fragment>
