@@ -2,7 +2,7 @@ import numeral from "numeral";
 import dayjs from 'dayjs'
 
 type Value = {
- readonly value: string;
+ readonly value: string | number;
 };
 
 const renderDate = ({ value }: Value): string => {
@@ -16,7 +16,7 @@ const renderNumeric = ({ value }: Value): string => {
 };
 
 type PropertyProps = {
- value: string,
+ value: Value,
  type?: string
 };
 

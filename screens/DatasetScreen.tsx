@@ -15,17 +15,18 @@ import DatasetLastUpdated from "~/components/Dataset/DatasetLastUpdated";
 import CountryLabel from "~/components/CountryLabel";
 import Count from "~/components/Count";
 import CTADrawer from "~/components/CTADrawer";
+import Tags from '~/components/Tags';
 
 
 const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
   return (
-    <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px" }}>
+    <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px", marginBottom: "32px !important" }}>
       <Typography
         level="h5"
-        endDecorator={count && <Count value={count} />}
-        sx={{ textTransform: 'capitalize' }}
+        sx={{ textTransform: 'capitalize', fontWeight: "bold" }}
       >
         {label}
+        {!!count && <span style={{ fontWeight: "normal" }}> ({count})</span>}
       </Typography>
     </Card>
   );
@@ -34,7 +35,7 @@ const DatasetSectionHeader = ({ label, count }: { label: string, count?: number 
 const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
   return (
     <Stack spacing={3}>
-      <Grid container spacing={0}>
+      <Grid container spacing={2} sx={{ marginLeft: "-8px !important" }}>
         <Grid xs={6}>
           <DatasetProperty label="entities" value={dataset.entity_count} type="number" />
         </Grid>
@@ -49,18 +50,18 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="last updated" value={dataset.updated_at} type="date" />
-          <DatasetLastUpdated datetime={dataset.updated_at} />
+          <Box sx={{ paddingTop: "4px" }}>
+            <DatasetLastUpdated datetime={dataset.updated_at} />
+          </Box>
         </Grid>
       </Grid>
-      <Typography level="body-sm">{dataset.summary}</Typography>
+      <Typography level="body-md">{dataset.summary}</Typography>
       <DatasetProperty label="slug" value={dataset.name} />
     </Stack>
   );
 }
 
 const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
-  const { entity_count } = dataset;
-
   const things = dataset.things as ISchemataStats
   const intervals = dataset.intervals as ISchemataStats
 
@@ -79,22 +80,28 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
     )
     .sort((a, b) => a.count > b.count ? -1 : 1);
 
+  const itemStyles = theme => ({ 
+    borderBottom: `1px dotted ${theme.vars.palette.common.black}`, 
+    margin: "0 !important", 
+    padding: "8px 0"
+  })
+
   return (
-    <Stack spacing={2}>
+    <Stack spacing={4}>
       {schemataMerged.length > 0 && (
         <>
           <DatasetSectionHeader label="entity types" active={!!schemataMerged.length} count={schemataMerged.length} />
           {schemataMerged.map((d: ISchema) => (
-            <div key={d.name}>
+            <Box key={d.name} sx={itemStyles}>
               <Stack
                 direction="row"
                 justifyContent="space-between"
                 spacing={3}
               >
-                <Typography level="body-sm">{d.plural}</Typography>
+                <Typography level="body-sm" sx={theme => ({ color: theme.vars.palette.common.black })}>{d.plural}</Typography>
                 <Count value={d.count} />
               </Stack>
-            </div>
+            </Box>
           ))}
         </>
       )}
@@ -102,7 +109,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
         <>
           <DatasetSectionHeader label="countries" active={!!countriesMerged.length} count={countriesMerged.length} />
           {countriesMerged.map((country: ICountryStats) => (
-            <div key={country.code}>
+            <Box key={country.code} sx={itemStyles}>
               <Stack
                 direction="row"
                 justifyContent="space-between"
@@ -111,7 +118,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
                 <CountryLabel iso={country.code} label={country.label} />
                 <Count value={country.count} />
               </Stack>
-            </div>
+            </Box>
           ))}
         </>
       )}
@@ -124,46 +131,48 @@ const DatasetMetadataSecondary = ({ dataset, openDrawer }: { dataset: IDataset, 
   const { publisher, maintainer } = dataset;
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       {publisher && (
         <>
           <DatasetSectionHeader label="publisher" active={!!publisher} />
-          <div>
-            {publisher.url ? (
-              <Link href={publisher.url}>{publisher.name}</Link>
-            ) : (
-              <Typography>{publisher.name}</Typography>
-            )}
-            {publisher.description && (
-              <Typography level="body-sm">{publisher.description}</Typography>
-            )}
-            {publisher.country && (
-              <CountryLabel iso={publisher.country} label={publisher.country_label} />
-            )}
-          </div>
+          {publisher.url ? (
+            <Link href={publisher.url} style={{ marginTop: "0" }}>{publisher.name}</Link>
+          ) : (
+            <Typography>{publisher.name}</Typography>
+          )}
+          {publisher.description && (
+            <Typography level="body-sm" sx={theme => ({ color: theme.vars.palette.common.black })}>{publisher.description}</Typography>
+          )}
+          {publisher.country && (
+            <CountryLabel iso={publisher.country} label={publisher.country_label} />
+          )}
         </>
       )}
       
       {maintainer && (
         <>
           <DatasetSectionHeader label="maintainer" />
-          <div>
-            {maintainer.url ? (
-              <Link href={maintainer.url}>{maintainer.name}</Link>
-            ) : (
-              <Typography>{maintainer.name}</Typography>
-            )}
-            {maintainer.description && (
-              <Typography level="body-sm">{maintainer.description}</Typography>
-            )}
-            {maintainer.country && (
-              <CountryLabel iso={maintainer.country} label={maintainer.country_label} />
-            )}
-          </div>
+          {maintainer.url ? (
+            <Link href={maintainer.url} style={{ marginTop: "0" }}>{maintainer.name}</Link>
+          ) : (
+            <Typography>{maintainer.name}</Typography>
+          )}
+          {maintainer.description && (
+            <Typography level="body-sm" sx={theme => ({ color: theme.vars.palette.common.black })}>{maintainer.description}</Typography>
+          )}
+          {maintainer.country && (
+            <CountryLabel iso={maintainer.country} label={maintainer.country_label} />
+          )}
         </>
       )}
       <div>
-        <Button variant="outlined" size="md" onClick={openDrawer}>
+        <Button
+          size="md"
+          color="neutral"
+          variant="outlined"
+          onClick={openDrawer}
+          sx={{ backgroundColor: "transparent" }}
+        >
           Use this data
         </Button>
       </div>
@@ -176,10 +185,17 @@ export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   return (
-    <>
-      <Stack>
-        <Typography level="h2">{dataset.title || dataset.name}</Typography>
-
+    <Box sx={{ 
+      padding: "5rem 0",
+      maxWidth: "1400px",
+      margin: "auto"
+    }}>
+      <Stack >
+        <Box sx={{ paddingBottom: "2rem" }}>
+          <Typography level="h2" sx={{ paddingBottom: "1rem" }}>{dataset.title || dataset.name}</Typography>
+          {/* TODO: replace with values from metadata */}
+          <Tags items={[ { label: 'Lorem Ipsum', value:"lorem_ipsum" }]} />
+        </Box>
         <Grid container spacing={6}>
           <Grid xs={12} sm={6} md={5}>
             <DatasetMetadataMain dataset={dataset} />
@@ -191,13 +207,8 @@ export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
             <DatasetMetadataSecondary dataset={dataset} openDrawer={() => setDrawerOpen(true)} />
           </Grid>
         </Grid>
-
-        <code>
-          <pre>{JSON.stringify(dataset, null, 2)}</pre>
-        </code>
       </Stack>
       <CTADrawer open={drawerOpen} onClose={() => setDrawerOpen(false)}/>
-    </>
-  
+    </Box>
   );
 }

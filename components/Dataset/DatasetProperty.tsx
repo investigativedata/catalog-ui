@@ -56,7 +56,7 @@ export default function DatasetProperty({ label, labelEndDecorator, value, type,
   const capitalize = type === 'string' || type === 'frequency';
 
   return (
-   <Stack>
+   <Stack gap={0.5}>
       <Typography
         level="body-xs"
         endDecorator={labelEndDecorator}

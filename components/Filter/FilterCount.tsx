@@ -45,7 +45,7 @@ export default function FilterCount({ onClear, value, verbose, withIcon }: TFilt
     >
       <span>{value}</span>
       {withIcon && (
-        <IconButton sx={{ display: { xs: "none", sm: "inline-flex" }, minWidth: "0", padding: "0" }} disabled>
+        <IconButton sx={{ display: { xs: "none", md: "inline-flex" }, minWidth: "0", padding: "0" }} disabled>
           <img
             src="/static/icons/filter_white.svg"
             style={{ 

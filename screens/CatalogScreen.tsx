@@ -9,8 +9,7 @@ import Fuse from "fuse.js";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 
 import Catalog from "~/components/Catalog";
-import Search from "~/components/Search";
-import Filters from "~/components/Filter/Filters";
+import CatalogControls from "~/components/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 import { filterOptions } from "~/util";
 import { HeaderScrollContext } from '../components/PageContext';
@@ -125,11 +124,10 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
         </code> */}
       </Grid>
       <FixedColumn style={{ order: { xs: "1", md: "2" }}}>
-        <Search
-          value={searchValue}
-          setValue={setSearchValue}
+        <CatalogControls
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
           activeFilters={activeFilters}
-          setActiveFilters={setActiveFilters}
           clearFilters={clearFilters}
           resultSummary={
             <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />

@@ -7,16 +7,15 @@ import FilterCount from './Filter/FilterCount';
 import FilterModal from './Filter/FilterModal';
 import Filters from './Filter/Filters';
 
-export type TSearch = {
-  value: string,
-  setValue: (value: string) => void,
+export type TCatalogControls = {
+  searchValue: string,
+  setSearchValue: (value: string) => void,
   activeFilters: any,
-  setActiveFilters: () => void,
   clearFilters: () => void,
   resultSummary: any
 };
 
-export default function Search({ activeFilters, setActiveFilters, clearFilters, value, setValue, resultSummary }): TSearch {
+export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, resultSummary }): TCatalogControls {
   const filterCount = Object.values(activeFilters).flat().length;
 
   return (
@@ -33,8 +32,8 @@ export default function Search({ activeFilters, setActiveFilters, clearFilters, 
           variant="plain"
           size="sm"
           placeholder="Search in Data Catalog"
-          value={value}
-          onChange={(event) => setValue(event.target.value)}
+          value={searchValue}
+          onChange={(event) => setSearchValue(event.target.value)}
           startDecorator={<img src={`/static/icons/search.svg`} />}
           sx={{
             '--Input-focusedThickness': '0rem',

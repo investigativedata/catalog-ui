@@ -1,5 +1,7 @@
 import Chip from '@mui/joy/Chip'
 
+import Property from './Property';
+
 export default function Count({ value }: { value: number }) {
   return (
     <Chip
@@ -11,7 +13,7 @@ export default function Count({ value }: { value: number }) {
         padding: "2px 8px"
       }}
     >
-      {value}
+      <Property value={value} type="number" />
     </Chip>
   );
 }

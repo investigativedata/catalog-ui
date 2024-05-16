@@ -13,6 +13,12 @@ export default function CountryLabel({ iso, label }: { iso: string | null, label
 
   const countryLabel = label === 'eu' ? "European Union" : label;
   return (
-    <Typography level="body-sm" startDecorator={<CountryFlag iso={iso.toLowerCase()} />}>{countryLabel}</Typography>
+    <Typography
+      level="body-sm"
+      sx={theme => ({ color: theme.vars.palette.common.black })}
+      startDecorator={<CountryFlag iso={iso.toLowerCase()} />}
+    >
+      {countryLabel}
+    </Typography>
   )
 }
