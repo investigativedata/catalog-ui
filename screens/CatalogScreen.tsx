@@ -31,13 +31,14 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
 
   return (
     <Grid xs={12} md={4} lg={3} sx={{ 
-      position: { xs: "static", sm: "sticky" },
+      position: { xs: "static", md: "sticky" },
       top: headerCollapsed ? "var(--header-height-collapsed)" : { xs: "var(--header-height-mobile)", sm: "var(--header-height)" },
       maxHeight: headerCollapsed ? "calc(100vh - var(--header-height-collapsed))" : { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
       marginBottom: "auto",
       overflow: "scroll",
       boxShadow: "0px 4px 32px 0px #FFF8F1",
       transition: "var(--header-transition)",
+      paddingTop: { xs: "4rem", md: "0" },
       ...style 
     }}>
       {children}
@@ -108,14 +109,14 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
     <Grid container spacing={4} sx={{ flexGrow: 1 }}>
       <FixedColumn>
         <Box>
-          <Typography level="h1" sx={{ fontSize: { xs: "3rem", md: "2.2rem", xl: "3rem" } }}>Find the data for your investigations</Typography>
-          <Typography level="body-md" style={{ marginBottom: '25px' }}>Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
+          <Typography level="h1" sx={{ fontSize: { xs: "2.7rem", sm: "3rem", md: "2.2rem", xl: "3rem" } }}>Find the data for your investigations</Typography>
+          <Typography level="body-md" style={{ paddingBottom: '2rem' }}>Here you will find over 100 frequently updated datasets derived from various official sources.</Typography>
           <Typography level="body-md">You do not know where to start? We created carefully selected collections for you.</Typography>
         </Box>
       </FixedColumn>
       <Grid xs={12} md={4} lg={6} sx={{ order: { xs: "2", md: "1", paddingTop: "2rem" }}}>
         <Catalog datasets={filteredItems} />
-        <Box padding="4rem 0 1rem" textAlign="center">
+        <Box padding="4rem 0 4rem" textAlign="center">
           <img src={`/static/icons/ok.svg`} />
           <Typography level="body-md">You have seen all datasets.</Typography>
           <Typography level="body-md">Keep checking – we add datasets regularly.</Typography>
