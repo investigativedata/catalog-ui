@@ -13,7 +13,12 @@ export default function Tags({ items, activeValues, onClick }: TTags) {
   return (
     <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
       {items.map(({ label, value }) => (
-        <Tag label={label} active={activeValues?.includes(value)} onClick={onClick ? () => onClick(value) : undefined } />
+        <Tag
+          key={value}
+          label={label}
+          active={activeValues?.includes(value)}
+          onClick={onClick ? () => onClick(value) : undefined }
+        />
       ))}
     </Stack>
   );

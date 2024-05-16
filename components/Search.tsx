@@ -47,7 +47,7 @@ export default function Search({ filterCount, clearFilters, value, setValue, fil
           alignItems="center"
           spacing={0}
         >
-          <FilterCount value={filterCount} onClear={clearFilters} />
+          <FilterCount value={filterCount} onClear={clearFilters} withIcon />
           <FilterModal filterCount={filterCount}>
             {resultSummary}
             {filters}
