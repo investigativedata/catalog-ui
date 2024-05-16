@@ -36,9 +36,8 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
       maxHeight: headerCollapsed ? "calc(100vh - var(--header-height-collapsed))" : { xs: "calc(100vh - var(--header-height-mobile) - 2rem)", sm: "calc(100vh - var(--header-height) - 2rem)" },
       marginBottom: "auto",
       overflow: "scroll",
-      boxShadow: "0px 4px 32px 0px #FFF8F1",
       transition: "var(--header-transition)",
-      paddingTop: { xs: "4rem", md: "0" },
+      paddingTop: { xs: "4rem", md: "1rem" },
       ...style 
     }}>
       {children}
@@ -106,7 +105,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
   }
 
   return (
-    <Grid container spacing={4} sx={{ flexGrow: 1 }}>
+    <Grid container spacing={4} sx={{ flexGrow: 1, marginBottom: "1rem" }}>
       <FixedColumn>
         <Box>
           <Typography level="h1" sx={{ fontSize: { xs: "2.7rem", sm: "3rem", md: "2.2rem", xl: "3rem" } }}>Find the data for your investigations</Typography>
