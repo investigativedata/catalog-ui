@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+
 import type { ICountryStats, IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
@@ -16,6 +16,7 @@ import CountryLabel from "~/components/CountryLabel";
 import Count from "~/components/Count";
 import CTADrawer from "~/components/CTADrawer";
 import Tags from '~/components/Tags';
+import DatasetSectionItems from '~/components/Dataset/DatasetSectionItems';
 
 
 const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
@@ -80,46 +81,28 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
     )
     .sort((a, b) => a.count > b.count ? -1 : 1);
 
-  const itemStyles = theme => ({ 
-    borderBottom: `1px dotted ${theme.vars.palette.common.black}`, 
-    margin: "0 !important", 
-    padding: "8px 0"
-  })
+  
 
   return (
     <Stack spacing={4}>
       {schemataMerged.length > 0 && (
         <>
           <DatasetSectionHeader label="entity types" active={!!schemataMerged.length} count={schemataMerged.length} />
-          {schemataMerged.map((d: ISchema) => (
-            <Box key={d.name} sx={itemStyles}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                spacing={3}
-              >
-                <Typography level="body-sm" sx={theme => ({ color: theme.vars.palette.common.black })}>{d.plural}</Typography>
-                <Count value={d.count} />
-              </Stack>
-            </Box>
-          ))}
+          <DatasetSectionItems
+            items={schemataMerged}
+            renderLabel={(item) => <Typography level="body-sm" sx={theme => ({ color: theme.vars.palette.common.black })}>{item.plural}</Typography>}
+            showAllByDefault
+          />
         </>
       )}
       {countriesMerged.length > 0 && (
         <>
           <DatasetSectionHeader label="countries" active={!!countriesMerged.length} count={countriesMerged.length} />
-          {countriesMerged.map((country: ICountryStats) => (
-            <Box key={country.code} sx={itemStyles}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                spacing={3}
-              >
-                <CountryLabel iso={country.code} label={country.label} />
-                <Count value={country.count} />
-              </Stack>
-            </Box>
-          ))}
+          <DatasetSectionItems
+            items={countriesMerged}
+            renderLabel={(item) => <CountryLabel iso={item.code} label={item.label} />}
+            showAllByDefault={false}
+          />
         </>
       )}
       
