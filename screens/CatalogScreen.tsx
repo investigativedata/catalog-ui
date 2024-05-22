@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import type { ICatalog, IDataset, TDatasetFrequency } from "@investigativedata/ftmq";
+import { getCatalog, type ICatalog, type IDataset, type TDatasetFrequency } from "@investigativedata/ftmq";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
 import Box from '@mui/joy/Box';
@@ -13,6 +13,7 @@ import CatalogControls from "~/components/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 import filterOptions from "~/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
+import { calculateCatalogStats } from '~/util'
 
 
 const initializeSearchIndex = (items: IDataset[]) => {
@@ -129,6 +130,7 @@ export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
           resultSummary={
             <FilterResultSummary active={filteredItems.length} total={catalogItems.length} />
           }
+          filterItemCounts={calculateCatalogStats(filteredItems)}
         />
       </FixedColumn>
     </Grid>

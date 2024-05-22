@@ -5,7 +5,7 @@ import { getCatalog } from "@investigativedata/ftmq";
 
 import { transformFTMCatalog } from "~/util"
 
-// import catalog from '../public/investigraph.eu.json'
+import catalog from '../public/investigraph.eu.json'
 
 const breadcrumbs = [
   {
@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 export default async function CatalogPage() {
-  const catalog = await getCatalog(CATALOG_URI);
+  // const catalog = await getCatalog(CATALOG_URI);
   const catalogTransformed = transformFTMCatalog(catalog)
   
   return (

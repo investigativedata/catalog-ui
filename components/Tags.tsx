@@ -2,6 +2,7 @@ import Stack from "@mui/joy/Stack";
 
 import Tag from "./Tag";
 import { TFilter } from "./Filter/Filters";
+import { capitalizeFirstLetter } from "~/util";
 
 export type TTags = { 
   items: TFilter[],
@@ -12,10 +13,10 @@ export type TTags = {
 export default function Tags({ items, activeValues, onClick }: TTags) {
   return (
     <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-      {items.map(({ label, value }) => (
+      {items.map(value => (
         <Tag
           key={value}
-          label={label}
+          label={capitalizeFirstLetter(value)}
           active={activeValues?.includes(value)}
           onClick={onClick ? () => onClick(value) : undefined }
         />

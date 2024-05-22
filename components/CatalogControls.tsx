@@ -12,10 +12,11 @@ export type TCatalogControls = {
   setSearchValue: (value: string) => void,
   activeFilters: any,
   clearFilters: () => void,
-  resultSummary: any
+  resultSummary: any,
+  filterItemCounts: any
 };
 
-export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, resultSummary }): TCatalogControls {
+export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue,  filterItemCounts, resultSummary }): TCatalogControls {
   const filterCount = Object.values(activeFilters).flat().length;
 
   return (
@@ -51,12 +52,12 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
           <FilterCount value={filterCount} onClear={clearFilters} withIcon />
           <FilterModal filterCount={filterCount}>
             {resultSummary}
-            <Filters filters={activeFilters} defaultExpanded={false} />
+            <Filters filters={activeFilters} filterItemCounts={filterItemCounts} defaultExpanded={false} />
           </FilterModal>
         </Stack>
       </Stack>
       <Box sx={{ display: { xs: "none", md: "block" } }}>
-        <Filters filters={activeFilters} defaultExpanded />
+        <Filters filters={activeFilters} filterItemCounts={filterItemCounts} defaultExpanded />
       </Box>
     </Stack>
   )

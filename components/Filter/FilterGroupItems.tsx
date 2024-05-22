@@ -17,10 +17,10 @@ export type TFilterGroupItems = {
 export default function FilterGroupItems({ items, activeValues, onChange, type }: TFilterGroupItems) {
   return (
     <List>
-      {items.map(({ label, value }) => (
+      {items.map(({ value, count }) => (
         <ListItem key={value}>
           <Checkbox
-            label={<DatasetPropertyValue displayValue={label} value={value} type={type} style={theme => ({ color: theme.vars.palette.common.black })} />}
+            label={<DatasetPropertyValue displayValue={value} value={value} type={type} style={theme => ({ color: theme.vars.palette.common.black })} />}
             variant="soft"
             color="neutral"
             checked={activeValues.includes(value)}
@@ -34,7 +34,7 @@ export default function FilterGroupItems({ items, activeValues, onChange, type }
               }
             }}
           />
-          <Count value={5} />
+          <Count value={count} />
         </ListItem>
       ))}
     </List>

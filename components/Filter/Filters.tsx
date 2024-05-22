@@ -13,20 +13,22 @@ export type TFilters = {
   filters: TFilter[],
   toggleFilter: (field: string, value: string) => void,
   clearFilterGroup: (field: string) => void,
-  defaultExpanded: boolean
+  defaultExpanded: boolean,
+  filterItemCounts: any
 };
 
-export default function Filters({ filters, toggleFilter, clearFilterGroup, defaultExpanded }: TFilters) {
+export default function Filters({ filters, toggleFilter, clearFilterGroup, defaultExpanded, filterItemCounts }: TFilters) {
+  // const mergeOptionsWithCounts = (options, counts) => options.map(opt => counts[opt])
+  
   return (
     <AccordionGroup sx={{ backgroundColor: "none" }}>
-      {filterOptions.map(({ label, field, values, type }) => (
+      {filterOptions.map(({ label, field, type }) => (
         <FilterGroup
           key={field}
           defaultExpanded={defaultExpanded}
-          // items={items}
           label={label}
           field={field}
-          options={values}
+          options={filterItemCounts[field]}
           type={type}
           activeValues={filters[field]}
           onChange={toggleFilter}

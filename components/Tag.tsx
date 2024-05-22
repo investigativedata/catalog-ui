@@ -25,7 +25,6 @@ export default function Tag({ label, active, onClick }: TTag) {
           })
         }
       }}
-      
     >
       <span>{label}</span>
     </Chip>
