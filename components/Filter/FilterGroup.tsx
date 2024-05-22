@@ -8,7 +8,6 @@ import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import Box from '@mui/joy/Box';
 
-import { getFilterValueCount } from "../../util";
 import FilterCount from "./FilterCount";
 import FilterGroupItems from "./FilterGroupItems";
 import { DatasetPropertyValue } from "../Dataset/DatasetProperty";

@@ -11,7 +11,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Catalog from "~/components/Catalog";
 import CatalogControls from "~/components/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
-import { filterOptions } from "~/util";
+import filterOptions from "~/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
 
 
@@ -44,8 +44,8 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
   );
 }
 
-export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
-  if (!catalog?.datasets) {
+export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
+  if (!catalogItems) {
     return null;
   }
 
@@ -58,7 +58,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
     {}
   );
 
-  const searchIndex = initializeSearchIndex(catalog?.datasets)
+  const searchIndex = initializeSearchIndex(catalogItems)
   const [searchValue, setSearchValue] = useState('');
   const [activeFilters, setActiveFilters] = useState(getFiltersFromUrl());
   const [filteredItems, setFilteredItems] = useState([]);
@@ -88,7 +88,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
     }
 
     if (searchPredicate.length === 0) {
-      setFilteredItems(catalog.datasets)
+      setFilteredItems(catalogItems)
     } else {
       
       const results = searchIndex.search({ $and: searchPredicate })
@@ -119,9 +119,6 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           <Typography level="body-md">You have seen all datasets.</Typography>
           <Typography level="body-md">Keep checking – we add datasets regularly.</Typography>
         </Box>
-        {/* <code>
-          <pre>{JSON.stringify(catalog.datasets, null, 2)}</pre>
-        </code> */}
       </Grid>
       <FixedColumn style={{ order: { xs: "1", md: "2" }}}>
         <CatalogControls
@@ -130,7 +127,7 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalog }) {
           activeFilters={activeFilters}
           clearFilters={clearFilters}
           resultSummary={
-            <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
+            <FilterResultSummary active={filteredItems.length} total={catalogItems.length} />
           }
         />
       </FixedColumn>

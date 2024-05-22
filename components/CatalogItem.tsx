@@ -27,9 +27,9 @@ function CatalogItemDetails({ dataset }: CatalogItemProps) {
           spacing={3}
         >
           <Stack spacing={2} width="50%">
-            <DatasetProperty label="entities" value={dataset.entity_count} type="number" />
-            <DatasetProperty label="category" value={dataset.category || "Other"} />
-            <DatasetProperty label="frequency" value={dataset.coverage?.frequency} type="string" />
+            <DatasetProperty label="entities" value={dataset.entityCount} type="number" />
+            <DatasetProperty label="category" value={dataset.category} />
+            <DatasetProperty label="frequency" value={dataset.frequency} type="string" />
           </Stack>
           <Stack spacing={2} width="50%">
             {publisher && (
@@ -62,9 +62,9 @@ function CatalogItemDetails({ dataset }: CatalogItemProps) {
           })}
         >
           <span>Last updated: </span>
-          <Property value={dataset.updated_at} type="date" />
+          <Property value={dataset.updatedAt} type="date" />
           <span> </span>
-          <DatasetLastUpdated datetime={dataset.updated_at} onlyShowToday level="body-xs" />
+          <DatasetLastUpdated datetime={dataset.updatedAt} onlyShowToday level="body-xs" />
         </Typography>
       </Stack>
     </Box>
@@ -112,7 +112,7 @@ export default function CatalogItem({ dataset }: CatalogItemProps) {
             </Typography>
           </Link>
           {/* TODO: replace with values from metadata */}
-          <Tags items={[ { label: 'Lorem Ipsum', value:"lorem_ipsum" }]} />
+          <Tags items={dataset.tags} />
         </Stack>
         <CatalogItemDetails dataset={dataset} />
       </CardContent>

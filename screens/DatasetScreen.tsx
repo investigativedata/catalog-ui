@@ -1,6 +1,6 @@
 "use client";
 
-
+import { useState } from "react";
 import type { ICountryStats, IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
@@ -38,21 +38,21 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
     <Stack spacing={3}>
       <Grid container spacing={2} sx={{ marginLeft: "-8px !important" }}>
         <Grid xs={6}>
-          <DatasetProperty label="entities" value={dataset.entity_count} type="number" />
+          <DatasetProperty label="entities" value={dataset.entityCount} type="number" />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="category" value={dataset.category || "Other"} />
+          <DatasetProperty label="category" value={dataset.category} />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="frequency" value={dataset.coverage?.frequency} type="frequency" />
+          <DatasetProperty label="frequency" value={dataset.frequency} type="frequency" />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="type" value={dataset.coverage?.frequency} />
+          <DatasetProperty label="type" value={dataset.contentType} />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="last updated" value={dataset.updated_at} type="date" />
+          <DatasetProperty label="last updated" value={dataset.updatedAt} type="date" />
           <Box sx={{ paddingTop: "4px" }}>
-            <DatasetLastUpdated datetime={dataset.updated_at} />
+            <DatasetLastUpdated datetime={dataset.updatedAt} />
           </Box>
         </Grid>
       </Grid>
@@ -63,43 +63,25 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
 }
 
 const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
-  const things = dataset.things as ISchemataStats
-  const intervals = dataset.intervals as ISchemataStats
-
-  const schemataMerged = [...(things?.schemata || []), ...(intervals?.schemata || [])]
-    .sort((a, b) => a.count > b.count ? -1 : 1);
-
-  const countries = [...(things?.countries || []), ...(intervals?.countries || [])]
-
-  const countriesMerged = Object.values(
-      countries.reduce((acc, item) => {
-        acc[item.code] = acc[item.code]
-          ? { ...item, count: item.count + acc[item.code].count }
-          : item;
-        return acc;
-      }, {})
-    )
-    .sort((a, b) => a.count > b.count ? -1 : 1);
-
-  
+  const { countries, entityTypes } = dataset;
 
   return (
     <Stack spacing={4}>
-      {schemataMerged.length > 0 && (
+      {entityTypes.length > 0 && (
         <>
-          <DatasetSectionHeader label="entity types" active={!!schemataMerged.length} count={schemataMerged.length} />
+          <DatasetSectionHeader label="entity types" count={entityTypes.length} />
           <DatasetSectionItems
-            items={schemataMerged}
+            items={entityTypes}
             renderLabel={(item) => <Typography level="body-sm" sx={theme => ({ color: theme.vars.palette.common.black })}>{item.plural}</Typography>}
             showAllByDefault
           />
         </>
       )}
-      {countriesMerged.length > 0 && (
+      {countries.length > 0 && (
         <>
-          <DatasetSectionHeader label="countries" active={!!countriesMerged.length} count={countriesMerged.length} />
+          <DatasetSectionHeader label="countries" count={countries.length} />
           <DatasetSectionItems
-            items={countriesMerged}
+            items={countries}
             renderLabel={(item) => <CountryLabel iso={item.code} label={item.label} />}
             showAllByDefault={false}
           />

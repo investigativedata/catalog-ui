@@ -5,6 +5,7 @@ import { IDataset, getCatalog } from "@investigativedata/ftmq";
 import Page from "~/components/Page";
 import DatasetScreen from "~/screens/DatasetScreen";
 import { CATALOG_URI } from "~/settings";
+import { transformFTMDataset } from "~/util";
 
 async function getDataset(name: string): Promise<IDataset> {
   const catalog = await getCatalog(CATALOG_URI);
@@ -29,6 +30,8 @@ export async function generateMetadata({
 
 export default async function DatasetPage({ params }: { params: Params }) {
   const dataset = await getDataset(params.dataset);
+  const datasetTransformed = transformFTMDataset(dataset)
+
   const breadcrumbs = [
     {
       label: "Back to Data Catalog",
@@ -39,12 +42,7 @@ export default async function DatasetPage({ params }: { params: Params }) {
 
   return (
     <Page crumbs={breadcrumbs}>
-      <DatasetScreen dataset={dataset} />
+      <DatasetScreen dataset={datasetTransformed} />
     </Page>
   );
-}
-
-export async function generateStaticParams() {
-  const catalog = await getCatalog(CATALOG_URI);
-  return catalog.datasets?.map((d) => ({ dataset: d.name })) || [];
 }
