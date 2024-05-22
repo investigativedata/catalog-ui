@@ -70,9 +70,3 @@ export const filterOptions = [
     ]
   }
 ]
-
-export function getFilterValueCount(items: IDataset[], field: string, value: string): any {
-  // console.log(items, field, value);
-
-  return 5;
-}

@@ -20,7 +20,7 @@ import Tags from '~/components/Tags';
 
 const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
   return (
-    <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px", marginBottom: "32px !important" }}>
+    <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px", marginBottom: "24px !important" }}>
       <Typography
         level="h5"
         sx={{ textTransform: 'capitalize', fontWeight: "bold" }}
