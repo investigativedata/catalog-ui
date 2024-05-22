@@ -44,6 +44,8 @@ export function transformFTMDataset(dataset: IDataset) {
       }, {})
     )
     .sort((a, b) => a.count > b.count ? -1 : 1);
+  
+  console.log(tags)
 
   return ({
     category: category || "Other",
@@ -59,5 +61,36 @@ export function transformFTMDataset(dataset: IDataset) {
     tags: tags || [],
     title,
     updatedAt: updated_at,
+  })
+}
+
+const getFieldCounts = (items, field) => (
+  items.reduce((acc, item) => ({...acc, [item[field]]:(acc[item[field]] || 0) + 1}),{})
+)
+
+const getCountryCounts = (items) => {
+  const flattenedCountries = items
+    .map(({ countries }) => countries)
+    .flat()
+
+  return getFieldCounts(flattenedCountries, 'code')
+}
+
+const getTagCounts = (items) => (
+  items
+    .map(({ tags }) => tags)
+    .flat()
+    .reduce((acc, curr) => (
+      acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+    ), {})
+)
+
+export function calculateCatalogStats(datasets) {
+  return ({
+    category: getFieldCounts(datasets, 'category'),
+    contentType: getFieldCounts(datasets, 'contentType'),
+    countries:  getCountryCounts(datasets),
+    frequency: getFieldCounts(datasets, 'frequency'),
+    tags: getTagCounts(datasets)
   })
 }
