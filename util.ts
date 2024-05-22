@@ -9,8 +9,12 @@ export const debounce = (func, timeout = 300) => {
   };
 }
 
-export function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+export function capitalizeFirstLetter(str) {
+  if (!str) return;
+
+  const castStr = str.toString()
+
+  return castStr.charAt(0).toUpperCase() + castStr.slice(1);
 }
 
 

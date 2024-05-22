@@ -6,6 +6,7 @@ import Checkbox from '@mui/joy/Checkbox';
 import Count from "../Count";
 import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
 import { TFilter } from "./Filter/Filters";
+import { capitalizeFirstLetter } from '~/util';
 
 export type TFilterGroupItems = { 
   type: string,
@@ -20,10 +21,18 @@ export default function FilterGroupItems({ items, activeValues, onChange, type }
       {items.map(({ value, count }) => (
         <ListItem key={value}>
           <Checkbox
-            label={<DatasetPropertyValue displayValue={value} value={value} type={type} style={theme => ({ color: theme.vars.palette.common.black })} />}
+            label={
+              <DatasetPropertyValue
+                displayValue={capitalizeFirstLetter(value)}
+                value={value}
+                type={type}
+                style={theme => ({ color: count > 0 ? theme.vars.palette.common.black : "inherit" })} 
+              />
+            }
             variant="soft"
             color="neutral"
             checked={activeValues.includes(value)}
+            disabled={count === 0}
             onChange={() => onChange(value)}
             slotProps={{ 
               checkbox: { 
@@ -34,7 +43,7 @@ export default function FilterGroupItems({ items, activeValues, onChange, type }
               }
             }}
           />
-          <Count value={count} />
+          {count > 0 && <Count value={count} />}
         </ListItem>
       ))}
     </List>
