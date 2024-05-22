@@ -18,7 +18,9 @@ import { calculateCatalogStats } from '~/util'
 
 const initializeSearchIndex = (items: IDataset[]) => {
   return new Fuse(items, {
-    keys: ["title", "coverage.frequency"],
+    threshold: 0,
+    ignoreLocation: true,
+    keys: ["title"],
   });
 }
 
@@ -88,12 +90,15 @@ export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
       searchPredicate = [...searchPredicate, ...filtersFlat];
     }
 
+    console.log(searchPredicate)
+
     if (searchPredicate.length === 0) {
       setFilteredItems(catalogItems)
     } else {
-      
       const results = searchIndex.search({ $and: searchPredicate })
         .map((result) => result.item);
+
+      console.log(results)
 
       setFilteredItems(results)
     }
