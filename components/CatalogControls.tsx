@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Box from '@mui/joy/Box';
@@ -17,7 +19,45 @@ export type TCatalogControls = {
 };
 
 export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue,  filterItemCounts, resultSummary }): TCatalogControls {
-  const filterCount = Object.values(activeFilters).flat().length;
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const createQueryString = useCallback(
+    (name: string, value?: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+
+      if (!!value) {
+        if (params.has(name, value)) {
+          params.delete(name, value)
+        } else {
+          params.append(name, value)
+        }
+      } else {
+        params.delete(name)
+      }
+ 
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const toggleFilter = (field, value) => {
+    router.push(pathname + '?' + createQueryString(field, value))
+  }
+
+  const clearFilterGroup = (field) => {
+    router.push(pathname + '?' + createQueryString(field))
+  }
+  
+  const activeFilterCount = Object.values(activeFilters).flat().length;
+
+  const filtersComponentProps = {
+    filters: activeFilters,
+    filterItemCounts,
+    toggleFilter,
+    clearFilterGroup
+  }
 
   return (
     <Stack gap={2}>
@@ -49,15 +89,15 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
           alignItems="center"
           spacing={0}
         >
-          <FilterCount value={filterCount} onClear={clearFilters} withIcon />
-          <FilterModal filterCount={filterCount}>
+          <FilterCount value={activeFilterCount} onClear={clearFilters} withIcon />
+          <FilterModal filterCount={activeFilterCount}>
             {resultSummary}
-            <Filters filters={activeFilters} filterItemCounts={filterItemCounts} defaultExpanded={false} />
+            <Filters {...filtersComponentProps} defaultExpanded={false} />
           </FilterModal>
         </Stack>
       </Stack>
       <Box sx={{ display: { xs: "none", md: "block" } }}>
-        <Filters filters={activeFilters} filterItemCounts={filterItemCounts} defaultExpanded />
+        <Filters {...filtersComponentProps} defaultExpanded />
       </Box>
     </Stack>
   )

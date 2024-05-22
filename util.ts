@@ -115,3 +115,24 @@ export function calculateCatalogStats(datasets) {
     tags: getTags(datasets)
   })
 }
+
+export function applyActiveFilters(items, filters) {
+  let filteredItems = items
+
+  if (filters.contentType.length > 0) {
+    filteredItems = filteredItems.filter(({ contentType }) => filters.contentType.includes(contentType))
+  }
+  if (filters.frequency.length > 0) {
+    filteredItems = filteredItems.filter(({ frequency }) => filters.frequency.includes(frequency))
+  }
+
+  if (filters.tags.length > 0) {
+    filteredItems = filteredItems.filter(({ tags }) => filters.tags.some(t => tags.includes(t)))
+  }
+
+  if (filters.countries.length > 0) {
+    filteredItems = filteredItems.filter(({ countries }) => filters.countries.some(c => countries.includes(c)))
+  }
+
+  return filteredItems
+}

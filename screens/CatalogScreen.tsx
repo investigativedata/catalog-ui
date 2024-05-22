@@ -13,10 +13,10 @@ import CatalogControls from "~/components/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 import filterOptions from "~/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
-import { calculateCatalogStats } from '~/util'
+import { applyActiveFilters, calculateCatalogStats } from '~/util'
 
 
-const initializeSearchIndex = (items: IDataset[]) => {
+const initializeSearchIndex = (items: any[]) => {
   return new Fuse(items, {
     threshold: 0,
     ignoreLocation: true,
@@ -73,35 +73,16 @@ export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
   
   
   useEffect(() => {
-    let searchPredicate = [];
+    let items = catalogItems
 
     if (searchValue.length > 0) {
-      searchPredicate.push({ title: searchValue })
-    }
-
-    const filtersFlat = Object.entries(activeFilters)
-      .map(([field, values]) => (
-        !!values.length ? values.map(v => ({ [field]: v })) : []
-      ))
-      .filter(d => !!d.length)
-      .map(d => ({$or: d}))
-
-    if (filtersFlat.length > 0) {
-      searchPredicate = [...searchPredicate, ...filtersFlat];
-    }
-
-    console.log(searchPredicate)
-
-    if (searchPredicate.length === 0) {
-      setFilteredItems(catalogItems)
-    } else {
-      const results = searchIndex.search({ $and: searchPredicate })
+      items = searchIndex.search(searchValue)
         .map((result) => result.item);
-
-      console.log(results)
-
-      setFilteredItems(results)
     }
+
+    items = applyActiveFilters(items, activeFilters)
+
+    setFilteredItems(items)
   }, [searchValue, activeFilters]);
 
 

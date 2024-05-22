@@ -12,6 +12,7 @@ import DatasetLastUpdated from "./Dataset/DatasetLastUpdated";
 import Property from "./Property";
 import CountryLabel from "./CountryLabel";
 import Tags from "./Tags";
+import { capitalizeFirstLetter } from "~/util";
 
 function CatalogItemDetails({ dataset }: CatalogItemProps) {
   const { publisher, maintainer } = dataset;
@@ -96,8 +97,8 @@ export default function CatalogItem({ dataset }: CatalogItemProps) {
       <CardContent>
         <Stack sx={{ padding: "1rem" }} spacing="0.5rem">
           <DatasetPropertyValue
-            displayValue="Documents"
-            value="documents"
+            displayValue={capitalizeFirstLetter(dataset.contentType)}
+            value={dataset.contentType}
             type="datatype"
             style={theme => ({ marginBottom: "0.5rem", color: theme.vars.palette.common.black })}
           />
