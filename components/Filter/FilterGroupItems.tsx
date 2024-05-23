@@ -4,7 +4,7 @@ import ListItem from '@mui/joy/ListItem';
 import Checkbox from '@mui/joy/Checkbox';
 
 import Count from "../Count";
-import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
+import DatasetPropertyValue from "../Dataset/DatasetPropertyValue";
 import { TFilter } from "./Filter/Filters";
 import { capitalizeFirstLetter } from '~/util/util';
 

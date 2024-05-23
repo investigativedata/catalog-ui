@@ -10,7 +10,7 @@ import Box from '@mui/joy/Box';
 
 import FilterCount from "./FilterCount";
 import FilterGroupItems from "./FilterGroupItems";
-import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
+import DatasetPropertyValue from "../Dataset/DatasetPropertyValue";
 import Tags from "../Tags";
 import { TFilter } from "./Filter/Filters";
 

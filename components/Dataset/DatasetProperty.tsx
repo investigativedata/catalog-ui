@@ -1,55 +1,15 @@
-import { isValidElement } from 'react';
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import SvgIcon from "@mui/joy/SvgIcon"
+import type { Theme } from "@mui/joy";
+
 import { ReactNode } from "react";
-import Link from 'next/link';
 
-// import FrequencyIcon from "/static/icons/frequency.svg";
-
-import Property from '../Property';
-import { CountryFlag } from '../CountryLabel';
-
-type DatasetPropertyValueProps = {
-  value: string | number | Element | null | undefined,
-  displayValue: string | Element,
-  type?: string,
-  href?: string
-  style?: any
-}
-
-export function DatasetPropertyValue({ displayValue, value, type, href, style }: DatasetPropertyValueProps) {
-  if (value === null || value === undefined) return null;
-
-  let startDecorator;
-
-  if (type === "frequency") {
-    startDecorator = <img src={`/static/icons/frequency.svg`} />
-  } else if (type === "country") {
-    startDecorator = <CountryFlag iso={value} />
-  } else if (type === "datatype") {
-    startDecorator = <img src={`/static/icons/${value}.svg`} />
-  }
-
-  const content = (
-    <Typography level="body-sm" startDecorator={startDecorator} sx={style}>
-      <Property value={displayValue || value} type={type} />
-    </Typography>
-  );
-
-  if (href) {
-    return (
-      <Link href={href}>{content}</Link>
-    )
-  }
-
-  return content;
-}
+import DatasetPropertyValue from "./DatasetPropertyValue";
 
 type DatasetPropertyProps = {
   label: string,
   labelEndDecorator?: ReactNode | null,
-  value: string | number | Element | null | undefined,
+  value: string | number | null | undefined,
   type?: string
   href?: string | null
 };
@@ -78,7 +38,7 @@ export default function DatasetProperty({ label, labelEndDecorator, value, type,
         value={value}
         type={type}
         href={href}
-        style={theme => ({ 
+        style={(theme: Theme) => ({ 
           fontWeight: !href ? 'bold' : '400', 
           color: theme.vars.palette.common.black, 
           lineHeight: "130%",

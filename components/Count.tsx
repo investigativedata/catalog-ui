@@ -2,7 +2,7 @@ import Chip from '@mui/joy/Chip'
 
 import Property from './Property';
 
-export default function Count({ value }: { value: number }) {
+export default function Count({ value }: { value: number | string }) {
   return (
     <Chip
       variant="soft"

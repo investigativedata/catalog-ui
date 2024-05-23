@@ -1,4 +1,5 @@
 import Typography from "@mui/joy/Typography";
+import { TypographySystem } from "@mui/joy";
 import dayjs from 'dayjs'
 const relativeTime = require('dayjs/plugin/relativeTime')
 const updateLocale = require('dayjs/plugin/updateLocale')
@@ -29,7 +30,7 @@ dayjs.updateLocale('en', {
 type DatasetLastUpdatedProps = {
   datetime?: string | null,
   onlyShowToday?: boolean,
-  level?: string
+  level?: keyof TypographySystem
 }
 
 export default function DatasetLastUpdated({ datetime, onlyShowToday, level }: DatasetLastUpdatedProps) {

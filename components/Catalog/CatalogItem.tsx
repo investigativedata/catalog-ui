@@ -5,7 +5,7 @@ import Typography from "@mui/joy/Typography";
 import Link from '@mui/joy/Link';
 import type { Theme } from "@mui/joy";
 
-import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
+import DatasetPropertyValue from "../Dataset/DatasetPropertyValue";
 import Tags from "../Tags";
 import { capitalizeFirstLetter } from "~/util/util";
 import { IDatasetTransformed } from "~/util/transformFTM";

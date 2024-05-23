@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Stack from "@mui/joy/Stack";
-import Typography from "@mui/joy/Typography";
+import type { Theme } from "@mui/joy";
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Add from '@mui/icons-material/Add';
@@ -13,15 +13,15 @@ type DatasetSectionItem = {
 }
 
 type DatasetSectionItemsProps = {
-  items: any[],
-  renderLabel: (item: any) => React.Component
+  items: DatasetSectionItem[],
+  renderLabel: (item: DatasetSectionItem) => string
   showAllByDefault: boolean
 }
 
 const DatasetSectionItems = ({ items, renderLabel, showAllByDefault }: DatasetSectionItemsProps) => {
  const [showAll, setShowAll] = useState(showAllByDefault)
 
-  const itemStyles = theme => ({ 
+  const itemStyles = (theme: Theme) => ({ 
     borderBottom: `1px dotted ${theme.vars.palette.common.black}`, 
     margin: "0 !important", 
     padding: "8px 0"

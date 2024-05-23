@@ -17,7 +17,7 @@ export default function Tag({ label, onClick }: TTag) {
       slotProps={{
         action: {
           sx: theme => ({
-            backgroundColor: active ? theme.vars.palette.success[200] : "#fff",
+            backgroundColor: theme.vars.palette.success[200],
             padding: "2px 8px",
             pointerEvents: isStatic ? 'none' : 'all',
             "&:hover": { backgroundColor: theme.vars.palette.success[50] },
