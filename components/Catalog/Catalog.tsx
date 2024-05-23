@@ -2,7 +2,6 @@ import type { ICatalog, IDataset } from "@investigativedata/ftmq";
 import Box from "@mui/joy/Box";
 import Grid from "@mui/joy/Grid";
 
-
 import CatalogItem from "./CatalogItem";
 
 export default function Catalog({ datasets }: { datasets: IDataset[] }) {

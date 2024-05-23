@@ -5,9 +5,9 @@ import Stack from '@mui/joy/Stack';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 
-import FilterCount from './Filter/FilterCount';
-import FilterModal from './Filter/FilterModal';
-import Filters from './Filter/Filters';
+import FilterCount from '../Filter/FilterCount';
+import FilterModal from '../Filter/FilterModal';
+import Filters from '../Filter/Filters';
 
 export type TCatalogControls = {
   searchValue: string,

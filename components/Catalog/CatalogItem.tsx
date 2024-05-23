@@ -7,11 +7,11 @@ import Typography from "@mui/joy/Typography";
 import Link from '@mui/joy/Link';
 import type { IDataset } from "@investigativedata/ftmq";
 
-import DatasetProperty, { DatasetPropertyValue } from "./Dataset/DatasetProperty";
-import DatasetLastUpdated from "./Dataset/DatasetLastUpdated";
-import Property from "./Property";
-import CountryLabel from "./CountryLabel";
-import Tags from "./Tags";
+import DatasetProperty, { DatasetPropertyValue } from "../Dataset/DatasetProperty";
+import DatasetLastUpdated from "../Dataset/DatasetLastUpdated";
+import Property from "../Property";
+import CountryLabel from "../CountryLabel";
+import Tags from "../Tags";
 import { capitalizeFirstLetter } from "~/util/util";
 
 function CatalogItemDetails({ dataset }: CatalogItemProps) {

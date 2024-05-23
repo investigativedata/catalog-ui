@@ -8,8 +8,8 @@ import Box from '@mui/joy/Box';
 import Fuse from "fuse.js";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 
-import Catalog from "~/components/Catalog";
-import CatalogControls from "~/components/CatalogControls";
+import Catalog from "~/components/Catalog/Catalog";
+import CatalogControls from "~/components/Catalog/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 import filterOptions from "~/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
