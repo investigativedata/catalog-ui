@@ -27,7 +27,7 @@ export default function CatalogItemDetails({ item }: CatalogItemDetailsProps) {
         >
           <Stack spacing={2} width="50%">
             <DatasetProperty label="entities" value={item.entityCount} type="number" />
-            <DatasetProperty label="category" value={item.category} />
+            <DatasetProperty label="category" value={item.category} type="string" />
             <DatasetProperty label="frequency" value={item.frequency} type="string" />
           </Stack>
           <Stack spacing={2} width="50%">

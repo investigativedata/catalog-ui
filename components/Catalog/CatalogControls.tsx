@@ -24,8 +24,6 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  console.log(filterValueCounts)
-
   const createQueryString = useCallback(
     (name: string, value?: string) => {
       const params = new URLSearchParams(searchParams.toString())

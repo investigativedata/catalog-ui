@@ -5,10 +5,11 @@ import { capitalizeFirstLetter } from "~/util/util";
 
 export type TTags = { 
   items: string[] | null | undefined,
+  activeFilters?: string[],
   onClick?: (value: string) => void
 };
 
-export default function Tags({ items, onClick }: TTags) {
+export default function Tags({ items, activeFilters, onClick }: TTags) {
   if (!items?.length) return null;
 
   return (
@@ -16,6 +17,7 @@ export default function Tags({ items, onClick }: TTags) {
       {items.map(value => (
         <Tag
           key={value}
+          active={activeFilters?.includes(value)}
           label={capitalizeFirstLetter(value)}
           onClick={onClick ? () => onClick(value) : undefined }
         />

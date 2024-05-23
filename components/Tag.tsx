@@ -2,10 +2,11 @@ import Chip from '@mui/joy/Chip'
 
 export type TTag = {
   label: string,
+  active?: boolean,
   onClick?: () => void
 };
 
-export default function Tag({ label, onClick }: TTag) {
+export default function Tag({ label, active, onClick }: TTag) {
   const isStatic = !onClick;
 
   return (
@@ -16,7 +17,7 @@ export default function Tag({ label, onClick }: TTag) {
       slotProps={{
         action: {
           sx: theme => ({
-            backgroundColor: theme.vars.palette.success[200],
+            backgroundColor: active ? theme.vars.palette.success[200] : "#FFF",
             padding: "2px 8px",
             pointerEvents: isStatic ? 'none' : 'all',
             "&:hover": { backgroundColor: theme.vars.palette.success[50] },

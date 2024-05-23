@@ -13,7 +13,6 @@ export type TFilters = {
 };
 
 export default function Filters({ filters, toggleFilter, clearFilterGroup, defaultExpanded, filterValueCounts }: TFilters) {
-  console.log(filters)
   return (
     <AccordionGroup sx={{ backgroundColor: "none" }}>
       {filterOptions.map(({ label, field, type }) => (

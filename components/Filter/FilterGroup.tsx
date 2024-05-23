@@ -78,7 +78,8 @@ export default function FilterGroup({ label, field, options, activeFilters, onCh
           {type === 'tag' && (
             <Box sx={{ paddingTop: "1rem" }}>
               <Tags
-                items={options.map(({ value }) => value)}
+                items={options}
+                activeFilters={activeFilters}
                 onClick={(value) => onChange(field, value)}
               />
             </Box>

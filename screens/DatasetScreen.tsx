@@ -42,7 +42,7 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDatasetTransformed }) => {
           <DatasetProperty label="entities" value={dataset.entityCount} type="number" />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="category" value={dataset.category} />
+          <DatasetProperty label="category" value={dataset.category} type="string" />
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="frequency" value={dataset.frequency} type="frequency" />
