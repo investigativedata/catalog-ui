@@ -92,10 +92,14 @@ const getCountryCounts = (items) => {
     .map(({ countries }) => countries)
     .flat()
   
-  const countLookup = getFieldCounts(flattenedCountries, 'code')
+  const countLookup = flattenedCountries.reduce((acc, item) => ({
+    ...acc,
+    [item.code]:{ label: item.label, count:(acc[item.code]?.count || 0) + 1 }
+  }),{})
+  console.log(flattenedCountries, countLookup)
 
   return Object.entries(countLookup)
-    .map(([value, count]) => ({ value, count }))
+    .map(([value, { label, count }]) => ({ value, label, count }))
     .sort((a, b) => a.count < b.count ? 1 : -1)
 }
 
@@ -131,7 +135,7 @@ export function applyActiveFilters(items, filters) {
   }
 
   if (filters.countries.length > 0) {
-    filteredItems = filteredItems.filter(({ countries }) => filters.countries.some(c => countries.includes(c)))
+    filteredItems = filteredItems.filter(({ countries }) => filters.countries.some(c => countries.find(({ code }) => code === c)))
   }
 
   return filteredItems

@@ -18,7 +18,7 @@ export type TCatalogControls = {
   filterItemCounts: any
 };
 
-export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue,  filterItemCounts, resultSummary }): TCatalogControls {
+export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, filterItemCounts, resultSummary }): TCatalogControls {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -58,6 +58,8 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
     toggleFilter,
     clearFilterGroup
   }
+
+  console.log(filterItemCounts)
 
   return (
     <Stack gap={2}>
