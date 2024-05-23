@@ -1,11 +1,7 @@
 import { useContext } from "react";
 import Box from "@mui/joy/Box";
-import Container from "@mui/joy/Container";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import IconButton from '@mui/joy/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AspectRatio from "@mui/joy/AspectRatio";
 import Link from "next/link";
 
 import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
@@ -19,7 +15,7 @@ export type HeaderProps = {
 
 type IStackItem = {
   justifyContent: string,
-  mobileHide: boolean
+  mobileHide?: boolean
 }
 
 const StackItem = ({

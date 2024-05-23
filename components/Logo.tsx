@@ -3,7 +3,6 @@ import Typography from "@mui/joy/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Link from "next/link";
 
-
 export default function Logo() {
   return (
    <Box sx={{ display: "flex" }}>

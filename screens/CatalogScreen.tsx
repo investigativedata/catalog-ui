@@ -14,6 +14,7 @@ import filterOptions from "~/util/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
 import { applyActiveFilters } from '~/util/util'
 import calculateCatalogStats from '~/util/catalogStats'
+import { ICatalogTransformed } from "~/util/transformFTM";
 
 
 const initializeSearchIndex = (items: any[]) => {
@@ -47,8 +48,7 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
   );
 }
 
-export default function CatalogScreen({ catalog }: { catalog: any }) {
-  console.log(catalog)
+export default function CatalogScreen({ catalog }: { catalog: ICatalogTransformed }) {
   if (!catalog?.datasets) {
     return null;
   }
@@ -59,7 +59,12 @@ export default function CatalogScreen({ catalog }: { catalog: any }) {
 
   const getFiltersFromUrl = () => filterOptions.reduce(
     (acc, { field }) => ({ ...acc, [field]: searchParams.getAll(field) }),
-    {}
+    { 
+      contentType: [],
+      frequency: [],
+      tags: [],
+      countries: []
+    }
   );
 
   const searchIndex = initializeSearchIndex(catalog.datasets)

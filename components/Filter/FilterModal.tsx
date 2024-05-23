@@ -7,11 +7,10 @@ import IconButton from '@mui/joy/IconButton';
 
 
 export type FilterModalProps = {
-  filterCount: number,
-  children: any
+  filterCount: number
 };
 
-export default function FilterModal({ filterCount, children }: FilterModalProps ) {
+export default function FilterModal({ filterCount, children }:  React.PropsWithChildren<FilterModalProps> ) {
   const [open, setOpen] = useState<boolean>(false);
 
   const filterIconPath = `/static/icons/${filterCount > 0 ? 'filter_filled' : 'filter'}.svg`

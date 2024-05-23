@@ -1,15 +1,7 @@
 import Box from "@mui/joy/Box";
-import Container from "@mui/joy/Container";
 import Link from "@mui/joy/Link";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import IconButton from '@mui/joy/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AspectRatio from "@mui/joy/AspectRatio";
-
-import Logo from "./Logo";
-
-export type FooterProps = {};
 
 interface IFooterLink {
   href: string,

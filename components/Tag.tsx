@@ -1,6 +1,5 @@
 import Chip from '@mui/joy/Chip'
 
-
 export type TTag = {
   label: string,
   onClick?: () => void

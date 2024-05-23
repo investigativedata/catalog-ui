@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React, { useCallback, ReactElement } from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
@@ -7,17 +7,19 @@ import Box from '@mui/joy/Box';
 import FilterCount from '../Filter/FilterCount';
 import FilterModal from '../Filter/FilterModal';
 import Filters from '../Filter/Filters';
+import { TActiveFilters } from '~/util/filterOptions';
+import { TFilterValueCounts } from '~/util/catalogStats';
 
 export type TCatalogControls = {
   searchValue: string,
   setSearchValue: (value: string) => void,
-  activeFilters: any,
+  activeFilters: TActiveFilters,
   clearFilters: () => void,
-  resultSummary: any,
-  filterValueCounts: any
+  resultSummary: ReactElement,
+  filterValueCounts: TFilterValueCounts
 };
 
-export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, filterValueCounts, resultSummary }): TCatalogControls {
+export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, filterValueCounts, resultSummary }: TCatalogControls) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()

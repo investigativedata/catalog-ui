@@ -71,9 +71,7 @@ export function transformFTMDataset(dataset: IDataset) {
       }, {})
     )
     .sort((a: ICountry, b: ICountry) => a.count > b.count ? -1 : 1);
-  
-  console.log(countriesMerged)
-    
+      
   return ({
     alephUrl: aleph_url,
     category: category || "Other",

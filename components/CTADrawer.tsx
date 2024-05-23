@@ -1,19 +1,10 @@
 import Drawer from '@mui/joy/Drawer'
-import DialogTitle from '@mui/joy/DialogTitle';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography'
 import Stack from '@mui/joy/Stack';
 import Button from '@mui/joy/Button';
 
-
-type IDrawerContentItem = {
-  justifyContent: string,
-  mobileHide: boolean
-}
-
-const DrawerContentItem = ({
-  children
-  }: React.PropsWithChildren<DrawerContentItem>) => (
+const DrawerContentItem = ({ children }: React.PropsWithChildren) => (
    <Typography
     level="body-md"
     sx={{
@@ -25,7 +16,6 @@ const DrawerContentItem = ({
    </Typography>
 );
 
-
 export type TCTADrawer = {
   open: boolean,
   onClose: () => void
@@ -34,52 +24,51 @@ export type TCTADrawer = {
 export default function CTADrawer({ open, onClose }: TCTADrawer) {
 
   return (
-   <Drawer
-     anchor="right"
-     color="warning"
-     variant="soft"
-     open={open}
-     onClose={onClose}
-     slotProps={{
-      content: {
-       sx: theme => ({ 
-        backgroundColor: theme.vars.palette.common.white 
-       })
-      }
-     }}
-   >
-    <ModalClose />
-    <Stack 
-      sx={{ 
-       padding: "3rem 3rem",
-       position: "relative",
-       top: "50%",
-       transform: "translateY(-50%)"
+    <Drawer
+      anchor="right"
+      color="warning"
+      variant="soft"
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        content: {
+        sx: theme => ({ 
+          backgroundColor: theme.vars.palette.common.white 
+        })
+        }
       }}
     >
-      <DrawerContentItem>
-         Are you interest to use this dataset in your next investigation?
-      </DrawerContentItem>
-      <DrawerContentItem>
-        We can provide you with a no-worries-all-in service to manage all your research data.
-      </DrawerContentItem>
-      <DrawerContentItem>
-        Got curious?
-      </DrawerContentItem>
-       {/* TODO: add CTA destination link */}
-      <Button variant="outlined" size="md" component="a" href="" sx={{ width: "fit-content" }}>
-        Get in touch
-      </Button>
-      <img
-        width="50%"
-        src={`/static/icons/ok.svg`}
-        style={{
-          transform: "translateX(100%)"
+      <ModalClose />
+      <Stack 
+        sx={{ 
+        padding: "3rem 3rem",
+        position: "relative",
+        top: "50%",
+        transform: "translateY(-50%)"
         }}
-      />
+      >
+        <DrawerContentItem>
+          Are you interest to use this dataset in your next investigation?
+        </DrawerContentItem>
+        <DrawerContentItem>
+          We can provide you with a no-worries-all-in service to manage all your research data.
+        </DrawerContentItem>
+        <DrawerContentItem>
+          Got curious?
+        </DrawerContentItem>
+        {/* TODO: add CTA destination link */}
+        <Button variant="outlined" size="md" component="a" href="" sx={{ width: "fit-content" }}>
+          Get in touch
+        </Button>
+        <img
+          width="50%"
+          src={`/static/icons/ok.svg`}
+          style={{
+            transform: "translateX(100%)"
+          }}
+        />
 
-    </Stack>
-  </Drawer>
-    
+      </Stack>
+    </Drawer>
   );
 }
