@@ -17,6 +17,7 @@ import Count from "~/components/Count";
 import CTADrawer from "~/components/CTADrawer";
 import Tags from '~/components/Tags';
 import DatasetSectionItems from '~/components/Dataset/DatasetSectionItems';
+import { capitalizeFirstLetter } from "~/util";
 
 
 const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
@@ -47,7 +48,7 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
           <DatasetProperty label="frequency" value={dataset.frequency} type="frequency" />
         </Grid>
         <Grid xs={6}>
-          <DatasetProperty label="type" value={dataset.contentType} />
+          <DatasetProperty label="type" value={capitalizeFirstLetter(dataset.contentType)} type="datatype" />
         </Grid>
         <Grid xs={6}>
           <DatasetProperty label="last updated" value={dataset.updatedAt} type="date" />
@@ -158,8 +159,7 @@ export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
       <Stack >
         <Box sx={{ paddingBottom: "2rem" }}>
           <Typography level="h2" sx={{ paddingBottom: "1rem" }}>{dataset.title || dataset.name}</Typography>
-          {/* TODO: replace with values from metadata */}
-          <Tags items={[ { label: 'Lorem Ipsum', value:"lorem_ipsum" }]} />
+          <Tags items={dataset.tags} />
         </Box>
         <Grid container spacing={6}>
           <Grid xs={12} sm={6} md={5}>

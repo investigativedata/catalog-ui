@@ -55,8 +55,8 @@ export function transformFTMDataset(dataset: IDataset) {
     )
     .sort((a, b) => a.count > b.count ? -1 : 1);
   
-  console.log(tags)
-
+  console.log('tags', dataset)
+  
   return ({
     category: category || "Other",
     contentType: content_type || "Structured",
@@ -96,7 +96,6 @@ const getCountryCounts = (items) => {
     ...acc,
     [item.code]:{ label: item.label, count:(acc[item.code]?.count || 0) + 1 }
   }),{})
-  console.log(flattenedCountries, countLookup)
 
   return Object.entries(countLookup)
     .map(([value, { label, count }]) => ({ value, label, count }))

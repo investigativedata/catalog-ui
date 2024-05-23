@@ -59,8 +59,6 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
     clearFilterGroup
   }
 
-  console.log(filterItemCounts)
-
   return (
     <Stack gap={2}>
       {resultSummary}

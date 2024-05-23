@@ -32,7 +32,7 @@ export default function FilterGroupItems({ items, activeValues, onChange, type }
             variant="soft"
             color="neutral"
             checked={activeValues.includes(value)}
-            // disabled={count === 0}
+            disabled={count === 0}
             onChange={() => onChange(value)}
             slotProps={{ 
               checkbox: { 

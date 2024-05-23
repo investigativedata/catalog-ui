@@ -4,11 +4,12 @@ import { notFound } from "next/navigation";
 import { IDataset, getCatalog } from "@investigativedata/ftmq";
 import Page from "~/components/Page";
 import DatasetScreen from "~/screens/DatasetScreen";
+import catalog from '~/public/investigraph.eu.json';
 import { CATALOG_URI } from "~/settings";
 import { transformFTMDataset } from "~/util";
 
 async function getDataset(name: string): Promise<IDataset> {
-  const catalog = await getCatalog(CATALOG_URI);
+  // const catalog = await getCatalog(CATALOG_URI);
   const dataset = catalog.datasets?.find((d) => d.name === name);
   if (!dataset) notFound();
   return dataset;
