@@ -6,7 +6,7 @@ export type TFilterCount = {
   value: number,
   verbose?: boolean,
   withIcon?: boolean,
-  onClear: () => void
+  onClear: (evt: any) => void
 };
 
 export default function FilterCount({ onClear, value, verbose, withIcon }: TFilterCount) {

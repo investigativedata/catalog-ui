@@ -14,13 +14,15 @@ export type TCatalogControls = {
   activeFilters: any,
   clearFilters: () => void,
   resultSummary: any,
-  filterItemCounts: any
+  filterValueCounts: any
 };
 
-export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, filterItemCounts, resultSummary }): TCatalogControls {
+export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, filterValueCounts, resultSummary }): TCatalogControls {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+
+  console.log(filterValueCounts)
 
   const createQueryString = useCallback(
     (name: string, value?: string) => {
@@ -53,7 +55,7 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
 
   const filtersComponentProps = {
     filters: activeFilters,
-    filterItemCounts,
+    filterValueCounts,
     toggleFilter,
     clearFilterGroup
   }

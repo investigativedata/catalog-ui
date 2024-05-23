@@ -1,24 +1,19 @@
 import AccordionGroup from "@mui/joy/AccordionGroup";
 
 import FilterGroup from "./FilterGroup";
-import filterOptions from '../../filterOptions';
-
-export type TFilter = {
-  label: string,
-  value: string,
-}
+import filterOptions from '../../util/filterOptions';
+import type { TFilterValueCounts } from '~/util/catalogStats';
 
 export type TFilters = { 
-  filters: TFilter[],
+  filters: string[],
   toggleFilter: (field: string, value: string) => void,
   clearFilterGroup: (field: string) => void,
   defaultExpanded: boolean,
-  filterItemCounts: any
+  filterValueCounts: TFilterValueCounts
 };
 
-export default function Filters({ filters, toggleFilter, clearFilterGroup, defaultExpanded, filterItemCounts }: TFilters) {
-  // const mergeOptionsWithCounts = (options, counts) => options.map(opt => counts[opt])
-  
+export default function Filters({ filters, toggleFilter, clearFilterGroup, defaultExpanded, filterValueCounts }: TFilters) {
+  console.log(filters)
   return (
     <AccordionGroup sx={{ backgroundColor: "none" }}>
       {filterOptions.map(({ label, field, type }) => (
@@ -27,9 +22,9 @@ export default function Filters({ filters, toggleFilter, clearFilterGroup, defau
           defaultExpanded={defaultExpanded}
           label={label}
           field={field}
-          options={filterItemCounts[field]}
+          options={filterValueCounts[field]}
           type={type}
-          activeValues={filters[field]}
+          activeFilters={filters[field]}
           onChange={toggleFilter}
           onClear={clearFilterGroup}
         />

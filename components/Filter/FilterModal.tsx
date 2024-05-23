@@ -1,17 +1,17 @@
 import { useState, Fragment } from 'react';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import ModalDialog from '@mui/joy/ModalDialog';
 import IconButton from '@mui/joy/IconButton';
 
 
-export type TFilterModal = {
-  
+export type FilterModalProps = {
+  filterCount: number,
+  children: any
 };
 
-export default function FilterModal({ filterCount, children }): TFilterModal {
+export default function FilterModal({ filterCount, children }: FilterModalProps ) {
   const [open, setOpen] = useState<boolean>(false);
 
   const filterIconPath = `/static/icons/${filterCount > 0 ? 'filter_filled' : 'filter'}.svg`

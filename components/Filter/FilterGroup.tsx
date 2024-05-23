@@ -1,8 +1,4 @@
-import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import Checkbox from '@mui/joy/Checkbox';
 import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
@@ -10,28 +6,26 @@ import Box from '@mui/joy/Box';
 
 import FilterCount from "./FilterCount";
 import FilterGroupItems from "./FilterGroupItems";
-import DatasetPropertyValue from "../Dataset/DatasetPropertyValue";
 import Tags from "../Tags";
-import { TFilter } from "./Filter/Filters";
-
+import type { TFilterValueCount } from "~/util/catalogStats"
 
 
 export type TFilterGroup = { 
   label: string,
   field: string,
-  type: string,
-  options: TFilter[],
-  activeValues: string[],
+  type?: string,
+  options: TFilterValueCount[],
+  activeFilters: string[],
   onChange: (field: string, value: string) => void
   onClear: (field: string) => void,
   defaultExpanded: boolean
 };
 
-export default function FilterGroup({ label, field, options, activeValues, onChange, onClear, type, defaultExpanded }: TFilterGroup) {
-  const isActive = activeValues.length > 0;
+export default function FilterGroup({ label, field, options, activeFilters, onChange, onClear, type, defaultExpanded }: TFilterGroup) {
+  const isActive = activeFilters.length > 0;
   const endDecorator = isActive 
     ? <FilterCount
-      value={activeValues.length}
+      value={activeFilters.length}
       verbose
       onClear={(evt) => {
         evt.preventDefault();
@@ -84,8 +78,7 @@ export default function FilterGroup({ label, field, options, activeValues, onCha
           {type === 'tag' && (
             <Box sx={{ paddingTop: "1rem" }}>
               <Tags
-                items={options}
-                activeValues={activeValues}
+                items={options.map(({ value }) => value)}
                 onClick={(value) => onChange(field, value)}
               />
             </Box>
@@ -94,11 +87,10 @@ export default function FilterGroup({ label, field, options, activeValues, onCha
             <FilterGroupItems 
               type={type}
               items={options}
-              activeValues={activeValues}
+              activeFilters={activeFilters}
               onChange={(value) => onChange(field, value)}
             />
           )}
-          
         </div>
       </AccordionDetails>
     </Accordion>

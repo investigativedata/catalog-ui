@@ -10,9 +10,10 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Catalog from "~/components/Catalog/Catalog";
 import CatalogControls from "~/components/Catalog/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
-import filterOptions from "~/filterOptions";
+import filterOptions from "~/util/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
-import { applyActiveFilters, calculateCatalogStats } from '~/util/util'
+import { applyActiveFilters } from '~/util/util'
+import calculateCatalogStats from '~/util/catalogStats'
 
 
 const initializeSearchIndex = (items: any[]) => {
@@ -116,7 +117,7 @@ export default function CatalogScreen({ catalog }: { catalog: any }) {
           resultSummary={
             <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
           }
-          filterItemCounts={calculateCatalogStats(filteredItems)}
+          filterValueCounts={calculateCatalogStats(filteredItems)}
         />
       </FixedColumn>
     </Grid>
