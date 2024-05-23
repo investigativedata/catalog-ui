@@ -11,7 +11,7 @@ import Property from '../Property';
 import { CountryFlag } from '../CountryLabel';
 
 type DatasetPropertyValueProps = {
-  value: string | Element,
+  value: string | number | Element | null | undefined,
   displayValue: string | Element,
   type?: string,
   href?: string
@@ -19,6 +19,8 @@ type DatasetPropertyValueProps = {
 }
 
 export function DatasetPropertyValue({ displayValue, value, type, href, style }: DatasetPropertyValueProps) {
+  if (value === null || value === undefined) return null;
+
   let startDecorator;
 
   if (type === "frequency") {
@@ -47,9 +49,9 @@ export function DatasetPropertyValue({ displayValue, value, type, href, style }:
 type DatasetPropertyProps = {
   label: string,
   labelEndDecorator?: ReactNode | null,
-  value: string | Element,
+  value: string | number | Element | null | undefined,
   type?: string
-  href?: string
+  href?: string | null
 };
 
 export default function DatasetProperty({ label, labelEndDecorator, value, type, href }: DatasetPropertyProps) {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { getCatalog, type ICatalog, type IDataset, type TDatasetFrequency } from "@investigativedata/ftmq";
 import Grid from '@mui/joy/Grid';
 import Typography from "@mui/joy/Typography";
 import Box from '@mui/joy/Box';

@@ -3,11 +3,10 @@ import Chip from '@mui/joy/Chip'
 
 export type TTag = {
   label: string,
-  active: boolean,
   onClick?: () => void
 };
 
-export default function Tag({ label, active, onClick }: TTag) {
+export default function Tag({ label, onClick }: TTag) {
   const isStatic = !onClick;
 
   return (

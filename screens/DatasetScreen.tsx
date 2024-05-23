@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Grid from '@mui/joy/Grid';

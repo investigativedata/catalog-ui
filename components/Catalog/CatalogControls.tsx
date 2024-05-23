@@ -3,7 +3,6 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Box from '@mui/joy/Box';
-import IconButton from '@mui/joy/IconButton';
 
 import FilterCount from '../Filter/FilterCount';
 import FilterModal from '../Filter/FilterModal';

@@ -1,4 +1,3 @@
-import type { IDataset, } from "@investigativedata/ftmq";
 import AccordionGroup from "@mui/joy/AccordionGroup";
 
 import FilterGroup from "./FilterGroup";

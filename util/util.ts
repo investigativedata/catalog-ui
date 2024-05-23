@@ -1,4 +1,3 @@
-import { ICatalog, IDataset, ISchemataStats } from "@investigativedata/ftmq";
 import filterOptions from "../filterOptions";
 
 export const debounce = (func, timeout = 300) => {

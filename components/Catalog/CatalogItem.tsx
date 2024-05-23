@@ -1,84 +1,21 @@
 import Card from "@mui/joy/Card";
 import CardContent from '@mui/joy/CardContent';
-import CardOverflow from '@mui/joy/CardOverflow';
-import Box from "@mui/joy/Box";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Link from '@mui/joy/Link';
-import type { IDataset } from "@investigativedata/ftmq";
+import type { Theme } from "@mui/joy";
 
-import DatasetProperty, { DatasetPropertyValue } from "../Dataset/DatasetProperty";
-import DatasetLastUpdated from "../Dataset/DatasetLastUpdated";
-import Property from "../Property";
-import CountryLabel from "../CountryLabel";
+import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
 import Tags from "../Tags";
 import { capitalizeFirstLetter } from "~/util/util";
-
-function CatalogItemDetails({ dataset }: CatalogItemProps) {
-  const { publisher, maintainer } = dataset;
-  return (
-    <Box sx={theme => ({
-      padding: "1rem",
-      backgroundColor: theme.vars.palette.success[50],
-    })}>
-      <Stack spacing={2}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          spacing={3}
-        >
-          <Stack spacing={2} width="50%">
-            <DatasetProperty label="entities" value={dataset.entityCount} type="number" />
-            <DatasetProperty label="category" value={dataset.category} />
-            <DatasetProperty label="frequency" value={dataset.frequency} type="string" />
-          </Stack>
-          <Stack spacing={2} width="50%">
-            {publisher && (
-              <DatasetProperty
-                label="publisher"
-                labelEndDecorator={<CountryLabel iso={publisher.country} />}
-                value={publisher.name}
-                href={publisher.url}
-              />
-            )}
-            {maintainer && (
-              <DatasetProperty
-                label="maintainer"
-                labelEndDecorator={<CountryLabel iso={maintainer.country} />}
-                value={maintainer.name}
-                href={maintainer.url}
-              />
-            )}
-          </Stack>
-        </Stack>
-        <Typography
-          level="body-xs"
-          sx={theme => ({ 
-            textTransform: 'uppercase',
-            fontSize: "0.65rem",
-            color: theme.vars.palette.common.black,
-            fontWeight: '400',
-            lineHeight: "130%",
-            letterSpacing: "0.2px"
-          })}
-        >
-          <span>Last updated: </span>
-          <Property value={dataset.updatedAt} type="date" />
-          <span> </span>
-          <DatasetLastUpdated datetime={dataset.updatedAt} onlyShowToday level="body-xs" />
-        </Typography>
-      </Stack>
-    </Box>
-    
-  )
-}
+import { IDatasetTransformed } from "~/util/transformFTM";
+import CatalogItemDetails from "./CatalogItemDetails";
 
 type CatalogItemProps = {
-  dataset: IDataset;
+  item: IDatasetTransformed;
 };
 
-
-export default function CatalogItem({ dataset }: CatalogItemProps) {
+export default function CatalogItem({ item }: CatalogItemProps) {
   return (
     <Card
       color="success"
@@ -97,25 +34,24 @@ export default function CatalogItem({ dataset }: CatalogItemProps) {
       <CardContent>
         <Stack sx={{ padding: "1rem" }} spacing="0.5rem">
           <DatasetPropertyValue
-            displayValue={capitalizeFirstLetter(dataset.contentType)}
-            value={dataset.contentType}
+            displayValue={capitalizeFirstLetter(item.contentType)}
+            value={item.contentType}
             type="datatype"
-            style={theme => ({ marginBottom: "0.5rem", color: theme.vars.palette.common.black })}
+            style={(theme: Theme) => ({ marginBottom: "0.5rem", color: theme.vars.palette.common.black })}
           />
           <Link
             overlay
             underline="none"
-            href={`/${dataset.name}`}
+            href={`/${item.name}`}
             sx={{ textDecoration: "none" }}
           >
             <Typography level="body-md" sx={{ fontWeight: "bold" }}>
-              {dataset.title || dataset.name}
+              {item.title || item.name}
             </Typography>
           </Link>
-          {/* TODO: replace with values from metadata */}
-          <Tags items={dataset.tags} />
+          <Tags items={item.tags} />
         </Stack>
-        <CatalogItemDetails dataset={dataset} />
+        <CatalogItemDetails item={item} />
       </CardContent>
     </Card>
   );

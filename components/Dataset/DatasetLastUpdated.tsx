@@ -27,7 +27,7 @@ dayjs.updateLocale('en', {
 })
 
 type DatasetLastUpdatedProps = {
-  datetime: string,
+  datetime?: string | null,
   onlyShowToday?: boolean,
   level?: string
 }

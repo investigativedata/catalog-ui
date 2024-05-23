@@ -16,11 +16,13 @@ const renderNumeric = ({ value }: Value): string => {
 };
 
 type PropertyProps = {
- value: Value,
+ value?: string | number | null,
  type?: string
 };
 
-export default function Property({ value, type }: PropertyProps) {
+export default function Property({ value, type }: PropertyProps): string | number {
+  if (value === null || value === undefined) return '';
+
   if (type === 'date') {
    return renderDate({ value })
   }
