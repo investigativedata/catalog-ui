@@ -6,13 +6,13 @@ import Page from "~/components/Page";
 import DatasetScreen from "~/screens/DatasetScreen";
 import catalog from '~/public/investigraph.eu.json';
 import { CATALOG_URI } from "~/settings";
-import { transformFTMDataset } from "~/util";
+import { transformFTMDataset } from "~/util/transformFTM";
 
 async function getDataset(name: string): Promise<IDataset> {
   // const catalog = await getCatalog(CATALOG_URI);
   const dataset = catalog.datasets?.find((d) => d.name === name);
   if (!dataset) notFound();
-  return dataset;
+  return dataset as IDataset;
 }
 
 type Params = { readonly dataset: string };

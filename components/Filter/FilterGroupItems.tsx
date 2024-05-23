@@ -6,7 +6,7 @@ import Checkbox from '@mui/joy/Checkbox';
 import Count from "../Count";
 import { DatasetPropertyValue } from "../Dataset/DatasetProperty";
 import { TFilter } from "./Filter/Filters";
-import { capitalizeFirstLetter } from '~/util';
+import { capitalizeFirstLetter } from '~/util/util';
 
 export type TFilterGroupItems = { 
   type: string,

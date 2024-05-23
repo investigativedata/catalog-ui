@@ -13,7 +13,7 @@ import CatalogControls from "~/components/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
 import filterOptions from "~/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
-import { applyActiveFilters, calculateCatalogStats } from '~/util'
+import { applyActiveFilters, calculateCatalogStats } from '~/util/util'
 
 
 const initializeSearchIndex = (items: any[]) => {
@@ -47,8 +47,9 @@ const FixedColumn = ({ children, style = {} }: React.PropsWithChildren<IFixedCol
   );
 }
 
-export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
-  if (!catalogItems) {
+export default function CatalogScreen({ catalog }: { catalog: any }) {
+  console.log(catalog)
+  if (!catalog?.datasets) {
     return null;
   }
 
@@ -61,7 +62,7 @@ export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
     {}
   );
 
-  const searchIndex = initializeSearchIndex(catalogItems)
+  const searchIndex = initializeSearchIndex(catalog.datasets)
   const [searchValue, setSearchValue] = useState('');
   const [activeFilters, setActiveFilters] = useState(getFiltersFromUrl());
   const [filteredItems, setFilteredItems] = useState([]);
@@ -73,7 +74,7 @@ export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
   
   
   useEffect(() => {
-    let items = catalogItems
+    let items = catalog.datasets
 
     if (searchValue.length > 0) {
       items = searchIndex.search(searchValue)
@@ -114,7 +115,7 @@ export default function CatalogScreen({ catalogItems }: { catalogItems: any }) {
           activeFilters={activeFilters}
           clearFilters={clearFilters}
           resultSummary={
-            <FilterResultSummary active={filteredItems.length} total={catalogItems.length} />
+            <FilterResultSummary active={filteredItems.length} total={catalog.datasets.length} />
           }
           filterItemCounts={calculateCatalogStats(filteredItems)}
         />

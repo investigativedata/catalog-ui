@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ICountryStats, IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
+import type { IDataset, ISchema, ISchemataStats } from "@investigativedata/ftmq";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Grid from '@mui/joy/Grid';
@@ -17,7 +17,8 @@ import Count from "~/components/Count";
 import CTADrawer from "~/components/CTADrawer";
 import Tags from '~/components/Tags';
 import DatasetSectionItems from '~/components/Dataset/DatasetSectionItems';
-import { capitalizeFirstLetter } from "~/util";
+import { capitalizeFirstLetter } from "~/util/util";
+import { IDatasetTransformed } from "~/util/transformFTM";
 
 
 const DatasetSectionHeader = ({ label, count }: { label: string, count?: number }) => {
@@ -34,7 +35,7 @@ const DatasetSectionHeader = ({ label, count }: { label: string, count?: number 
   );
 }
 
-const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
+const DatasetMetadataMain = ({ dataset }: { dataset: IDatasetTransformed }) => {
   return (
     <Stack spacing={3}>
       <Grid container spacing={2} sx={{ marginLeft: "-8px !important" }}>
@@ -63,7 +64,7 @@ const DatasetMetadataMain = ({ dataset }: { dataset: IDataset }) => {
   );
 }
 
-const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
+const DatasetMetadataEntities = ({ dataset }: { dataset: IDatasetTransformed }) => {
   const { countries, entityTypes } = dataset;
 
   return (
@@ -93,7 +94,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDataset }) => {
   );
 }
 
-const DatasetMetadataSecondary = ({ dataset, openDrawer }: { dataset: IDataset, openDrawer: any }) => {
+const DatasetMetadataSecondary = ({ dataset, openDrawer }: { dataset: IDatasetTransformed, openDrawer: any }) => {
   const { publisher, maintainer } = dataset;
 
   return (
@@ -147,7 +148,7 @@ const DatasetMetadataSecondary = ({ dataset, openDrawer }: { dataset: IDataset, 
 }
 
 
-export default function DatasetScreen({ dataset }: { dataset: IDataset }) {
+export default function DatasetScreen({ dataset }: { dataset: IDatasetTransformed }) {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   return (

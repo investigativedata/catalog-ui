@@ -12,7 +12,7 @@ import DatasetLastUpdated from "./Dataset/DatasetLastUpdated";
 import Property from "./Property";
 import CountryLabel from "./CountryLabel";
 import Tags from "./Tags";
-import { capitalizeFirstLetter } from "~/util";
+import { capitalizeFirstLetter } from "~/util/util";
 
 function CatalogItemDetails({ dataset }: CatalogItemProps) {
   const { publisher, maintainer } = dataset;

@@ -2,7 +2,7 @@ import Stack from "@mui/joy/Stack";
 
 import Tag from "./Tag";
 import { TFilter } from "./Filter/Filters";
-import { capitalizeFirstLetter } from "~/util";
+import { capitalizeFirstLetter } from "~/util/util";
 
 export type TTags = { 
   items: TFilter[],
