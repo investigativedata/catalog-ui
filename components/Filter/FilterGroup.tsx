@@ -8,16 +8,17 @@ import FilterCount from "./FilterCount";
 import FilterGroupItems from "./FilterGroupItems";
 import Tags from "../Tags";
 import type { TFilterValueCount } from "~/util/catalogStats"
+import { TFilterField } from "~/util/filterOptions";
 
 
 export type TFilterGroup = { 
   label: string,
-  field: string,
+  field: TFilterField,
   type?: string,
   options: TFilterValueCount[],
   activeFilters: string[],
-  onChange: (field: string, value: string) => void
-  onClear: (field: string) => void,
+  onChange: (field: TFilterField, value: string) => void
+  onClear: (field: TFilterField) => void,
   defaultExpanded: boolean
 };
 
@@ -78,7 +79,7 @@ export default function FilterGroup({ label, field, options, activeFilters, onCh
           {type === 'tag' && (
             <Box sx={{ paddingTop: "1rem" }}>
               <Tags
-                items={options}
+                items={options.map(({ value }) => value).filter(value => !!value)}
                 activeFilters={activeFilters}
                 onClick={(value) => onChange(field, value)}
               />

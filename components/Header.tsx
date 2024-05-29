@@ -71,10 +71,8 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
               }}
             >
               <Link
-                underline="none"
                 style={{
                   textDecoration: "none",
-                  "&:hover": { textDecoration: "none" },
                 }}
                 href="/"
               >

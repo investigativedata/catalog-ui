@@ -34,7 +34,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
       <CardContent>
         <Stack sx={{ padding: "1rem" }} spacing="0.5rem">
           <DatasetPropertyValue
-            displayValue={capitalizeFirstLetter(item.contentType)}
+            displayValue={!!item.contentType ? capitalizeFirstLetter(item.contentType) : undefined}
             value={item.contentType}
             type="datatype"
             style={(theme: Theme) => ({ marginBottom: "0.5rem", color: theme.vars.palette.common.black })}

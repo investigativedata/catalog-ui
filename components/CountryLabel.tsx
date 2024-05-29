@@ -5,7 +5,7 @@ export function CountryFlag({ iso }: { iso?: string }) {
   return iso ? <i className={`${iso.toLowerCase()} flag`}></i> : null;
 }
 
-export default function CountryLabel({ iso, label }: { iso?: string | null, label?: string }) {
+export default function CountryLabel({ iso, label }: { iso?: string | null, label?: string | null }) {
   if (!iso) {
     return null;
   }

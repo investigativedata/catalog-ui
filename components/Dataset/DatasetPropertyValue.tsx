@@ -20,7 +20,7 @@ export default function DatasetPropertyValue({ displayValue, value, type, href, 
   if (type === "frequency") {
     startDecorator = <img src={`/static/icons/frequency.svg`} />
   } else if (type === "country") {
-    startDecorator = <CountryFlag iso={value} />
+    startDecorator = <CountryFlag iso={value as string} />
   } else if (type === "datatype") {
     startDecorator = <img src={`/static/icons/${value}.svg`} />
   }

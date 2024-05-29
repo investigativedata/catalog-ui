@@ -1,4 +1,6 @@
-import filterOptions from "./filterOptions";
+import { ICountry }from "@investigativedata/ftmq";
+import filterOptions, { TFilterField } from "./filterOptions";
+import { IDatasetTransformed } from "./transformFTM";
 
 export type TFilterValueCount = {
   value: string,
@@ -13,24 +15,29 @@ export type TFilterValueCounts = {
   tags: TFilterValueCount[]
 }
 
-const getFieldCounts = (items, field) => (
-  items.reduce((acc, item) => ({...acc, [item[field]]:(acc[item[field]] || 0) + 1}),{})
+const getFieldCounts = (items: IDatasetTransformed[], field: TFilterField) => (
+  items.map(item => item[field] as string)
+    .reduce((acc: any, fieldValue: string) => {
+      const existingCount: number = acc[fieldValue] || 0 
+      return ({...acc, [fieldValue]: existingCount + 1})
+    },{})
 )
 
-const getOrderedFieldCounts = (items, field) => {
+const getOrderedFieldCounts = (items: IDatasetTransformed[], field: TFilterField) => {
   const order = filterOptions.find(filterGroup => filterGroup.field === field)?.options
 
   const counts = getFieldCounts(items, field)
 
-  return order.map(value => ({ value, count: counts[value] || 0 }))
+  return order?.map(value => ({ value, count: counts[value as keyof typeof counts] || 0 })) || []
 }
 
-const getCountryCounts = (items) => {
-  const flattenedCountries = items
+const getCountryCounts = (items: IDatasetTransformed[]) => {
+  const flattenedCountries: any[] = items
     .map(({ countries }) => countries)
     .flat()
+    .filter(country => !!country)
   
-  const countLookup = flattenedCountries.reduce((acc, item) => ({
+  const countLookup: Record<string, TFilterValueCount> = flattenedCountries.reduce((acc, item) => ({
     ...acc,
     [item.code]:{ label: item.label, count:(acc[item.code]?.count || 0) + 1 }
   }),{})
@@ -40,19 +47,20 @@ const getCountryCounts = (items) => {
     .sort((a, b) => a.count < b.count ? 1 : -1)
 }
 
-const getTags = (items) => {
+const getTags = (items: IDatasetTransformed[]) => {
   const tagsRaw = items
     .map(({ tags }) => tags)
     .flat()
+    .filter(tag => !!tag)
   
-  return [...new Set(tagsRaw)]
+  return [...new Set(tagsRaw)].map(tag => ({ value: tag, count: 0 }))
 }
 
-export default function calculateCatalogStats(datasets) {
+export default function calculateCatalogStats(datasets: IDatasetTransformed[]): TFilterValueCounts {
   return ({
     contentType: getOrderedFieldCounts(datasets, 'contentType'),
     countries:  getCountryCounts(datasets),
     frequency: getOrderedFieldCounts(datasets, 'frequency'),
-    tags: getTags(datasets)
+    tags: getTags(datasets) as TFilterValueCount[]
   })
 }

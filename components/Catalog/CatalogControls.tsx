@@ -7,7 +7,7 @@ import Box from '@mui/joy/Box';
 import FilterCount from '../Filter/FilterCount';
 import FilterModal from '../Filter/FilterModal';
 import Filters from '../Filter/Filters';
-import { TActiveFilters } from '~/util/filterOptions';
+import { TActiveFilters, TFilterField } from '~/util/filterOptions';
 import { TFilterValueCounts } from '~/util/catalogStats';
 
 export type TCatalogControls = {
@@ -43,11 +43,11 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
     [searchParams]
   )
 
-  const toggleFilter = (field, value) => {
+  const toggleFilter = (field: TFilterField, value: string) => {
     router.push(pathname + '?' + createQueryString(field, value))
   }
 
-  const clearFilterGroup = (field) => {
+  const clearFilterGroup = (field: TFilterField) => {
     router.push(pathname + '?' + createQueryString(field))
   }
   

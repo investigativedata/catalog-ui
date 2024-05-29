@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import Stack from "@mui/joy/Stack";
 import type { Theme } from "@mui/joy";
 import Box from '@mui/joy/Box';
@@ -7,14 +7,9 @@ import Add from '@mui/icons-material/Add';
 
 import Count from "~/components/Count";
 
-type DatasetSectionItem = {
-  name: string,
-  count: string
-}
-
 type DatasetSectionItemsProps = {
-  items: DatasetSectionItem[],
-  renderLabel: (item: DatasetSectionItem) => string
+  items: any[],
+  renderLabel: (item: any) => ReactNode
   showAllByDefault: boolean
 }
 
@@ -34,7 +29,7 @@ const DatasetSectionItems = ({ items, renderLabel, showAllByDefault }: DatasetSe
   return (
     <>
      {shownItems.map((item) => (
-       <Box key={item.name} sx={itemStyles}>
+       <Box key={item.key} sx={itemStyles}>
          <Stack
            direction="row"
            justifyContent="space-between"

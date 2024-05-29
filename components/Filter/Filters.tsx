@@ -1,13 +1,13 @@
 import AccordionGroup from "@mui/joy/AccordionGroup";
 
 import FilterGroup from "./FilterGroup";
-import filterOptions from '../../util/filterOptions';
+import filterOptions, { TActiveFilters, TFilterField } from '../../util/filterOptions';
 import type { TFilterValueCounts } from '~/util/catalogStats';
 
 export type TFilters = { 
-  filters: string[],
-  toggleFilter: (field: string, value: string) => void,
-  clearFilterGroup: (field: string) => void,
+  filters: TActiveFilters,
+  toggleFilter: (field: TFilterField, value: string) => void,
+  clearFilterGroup: (field: TFilterField) => void,
   defaultExpanded: boolean,
   filterValueCounts: TFilterValueCounts
 };

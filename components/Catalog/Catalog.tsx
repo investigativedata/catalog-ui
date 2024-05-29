@@ -8,7 +8,7 @@ export default function Catalog({ datasets }: { datasets: IDatasetTransformed[] 
   return (
     <Box>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-        {datasets.sort((a, b) => a.updatedAt && (a.updatedAt > b.updatedAt) ? 1 : -1)
+        {datasets.sort((a, b) => a.updatedAt && (!b.updatedAt || a.updatedAt > b.updatedAt) ? 1 : -1)
           .map((d) => (
             <Grid key={d.name} xs={12} sm={6} md={12} lg={6}>
               <CatalogItem key={d.name} item={d} />

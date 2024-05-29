@@ -10,11 +10,11 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Catalog from "~/components/Catalog/Catalog";
 import CatalogControls from "~/components/Catalog/CatalogControls";
 import FilterResultSummary from "~/components/Filter/FilterResultSummary";
-import filterOptions from "~/util/filterOptions";
+import filterOptions, { TActiveFilters } from "~/util/filterOptions";
 import { HeaderScrollContext } from '../components/PageContext';
 import { applyActiveFilters } from '~/util/util'
 import calculateCatalogStats from '~/util/catalogStats'
-import { ICatalogTransformed } from "~/util/transformFTM";
+import { ICatalogTransformed, IDatasetTransformed } from "~/util/transformFTM";
 
 
 const initializeSearchIndex = (items: any[]) => {
@@ -68,9 +68,9 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalogTransforme
   );
 
   const searchIndex = initializeSearchIndex(catalog.datasets)
-  const [searchValue, setSearchValue] = useState('');
-  const [activeFilters, setActiveFilters] = useState(getFiltersFromUrl());
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [activeFilters, setActiveFilters] = useState<TActiveFilters>(getFiltersFromUrl());
+  const [filteredItems, setFilteredItems] = useState<IDatasetTransformed[]>([]);
 
   useEffect(() => {
     const filterObj = getFiltersFromUrl()
@@ -81,14 +81,20 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalogTransforme
   useEffect(() => {
     let items = catalog.datasets
 
+    if (!items) {
+      return;
+    }
+
     if (searchValue.length > 0) {
       items = searchIndex.search(searchValue)
         .map((result) => result.item);
     }
 
     items = applyActiveFilters(items, activeFilters)
-
-    setFilteredItems(items)
+    
+    if (!!items) {
+      setFilteredItems(items)
+    }
   }, [searchValue, activeFilters]);
 
 

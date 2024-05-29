@@ -24,7 +24,6 @@ const DatasetSectionHeader = ({ label, count }: { label: string, count?: number 
   return (
     <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px", marginBottom: "24px !important" }}>
       <Typography
-        level="h5"
         sx={{ textTransform: 'capitalize', fontWeight: "bold" }}
       >
         {label}
@@ -68,7 +67,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDatasetTransformed }) 
 
   return (
     <Stack spacing={4}>
-      {entityTypes.length > 0 && (
+      {!!entityTypes && entityTypes.length > 0 && (
         <>
           <DatasetSectionHeader label="entity types" count={entityTypes.length} />
           <DatasetSectionItems
@@ -78,7 +77,7 @@ const DatasetMetadataEntities = ({ dataset }: { dataset: IDatasetTransformed }) 
           />
         </>
       )}
-      {countries.length > 0 && (
+      {!!countries && countries.length > 0 && (
         <>
           <DatasetSectionHeader label="countries" count={countries.length} />
           <DatasetSectionItems
@@ -100,7 +99,7 @@ const DatasetMetadataSecondary = ({ dataset, openDrawer }: { dataset: IDatasetTr
     <Stack spacing={3}>
       {publisher && (
         <>
-          <DatasetSectionHeader label="publisher" active={!!publisher} />
+          <DatasetSectionHeader label="publisher" />
           {publisher.url ? (
             <Link href={publisher.url} style={{ marginTop: "0" }}>{publisher.name}</Link>
           ) : (

@@ -12,6 +12,8 @@ export type TTags = {
 export default function Tags({ items, activeFilters, onClick }: TTags) {
   if (!items?.length) return null;
 
+  console.log(items)
+
   return (
     <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
       {items.map(value => (

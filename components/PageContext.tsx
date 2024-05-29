@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react';
 
 const HEADER_COLLAPSE_SCROLLPOINT = 180;
 export const HeaderScrollContext = createContext(false);
 
-export default function PageContextWrapper({ children }) {
+export default function PageContextWrapper({ children }: PropsWithChildren) {
   const [isCollapsed, setCollapsed] = useState(false);
 
   const handleScroll = () => {

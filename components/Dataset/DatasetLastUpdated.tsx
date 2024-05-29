@@ -1,8 +1,8 @@
 import Typography from "@mui/joy/Typography";
 import { TypographySystem } from "@mui/joy";
 import dayjs from 'dayjs'
-const relativeTime = require('dayjs/plugin/relativeTime')
-const updateLocale = require('dayjs/plugin/updateLocale')
+import relativeTime from 'dayjs/plugin/relativeTime'
+import updateLocale from 'dayjs/plugin/updateLocale'
 
 dayjs.extend(relativeTime)
 dayjs.extend(updateLocale)

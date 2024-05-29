@@ -12,6 +12,8 @@ import {
 } from "@investigativedata/ftmq";
 
 
+
+
 export interface ICatalogTransformed {
   readonly datasets: IDatasetTransformed[] | null;
 } 
@@ -38,7 +40,7 @@ export function transformFTMCatalog(catalog: ICatalog): ICatalogTransformed  {
   return ({ datasets: catalog.datasets?.map(transformFTMDataset) || [] })
 }
 
-export function transformFTMDataset(dataset: IDataset) {
+export function transformFTMDataset(dataset: IDataset & { tags?: string[] | null }) {
   const {
     aleph_url,
     category,
@@ -52,25 +54,25 @@ export function transformFTMDataset(dataset: IDataset) {
     tags,
     title,
     updated_at
-  } = dataset;
+  } = dataset; 
 
-  const things = dataset.things as ISchemataStats
-  const intervals = dataset.intervals as ISchemataStats
+  const things = dataset.things
+  const intervals = dataset.intervals
 
   const schemataMerged = [...(things?.schemata || []), ...(intervals?.schemata || [])]
     .sort((a, b) => a.count > b.count ? -1 : 1);
 
   const countries: ICountry[] = [...(things?.countries || []), ...(intervals?.countries || [])]
 
-  const countriesMerged: ICountry[] = Object.values(
-      countries.reduce((acc, item) => {
+  const countriesMerged = Object.values(
+      countries.reduce((acc: any, item) => {
         acc[item.code] = acc[item.code]
           ? { ...item, count: item.count + acc[item.code].count }
           : item;
         return acc;
       }, {})
     )
-    .sort((a: ICountry, b: ICountry) => a.count > b.count ? -1 : 1);
+    .sort((a: any, b: any) => a.count > b.count ? -1 : 1);
       
   return ({
     alephUrl: aleph_url,
