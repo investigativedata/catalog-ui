@@ -12,7 +12,6 @@ import Card from "@mui/joy/Card"
 import DatasetProperty from "~/components/Dataset/DatasetProperty";
 import DatasetLastUpdated from "~/components/Dataset/DatasetLastUpdated";
 import CountryLabel from "~/components/CountryLabel";
-import Count from "~/components/Count";
 import CTADrawer from "~/components/CTADrawer";
 import Tags from '~/components/Tags';
 import DatasetSectionItems from '~/components/Dataset/DatasetSectionItems';
@@ -24,6 +23,7 @@ const DatasetSectionHeader = ({ label, count }: { label: string, count?: number 
   return (
     <Card size="sm" color="success" variant="soft" sx={{ borderRadius: 0, padding: "10px", marginBottom: "24px !important" }}>
       <Typography
+        level="body-md"
         sx={{ textTransform: 'capitalize', fontWeight: "bold" }}
       >
         {label}
