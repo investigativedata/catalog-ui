@@ -1,25 +1,22 @@
-import React, { useCallback, ReactElement } from 'react'
+import React, { useCallback, useContext, Suspense } from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Box from '@mui/joy/Box';
 
+import { CatalogContext } from './CatalogContext';
 import FilterCount from '../Filter/FilterCount';
 import FilterModal from '../Filter/FilterModal';
 import Filters from '../Filter/Filters';
-import { TActiveFilters, TFilterField } from '~/util/filterOptions';
-import { TFilterValueCounts } from '~/util/catalogStats';
+import FilterResultSummary from '../Filter/FilterResultSummary';
+import { TFilterField } from '~/util/filterOptions';
+import calculateCatalogStats from '~/util/catalogStats'
 
 export type TCatalogControls = {
-  searchValue: string,
-  setSearchValue: (value: string) => void,
-  activeFilters: TActiveFilters,
-  clearFilters: () => void,
-  resultSummary: ReactElement,
-  filterValueCounts: TFilterValueCounts
+  totalCount: number,
 };
 
-export default function CatalogControls({ activeFilters, clearFilters, searchValue, setSearchValue, filterValueCounts, resultSummary }: TCatalogControls) {
+export default function CatalogControls({ totalCount }: TCatalogControls) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -47,18 +44,31 @@ export default function CatalogControls({ activeFilters, clearFilters, searchVal
     router.push(pathname + '?' + createQueryString(field, value))
   }
 
+  const clearFilters = () => {
+    router.push(pathname)
+  }
+
   const clearFilterGroup = (field: TFilterField) => {
     router.push(pathname + '?' + createQueryString(field))
   }
+
+  const populatedContext = useContext(CatalogContext)
+  if (!populatedContext) {
+    return null;
+  }
+  const { searchValue, setSearchValue, activeFilters, filteredItems } = populatedContext
+
   
   const activeFilterCount = Object.values(activeFilters).flat().length;
 
   const filtersComponentProps = {
     filters: activeFilters,
-    filterValueCounts,
+    filterValueCounts: calculateCatalogStats(filteredItems),
     toggleFilter,
     clearFilterGroup
   }
+
+  const resultSummary = <FilterResultSummary active={filteredItems.length} total={totalCount} />
 
   return (
     <Stack gap={2}>
