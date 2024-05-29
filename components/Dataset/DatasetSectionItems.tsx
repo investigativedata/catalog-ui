@@ -7,6 +7,8 @@ import Add from '@mui/icons-material/Add';
 
 import Count from "~/components/Count";
 
+const SHOWN_ITEM_CUTOFF = 5;
+
 type DatasetSectionItemsProps = {
   items: any[],
   renderLabel: (item: any) => ReactNode
@@ -22,9 +24,9 @@ const DatasetSectionItems = ({ items, renderLabel, showAllByDefault }: DatasetSe
     padding: "8px 0"
   })
 
-  const shownItems = showAll ? items : items.slice(0, 5)
+  const displayShowAllButton = items.length > SHOWN_ITEM_CUTOFF;
 
-  const displayShowAllButton = items.length > shownItems.length
+  const shownItems = showAll ? items : items.slice(0, SHOWN_ITEM_CUTOFF);
 
   return (
     <>
@@ -46,7 +48,7 @@ const DatasetSectionItems = ({ items, renderLabel, showAllByDefault }: DatasetSe
          variant="plain"
          color="neutral"
          startDecorator={<Add sx={theme => ({ color: theme.palette.common.black })} />}
-         onClick={() => setShowAll(true)}
+         onClick={() => setShowAll(!showAll)}
          sx={{
            background: "none !important",
            boxShadow: "none !important",
@@ -58,7 +60,7 @@ const DatasetSectionItems = ({ items, renderLabel, showAllByDefault }: DatasetSe
            textDecoration: "underline"
          }}
        >
-         Show all
+         {showAll ? 'Hide' : 'Show all'}
        </Button>
      )}
    </>
