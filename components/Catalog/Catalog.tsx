@@ -1,5 +1,6 @@
 import Box from "@mui/joy/Box";
 import Grid from "@mui/joy/Grid";
+import Typography from "@mui/joy/Typography";
 
 import CatalogItem from "./CatalogItem";
 import { IDatasetTransformed } from "~/util/transformFTM";
@@ -15,6 +16,11 @@ export default function Catalog({ datasets }: { datasets: IDatasetTransformed[] 
             </Grid>
         ))}
       </Grid>
+      <Box padding="4rem 0 4rem" textAlign="center">
+        <img src={`/static/icons/ok.svg`} />
+        <Typography level="body-md">You have seen all datasets.</Typography>
+        <Typography level="body-md">Keep checking – we add datasets regularly.</Typography>
+      </Box>
     </Box>
   );
 }

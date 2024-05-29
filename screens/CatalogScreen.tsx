@@ -113,11 +113,6 @@ export default function CatalogScreen({ catalog }: { catalog: ICatalogTransforme
       </FixedColumn>
       <Grid xs={12} md={4} lg={6} sx={{ order: { xs: "2", md: "1", paddingTop: "2rem" }}}>
         <Catalog datasets={filteredItems} />
-        <Box padding="4rem 0 4rem" textAlign="center">
-          <img src={`/static/icons/ok.svg`} />
-          <Typography level="body-md">You have seen all datasets.</Typography>
-          <Typography level="body-md">Keep checking – we add datasets regularly.</Typography>
-        </Box>
       </Grid>
       <FixedColumn style={{ order: { xs: "1", md: "2" }}}>
         <CatalogControls
