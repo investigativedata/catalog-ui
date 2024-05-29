@@ -31,7 +31,7 @@ const DatasetSectionItems = ({ items, renderLabel, showAllByDefault }: DatasetSe
   return (
     <>
      {shownItems.map((item) => (
-       <Box key={item.key} sx={itemStyles}>
+       <Box key={item.label} sx={itemStyles}>
          <Stack
            direction="row"
            justifyContent="space-between"
