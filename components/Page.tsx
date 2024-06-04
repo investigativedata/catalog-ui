@@ -25,6 +25,7 @@ export default function Page({
       <PageContext>
         <Header crumbs={crumbs} isRoot={isRoot} />
         <Box
+          component="main"
           sx={(theme) => ({
             paddingTop: headerCollapsed
               ? "var(--header-height-collapsed)"
@@ -34,13 +35,14 @@ export default function Page({
                 },
             paddingLeft: { xs: "1rem", sm: "2rem" },
             paddingRight: { xs: "1rem", sm: "2rem" },
+            paddingBottom: "100px", // Footer
             backgroundColor: isRoot
               ? "inherit"
               : theme.vars.palette.success[50],
             transition: "var(--header-transition)",
           })}
         >
-          <section>{children}</section>
+          {children}
         </Box>
         <Footer />
       </PageContext>

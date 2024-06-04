@@ -22,11 +22,14 @@ const FooterLink = ({ href, label }: React.PropsWithChildren<IFooterLink>) => (
 const Footer = () => {
   return (
     <Box
+      component="footer"
       sx={(theme) => ({
         width: "100%",
         zIndex: 10,
         padding: "2rem 1.5rem",
         backgroundColor: theme.vars.palette.success[300],
+        position: "absolute",
+        bottom: 0,
       })}
     >
       <Stack

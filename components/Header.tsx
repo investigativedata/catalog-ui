@@ -38,6 +38,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
   const headerCollapsed = useContext(HeaderScrollContext);
   return (
     <Box
+      component="header"
       sx={(theme) => ({
         width: "100%",
         position: "fixed",
