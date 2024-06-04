@@ -8,5 +8,5 @@ html,
 body {
   min-height: 100vh;
   position: relative;
-  background-color: var(--joy-palette-success-50);
+  /* background-color: var(--joy-palette-success-50); */
 }
