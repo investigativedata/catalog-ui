@@ -1,9 +1,12 @@
 import { Fragment, useState } from "react";
+import Image from "next/image";
 import Box from "@mui/joy/Box";
 import IconButton from "@mui/joy/IconButton";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import ModalDialog from "@mui/joy/ModalDialog";
+import iconFilter from "~/assets/icons/filter.svg";
+import iconFilterFilled from "~/assets/icons/filter_filled.svg";
 
 export type FilterModalProps = {
   filterCount: number;
@@ -15,9 +18,7 @@ export default function FilterModal({
 }: React.PropsWithChildren<FilterModalProps>) {
   const [open, setOpen] = useState<boolean>(false);
 
-  const filterIconPath = `/static/icons/${
-    filterCount > 0 ? "filter_filled" : "filter"
-  }.svg`;
+  const filterIconSrc = filterCount > 0 ? iconFilterFilled : iconFilter;
 
   return (
     <Fragment>
@@ -25,7 +26,11 @@ export default function FilterModal({
         onClick={() => setOpen(true)}
         sx={{ display: { xs: "block", md: "none" } }}
       >
-        <img src={filterIconPath} style={{ width: "2rem", height: "2rem" }} />
+        <Image
+          src={filterIconSrc}
+          style={{ width: "2rem", height: "2rem" }}
+          alt="filter icon"
+        />
       </IconButton>
       <Modal
         aria-labelledby="modal-title"

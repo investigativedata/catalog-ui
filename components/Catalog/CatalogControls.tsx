@@ -1,8 +1,10 @@
-import React, { Suspense, useCallback, useContext } from "react";
+import React, { useCallback, useContext } from "react";
+import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Box from "@mui/joy/Box";
 import Input from "@mui/joy/Input";
 import Stack from "@mui/joy/Stack";
+import iconSearch from "~/assets/icons/search.svg";
 import calculateCatalogStats from "~/util/catalogStats";
 import { TFilterField } from "~/util/filterOptions";
 import FilterCount from "../Filter/FilterCount";
@@ -87,7 +89,7 @@ export default function CatalogControls({ totalCount }: TCatalogControls) {
           placeholder="Search in Data Catalog"
           value={searchValue}
           onChange={(event) => setSearchValue(event.target.value)}
-          startDecorator={<img src={`/static/icons/search.svg`} />}
+          startDecorator={<Image src={iconSearch} alt="search icon" />}
           sx={{
             "--Input-focusedThickness": "0rem",
             background: "#fff",

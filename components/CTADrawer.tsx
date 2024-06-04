@@ -1,8 +1,11 @@
+import Image from "next/image";
+import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
 import Drawer from "@mui/joy/Drawer";
 import ModalClose from "@mui/joy/ModalClose";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
+import iconOkHand from "~/assets/icons/ok.svg";
 
 const DrawerContentItem = ({ children }: React.PropsWithChildren) => (
   <Typography
@@ -64,13 +67,18 @@ export default function CTADrawer({ open, onClose }: TCTADrawer) {
         >
           Get in touch
         </Button>
-        <img
-          width="50%"
-          src={`/static/icons/ok.svg`}
-          style={{
-            transform: "translateX(100%)",
-          }}
-        />
+        <AspectRatio
+          ratio="1/1"
+          sx={{ width: "60%", alignSelf: "flex-end" }}
+          variant="plain"
+        >
+          <Image
+            fill={true}
+            src={iconOkHand}
+            alt="ok hand icon"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </AspectRatio>
       </Stack>
     </Drawer>
   );

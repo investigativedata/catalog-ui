@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Chip from "@mui/joy/Chip";
 import ChipDelete from "@mui/joy/ChipDelete";
 import IconButton from "@mui/joy/IconButton";
+import iconFilterWhite from "~/assets/icons/filter_white.svg";
 
 export type TFilterCount = {
   value: number;
@@ -58,12 +60,13 @@ export default function FilterCount({
           }}
           disabled
         >
-          <img
-            src="/static/icons/filter_white.svg"
+          <Image
+            src={iconFilterWhite}
             style={{
               width: "1rem",
               height: "1rem",
             }}
+            alt="filter icon"
           />
         </IconButton>
       )}

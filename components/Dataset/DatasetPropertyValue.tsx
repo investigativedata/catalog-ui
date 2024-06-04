@@ -1,7 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 import Typography from "@mui/joy/Typography";
+import iconDocuments from "~/assets/icons/documents.svg";
+import iconFrequency from "~/assets/icons/frequency.svg";
+import iconMixed from "~/assets/icons/mixed.svg";
+import iconStructured from "~/assets/icons/structured.svg";
 import { CountryFlag } from "../CountryLabel";
 import Property from "../Property";
+
+const ICONS = {
+  documents: iconDocuments,
+  structured: iconStructured,
+  mixed: iconMixed,
+};
 
 type DatasetPropertyValueProps = {
   value: string | number | null | undefined;
@@ -23,11 +34,17 @@ export default function DatasetPropertyValue({
   let startDecorator;
 
   if (type === "frequency") {
-    startDecorator = <img src={`/static/icons/frequency.svg`} />;
+    startDecorator = (
+      <Image src={iconFrequency} alt={value?.toString() || "frequency icon"} />
+    );
   } else if (type === "country") {
     startDecorator = <CountryFlag iso={value as string} />;
   } else if (type === "datatype") {
-    startDecorator = <img src={`/static/icons/${value}.svg`} />;
+    // @ts-ignore
+    const iconSrc = ICONS[value.toString().toLowerCase()];
+    startDecorator = (
+      <Image src={iconSrc} alt={value?.toString() || "datatype icon"} />
+    );
   }
 
   const content = (

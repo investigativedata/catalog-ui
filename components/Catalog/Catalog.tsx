@@ -1,7 +1,10 @@
-import { Suspense, useContext } from "react";
+import { useContext } from "react";
+import Image from "next/image";
+import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Grid from "@mui/joy/Grid";
 import Typography from "@mui/joy/Typography";
+import iconOkHand from "~/assets/icons/ok.svg";
 import { CatalogContext } from "./CatalogContext";
 import CatalogItem from "./CatalogItem";
 
@@ -25,8 +28,24 @@ export default function Catalog() {
             </Grid>
           ))}
       </Grid>
-      <Box padding="4rem 0 4rem" textAlign="center">
-        <img src={`/static/icons/ok.svg`} />
+      <Box
+        padding="4rem 0 4rem"
+        textAlign="center"
+        display="flex"
+        flexDirection="column"
+      >
+        <AspectRatio
+          ratio="1/1"
+          variant="plain"
+          sx={{ width: "50%", alignSelf: "center" }}
+        >
+          <Image
+            fill={true}
+            src={iconOkHand}
+            alt="ok hand icon"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </AspectRatio>
         <Typography level="body-md">You have seen all datasets.</Typography>
         <Typography level="body-md">
           Keep checking – we add datasets regularly.
