@@ -62,7 +62,7 @@ export default function CTADrawer({ open, onClose }: TCTADrawer) {
           variant="outlined"
           size="md"
           component="a"
-          href=""
+          href="mailto:hi@investigativedata.org"
           sx={{ width: "fit-content" }}
         >
           Get in touch
