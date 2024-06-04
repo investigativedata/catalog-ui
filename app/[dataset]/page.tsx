@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
 import { IDataset, getCatalog } from "@investigativedata/ftmq";
 import Page from "~/components/Page";
+import catalog from "~/public/investigraph.eu.json";
 import DatasetScreen from "~/screens/DatasetScreen";
-import catalog from '~/public/investigraph.eu.json';
 import { CATALOG_URI } from "~/settings";
 import { transformFTMDataset } from "~/util/transformFTM";
 
@@ -31,7 +30,7 @@ export async function generateMetadata({
 
 export default async function DatasetPage({ params }: { params: Params }) {
   const dataset = await getDataset(params.dataset);
-  const datasetTransformed = transformFTMDataset(dataset)
+  const datasetTransformed = transformFTMDataset(dataset);
 
   const breadcrumbs = [
     {

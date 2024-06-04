@@ -1,74 +1,75 @@
-import React, { useCallback, useContext, Suspense } from 'react'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
-import Input from '@mui/joy/Input';
-import Stack from '@mui/joy/Stack';
-import Box from '@mui/joy/Box';
-
-import { CatalogContext } from './CatalogContext';
-import FilterCount from '../Filter/FilterCount';
-import FilterModal from '../Filter/FilterModal';
-import Filters from '../Filter/Filters';
-import FilterResultSummary from '../Filter/FilterResultSummary';
-import { TFilterField } from '~/util/filterOptions';
-import calculateCatalogStats from '~/util/catalogStats'
+import React, { Suspense, useCallback, useContext } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Box from "@mui/joy/Box";
+import Input from "@mui/joy/Input";
+import Stack from "@mui/joy/Stack";
+import calculateCatalogStats from "~/util/catalogStats";
+import { TFilterField } from "~/util/filterOptions";
+import FilterCount from "../Filter/FilterCount";
+import FilterModal from "../Filter/FilterModal";
+import FilterResultSummary from "../Filter/FilterResultSummary";
+import Filters from "../Filter/Filters";
+import { CatalogContext } from "./CatalogContext";
 
 export type TCatalogControls = {
-  totalCount: number,
+  totalCount: number;
 };
 
 export default function CatalogControls({ totalCount }: TCatalogControls) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const createQueryString = useCallback(
     (name: string, value?: string) => {
-      const params = new URLSearchParams(searchParams.toString())
+      const params = new URLSearchParams(searchParams.toString());
 
       if (!!value) {
         if (params.has(name, value)) {
-          params.delete(name, value)
+          params.delete(name, value);
         } else {
-          params.append(name, value)
+          params.append(name, value);
         }
       } else {
-        params.delete(name)
+        params.delete(name);
       }
- 
-      return params.toString()
+
+      return params.toString();
     },
-    [searchParams]
-  )
+    [searchParams],
+  );
 
   const toggleFilter = (field: TFilterField, value: string) => {
-    router.push(pathname + '?' + createQueryString(field, value))
-  }
+    router.push(pathname + "?" + createQueryString(field, value));
+  };
 
   const clearFilters = () => {
-    router.push(pathname)
-  }
+    router.push(pathname);
+  };
 
   const clearFilterGroup = (field: TFilterField) => {
-    router.push(pathname + '?' + createQueryString(field))
-  }
+    router.push(pathname + "?" + createQueryString(field));
+  };
 
-  const populatedContext = useContext(CatalogContext)
+  const populatedContext = useContext(CatalogContext);
   if (!populatedContext) {
     return null;
   }
-  const { searchValue, setSearchValue, activeFilters, filteredItems } = populatedContext
+  const { searchValue, setSearchValue, activeFilters, filteredItems } =
+    populatedContext;
 
-  
   const activeFilterCount = Object.values(activeFilters).flat().length;
 
   const filtersComponentProps = {
     filters: activeFilters,
     filterValueCounts: calculateCatalogStats(filteredItems),
     toggleFilter,
-    clearFilterGroup
-  }
+    clearFilterGroup,
+  };
 
-  const resultSummary = <FilterResultSummary active={filteredItems.length} total={totalCount} />
+  const resultSummary = (
+    <FilterResultSummary active={filteredItems.length} total={totalCount} />
+  );
 
   return (
     <Stack gap={2}>
@@ -88,10 +89,10 @@ export default function CatalogControls({ totalCount }: TCatalogControls) {
           onChange={(event) => setSearchValue(event.target.value)}
           startDecorator={<img src={`/static/icons/search.svg`} />}
           sx={{
-            '--Input-focusedThickness': '0rem',
+            "--Input-focusedThickness": "0rem",
             background: "#fff",
             padding: "13px 18px",
-            flexGrow: 1
+            flexGrow: 1,
           }}
         />
         <Stack
@@ -100,7 +101,11 @@ export default function CatalogControls({ totalCount }: TCatalogControls) {
           alignItems="center"
           spacing={0}
         >
-          <FilterCount value={activeFilterCount} onClear={clearFilters} withIcon />
+          <FilterCount
+            value={activeFilterCount}
+            onClear={clearFilters}
+            withIcon
+          />
           <FilterModal filterCount={activeFilterCount}>
             {resultSummary}
             <Filters {...filtersComponentProps} defaultExpanded={false} />
@@ -111,5 +116,5 @@ export default function CatalogControls({ totalCount }: TCatalogControls) {
         <Filters {...filtersComponentProps} defaultExpanded />
       </Box>
     </Stack>
-  )
+  );
 }

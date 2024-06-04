@@ -1,28 +1,33 @@
+import Link from "next/link";
 import Typography from "@mui/joy/Typography";
-import Link from 'next/link';
-
-import Property from '../Property';
-import { CountryFlag } from '../CountryLabel';
+import { CountryFlag } from "../CountryLabel";
+import Property from "../Property";
 
 type DatasetPropertyValueProps = {
-  value: string | number | null | undefined,
-  displayValue?: string,
-  type?: string,
-  href?: string | null,
-  style?: any
-}
+  value: string | number | null | undefined;
+  displayValue?: string;
+  type?: string;
+  href?: string | null;
+  style?: any;
+};
 
-export default function DatasetPropertyValue({ displayValue, value, type, href, style }: DatasetPropertyValueProps) {
+export default function DatasetPropertyValue({
+  displayValue,
+  value,
+  type,
+  href,
+  style,
+}: DatasetPropertyValueProps) {
   if (value === null || value === undefined) return null;
 
   let startDecorator;
 
   if (type === "frequency") {
-    startDecorator = <img src={`/static/icons/frequency.svg`} />
+    startDecorator = <img src={`/static/icons/frequency.svg`} />;
   } else if (type === "country") {
-    startDecorator = <CountryFlag iso={value as string} />
+    startDecorator = <CountryFlag iso={value as string} />;
   } else if (type === "datatype") {
-    startDecorator = <img src={`/static/icons/${value}.svg`} />
+    startDecorator = <img src={`/static/icons/${value}.svg`} />;
   }
 
   const content = (
@@ -32,9 +37,7 @@ export default function DatasetPropertyValue({ displayValue, value, type, href, 
   );
 
   if (href) {
-    return (
-      <Link href={href}>{content}</Link>
-    )
+    return <Link href={href}>{content}</Link>;
   }
 
   return content;

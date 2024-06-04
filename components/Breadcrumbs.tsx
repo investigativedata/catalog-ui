@@ -7,24 +7,25 @@ export type TBreadrumb = { label: string | React.ReactNode; url?: string };
 export default function Breadcrumbs({ crumbs }: { crumbs: TBreadrumb[] }) {
   if (crumbs.length == 0) return null;
   return (
-    <MuiBreadcrumbs 
+    <MuiBreadcrumbs
       sx={{ padding: 0 }}
-      slotProps={{ 
-        li: { 
-          sx: theme => ({ color: theme.palette.common.black, fontSize: "sm" })
-        }
+      slotProps={{
+        li: {
+          sx: (theme) => ({
+            color: theme.palette.common.black,
+            fontSize: "sm",
+          }),
+        },
       }}
     >
       {crumbs.map(({ label, url }, ix) =>
         url ? (
-          <Link key={ix} href={url} >
+          <Link key={ix} href={url}>
             {label}
           </Link>
         ) : (
-          <Typography key={ix}>
-            {label}
-          </Typography>
-        )
+          <Typography key={ix}>{label}</Typography>
+        ),
       )}
     </MuiBreadcrumbs>
   );

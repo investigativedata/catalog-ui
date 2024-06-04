@@ -1,28 +1,27 @@
-import Drawer from '@mui/joy/Drawer'
-import ModalClose from '@mui/joy/ModalClose';
-import Typography from '@mui/joy/Typography'
-import Stack from '@mui/joy/Stack';
-import Button from '@mui/joy/Button';
+import Button from "@mui/joy/Button";
+import Drawer from "@mui/joy/Drawer";
+import ModalClose from "@mui/joy/ModalClose";
+import Stack from "@mui/joy/Stack";
+import Typography from "@mui/joy/Typography";
 
 const DrawerContentItem = ({ children }: React.PropsWithChildren) => (
-   <Typography
+  <Typography
     level="body-md"
     sx={{
-     paddingBottom: "2rem",
-     fontWeight: "500"
+      paddingBottom: "2rem",
+      fontWeight: "500",
     }}
-   >
-     {children}
-   </Typography>
+  >
+    {children}
+  </Typography>
 );
 
 export type TCTADrawer = {
-  open: boolean,
-  onClose: () => void
+  open: boolean;
+  onClose: () => void;
 };
 
 export default function CTADrawer({ open, onClose }: TCTADrawer) {
-
   return (
     <Drawer
       anchor="right"
@@ -32,42 +31,46 @@ export default function CTADrawer({ open, onClose }: TCTADrawer) {
       onClose={onClose}
       slotProps={{
         content: {
-        sx: theme => ({ 
-          backgroundColor: theme.vars.palette.common.white 
-        })
-        }
+          sx: (theme) => ({
+            backgroundColor: theme.vars.palette.common.white,
+          }),
+        },
       }}
     >
       <ModalClose />
-      <Stack 
-        sx={{ 
-        padding: "3rem 3rem",
-        position: "relative",
-        top: "50%",
-        transform: "translateY(-50%)"
+      <Stack
+        sx={{
+          padding: "3rem 3rem",
+          position: "relative",
+          top: "50%",
+          transform: "translateY(-50%)",
         }}
       >
         <DrawerContentItem>
           Are you interest to use this dataset in your next investigation?
         </DrawerContentItem>
         <DrawerContentItem>
-          We can provide you with a no-worries-all-in service to manage all your research data.
+          We can provide you with a no-worries-all-in service to manage all your
+          research data.
         </DrawerContentItem>
-        <DrawerContentItem>
-          Got curious?
-        </DrawerContentItem>
+        <DrawerContentItem>Got curious?</DrawerContentItem>
         {/* TODO: add CTA destination link */}
-        <Button variant="outlined" size="md" component="a" href="" sx={{ width: "fit-content" }}>
+        <Button
+          variant="outlined"
+          size="md"
+          component="a"
+          href=""
+          sx={{ width: "fit-content" }}
+        >
           Get in touch
         </Button>
         <img
           width="50%"
           src={`/static/icons/ok.svg`}
           style={{
-            transform: "translateX(100%)"
+            transform: "translateX(100%)",
           }}
         />
-
       </Stack>
     </Drawer>
   );

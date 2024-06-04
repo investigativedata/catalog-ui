@@ -5,18 +5,14 @@ import {
   IMaintainer,
   IPublisher,
   ISchema,
-  ISchemataStats,
   TContentType,
   TDatasetCategory,
   TDatasetFrequency,
 } from "@investigativedata/ftmq";
 
-
-
-
 export interface ICatalogTransformed {
   readonly datasets: IDatasetTransformed[] | null;
-} 
+}
 
 export interface IDatasetTransformed {
   readonly alephUrl?: string | null;
@@ -35,12 +31,13 @@ export interface IDatasetTransformed {
   readonly updatedAt?: string | null;
 }
 
-
-export function transformFTMCatalog(catalog: ICatalog): ICatalogTransformed  {
-  return ({ datasets: catalog.datasets?.map(transformFTMDataset) || [] })
+export function transformFTMCatalog(catalog: ICatalog): ICatalogTransformed {
+  return { datasets: catalog.datasets?.map(transformFTMDataset) || [] };
 }
 
-export function transformFTMDataset(dataset: IDataset & { tags?: string[] | null }) {
+export function transformFTMDataset(
+  dataset: IDataset & { tags?: string[] | null },
+) {
   const {
     aleph_url,
     category,
@@ -53,28 +50,32 @@ export function transformFTMDataset(dataset: IDataset & { tags?: string[] | null
     summary,
     tags,
     title,
-    updated_at
-  } = dataset; 
+    updated_at,
+  } = dataset;
 
-  const things = dataset.things
-  const intervals = dataset.intervals
+  const things = dataset.things;
+  const intervals = dataset.intervals;
 
-  const schemataMerged = [...(things?.schemata || []), ...(intervals?.schemata || [])]
-    .sort((a, b) => a.count > b.count ? -1 : 1);
+  const schemataMerged = [
+    ...(things?.schemata || []),
+    ...(intervals?.schemata || []),
+  ].sort((a, b) => (a.count > b.count ? -1 : 1));
 
-  const countries: ICountry[] = [...(things?.countries || []), ...(intervals?.countries || [])]
+  const countries: ICountry[] = [
+    ...(things?.countries || []),
+    ...(intervals?.countries || []),
+  ];
 
   const countriesMerged = Object.values(
-      countries.reduce((acc: any, item) => {
-        acc[item.code] = acc[item.code]
-          ? { ...item, count: item.count + acc[item.code].count }
-          : item;
-        return acc;
-      }, {})
-    )
-    .sort((a: any, b: any) => a.count > b.count ? -1 : 1);
-      
-  return ({
+    countries.reduce((acc: any, item) => {
+      acc[item.code] = acc[item.code]
+        ? { ...item, count: item.count + acc[item.code].count }
+        : item;
+      return acc;
+    }, {}),
+  ).sort((a: any, b: any) => (a.count > b.count ? -1 : 1));
+
+  return {
     alephUrl: aleph_url,
     category: category || "Other",
     contentType: content_type || "Structured",
@@ -89,5 +90,5 @@ export function transformFTMDataset(dataset: IDataset & { tags?: string[] | null
     tags: tags || [],
     title,
     updatedAt: updated_at,
-  })
+  };
 }

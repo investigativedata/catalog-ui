@@ -1,18 +1,26 @@
 import AccordionGroup from "@mui/joy/AccordionGroup";
-
+import type { TFilterValueCounts } from "~/util/catalogStats";
+import filterOptions, {
+  TActiveFilters,
+  TFilterField,
+} from "../../util/filterOptions";
 import FilterGroup from "./FilterGroup";
-import filterOptions, { TActiveFilters, TFilterField } from '../../util/filterOptions';
-import type { TFilterValueCounts } from '~/util/catalogStats';
 
-export type TFilters = { 
-  filters: TActiveFilters,
-  toggleFilter: (field: TFilterField, value: string) => void,
-  clearFilterGroup: (field: TFilterField) => void,
-  defaultExpanded: boolean,
-  filterValueCounts: TFilterValueCounts
+export type TFilters = {
+  filters: TActiveFilters;
+  toggleFilter: (field: TFilterField, value: string) => void;
+  clearFilterGroup: (field: TFilterField) => void;
+  defaultExpanded: boolean;
+  filterValueCounts: TFilterValueCounts;
 };
 
-export default function Filters({ filters, toggleFilter, clearFilterGroup, defaultExpanded, filterValueCounts }: TFilters) {
+export default function Filters({
+  filters,
+  toggleFilter,
+  clearFilterGroup,
+  defaultExpanded,
+  filterValueCounts,
+}: TFilters) {
   return (
     <AccordionGroup sx={{ backgroundColor: "none" }}>
       {filterOptions.map(({ label, field, type }) => (

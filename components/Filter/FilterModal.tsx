@@ -1,23 +1,30 @@
-import { useState, Fragment } from 'react';
-import Box from '@mui/joy/Box';
-import Modal from '@mui/joy/Modal';
-import ModalClose from '@mui/joy/ModalClose';
-import ModalDialog from '@mui/joy/ModalDialog';
-import IconButton from '@mui/joy/IconButton';
-
+import { Fragment, useState } from "react";
+import Box from "@mui/joy/Box";
+import IconButton from "@mui/joy/IconButton";
+import Modal from "@mui/joy/Modal";
+import ModalClose from "@mui/joy/ModalClose";
+import ModalDialog from "@mui/joy/ModalDialog";
 
 export type FilterModalProps = {
-  filterCount: number
+  filterCount: number;
 };
 
-export default function FilterModal({ filterCount, children }:  React.PropsWithChildren<FilterModalProps> ) {
+export default function FilterModal({
+  filterCount,
+  children,
+}: React.PropsWithChildren<FilterModalProps>) {
   const [open, setOpen] = useState<boolean>(false);
 
-  const filterIconPath = `/static/icons/${filterCount > 0 ? 'filter_filled' : 'filter'}.svg`
+  const filterIconPath = `/static/icons/${
+    filterCount > 0 ? "filter_filled" : "filter"
+  }.svg`;
 
   return (
     <Fragment>
-      <IconButton onClick={() => setOpen(true)} sx={{ display: { xs: "block", md: "none" } }}>
+      <IconButton
+        onClick={() => setOpen(true)}
+        sx={{ display: { xs: "block", md: "none" } }}
+      >
         <img src={filterIconPath} style={{ width: "2rem", height: "2rem" }} />
       </IconButton>
       <Modal
@@ -51,9 +58,8 @@ export default function FilterModal({ filterCount, children }:  React.PropsWithC
               Apply {filterCount} filters
             </Button> */}
           </Box>
-         
         </ModalDialog>
       </Modal>
     </Fragment>
-  )
+  );
 }

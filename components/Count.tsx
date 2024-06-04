@@ -1,6 +1,5 @@
-import Chip from '@mui/joy/Chip'
-
-import Property from './Property';
+import Chip from "@mui/joy/Chip";
+import Property from "./Property";
 
 export default function Count({ value }: { value: number | string }) {
   return (
@@ -8,9 +7,9 @@ export default function Count({ value }: { value: number | string }) {
       variant="soft"
       color="neutral"
       size="sm"
-      sx={{ 
+      sx={{
         backgroundColor: "#fff",
-        padding: "2px 8px"
+        padding: "2px 8px",
       }}
     >
       <Property value={value} type="number" />

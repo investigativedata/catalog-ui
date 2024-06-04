@@ -1,19 +1,24 @@
 import Chip from "@mui/joy/Chip";
-import ChipDelete from '@mui/joy/ChipDelete';
+import ChipDelete from "@mui/joy/ChipDelete";
 import IconButton from "@mui/joy/IconButton";
 
 export type TFilterCount = {
-  value: number,
-  verbose?: boolean,
-  withIcon?: boolean,
-  onClear: (evt: any) => void
+  value: number;
+  verbose?: boolean;
+  withIcon?: boolean;
+  onClear: (evt: any) => void;
 };
 
-export default function FilterCount({ onClear, value, verbose, withIcon }: TFilterCount) {
+export default function FilterCount({
+  onClear,
+  value,
+  verbose,
+  withIcon,
+}: TFilterCount) {
   if (value === 0) {
     return null;
   }
-  
+
   return (
     <Chip
       variant="solid"
@@ -23,7 +28,7 @@ export default function FilterCount({ onClear, value, verbose, withIcon }: TFilt
         <ChipDelete
           onDelete={onClear}
           sx={(theme) => ({
-            backgroundColor: theme.vars.palette.common.black
+            backgroundColor: theme.vars.palette.common.black,
           })}
         />
       }
@@ -35,27 +40,34 @@ export default function FilterCount({ onClear, value, verbose, withIcon }: TFilt
       })}
       slotProps={{
         label: {
-          sx:{
+          sx: {
             display: "flex",
             alignItems: "center",
-            gap: "3px"
-          }
-        }
+            gap: "3px",
+          },
+        },
       }}
     >
       <span>{value}</span>
       {withIcon && (
-        <IconButton sx={{ display: { xs: "none", md: "inline-flex" }, minWidth: "0", padding: "0" }} disabled>
+        <IconButton
+          sx={{
+            display: { xs: "none", md: "inline-flex" },
+            minWidth: "0",
+            padding: "0",
+          }}
+          disabled
+        >
           <img
             src="/static/icons/filter_white.svg"
-            style={{ 
+            style={{
               width: "1rem",
-              height: "1rem"
+              height: "1rem",
             }}
           />
         </IconButton>
       )}
       {verbose && <span> selected</span>}
     </Chip>
-  )
+  );
 }
