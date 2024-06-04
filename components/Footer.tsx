@@ -60,8 +60,16 @@ const Footer = () => {
             color: theme.vars.palette.common.black,
           })}
         >
-          <span>This project has been funded by </span>
-          <FooterLink href={"/"} label="Media Lab Bayern" />
+          This project has been funded by
+          <FooterLink
+            href="https://www.media-lab.de/en/offering/media-tech-lab/"
+            label="Media Tech Lab Bayern"
+          />{" "}
+          and{" "}
+          <FooterLink
+            href="https://www.miz-babelsberg.de/"
+            label="MIZ Babelsberg"
+          />
         </Typography>
       </Stack>
     </Box>
