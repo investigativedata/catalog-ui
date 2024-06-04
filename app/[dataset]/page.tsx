@@ -46,3 +46,7 @@ export default async function DatasetPage({ params }: { params: Params }) {
     </Page>
   );
 }
+
+export async function generateStaticParams() {
+  return catalog.datasets.map(({ name }) => ({ dataset: name }));
+}
