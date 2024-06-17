@@ -2,9 +2,7 @@
 
 import { useContext } from "react";
 import Box from "@mui/joy/Box";
-import CssBaseline from "@mui/joy/CssBaseline";
-import { CssVarsProvider } from "@mui/joy/styles";
-import { theme } from "@investigativedata/style";
+import ThemeRegistry from "~/app/ThemeRegistry";
 import type { TBreadrumb } from "./Breadcrumbs";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -20,8 +18,7 @@ export default function Page({
   const headerCollapsed = useContext(HeaderScrollContext);
 
   return (
-    <CssVarsProvider theme={theme}>
-      <CssBaseline />
+    <ThemeRegistry options={{ key: "joy" }}>
       <PageContext>
         <Header crumbs={crumbs} isRoot={isRoot} />
         <Box
@@ -46,6 +43,6 @@ export default function Page({
         </Box>
         <Footer />
       </PageContext>
-    </CssVarsProvider>
+    </ThemeRegistry>
   );
 }
