@@ -1,6 +1,6 @@
 {
   "name": "catalog-ui",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,7 +12,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@investigativedata/ftmq": "^0.6.6",
-    "@investigativedata/style": "^0.1.4",
+    "@investigativedata/style": "^0.1.9",
     "@mui/joy": "^5.0.0-beta.36",
     "dayjs": "^1.11.11",
     "fuse.js": "^7.0.0",
