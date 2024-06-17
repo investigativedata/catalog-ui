@@ -80,7 +80,7 @@ export default function CatalogScreen({
               <Typography level="body-md">
                 You do not know where to start? We created carefully selected
                 collections for you, such as{" "}
-                <Link href="/?tags=Dokukratie">Dokukratie</Link>,{" "}
+                <Link href="/?tags=dokukratie">Dokukratie</Link>,{" "}
                 <Link href="/?tags=investigraph.eu">EU Datasets</Link> or{" "}
                 <Link href="/?tags=OpenSanctions">OpenSanctions</Link>.
               </Typography>
