@@ -44,9 +44,15 @@ const Footer = () => {
           spacing={5}
           alignSelf="center"
         >
-          <FooterLink href={"/"} label="Legal Notice" />
+          <FooterLink
+            href="https://investigativedata.io/contact"
+            label="Legal Notice"
+          />
           <FooterLink href={"/"} label="Code of Conduct" />
-          <FooterLink href={"/"} label="About investigativedata.io" />
+          <FooterLink
+            href="https://investigativedata.io/about"
+            label="About investigativedata.io"
+          />
         </Stack>
         <Typography
           level="body-sm"

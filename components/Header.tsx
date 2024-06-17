@@ -3,6 +3,7 @@ import Link from "next/link";
 import Box from "@mui/joy/Box";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
+import { PAGE_TITLE } from "~/settings";
 import Breadcrumbs, { TBreadrumb } from "./Breadcrumbs";
 import Logo from "./Logo";
 import { HeaderScrollContext } from "./PageContext";
@@ -88,7 +89,7 @@ const Header = ({ crumbs, isRoot }: HeaderProps) => {
               }}
               href="/"
             >
-              Investigraph Data Catalog
+              {PAGE_TITLE}
             </Link>
           </Typography>
         </StackItem>

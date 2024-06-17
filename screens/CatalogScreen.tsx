@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useContext } from "react";
+import Link from "next/link";
 import Box from "@mui/joy/Box";
 import Grid from "@mui/joy/Grid";
 import Typography from "@mui/joy/Typography";
@@ -73,12 +74,15 @@ export default function CatalogScreen({
                 Find the data for your investigations
               </Typography>
               <Typography level="body-md" style={{ paddingBottom: "2rem" }}>
-                Here you will find over 100 frequently updated datasets derived
+                Here you will find over 200 frequently updated datasets derived
                 from various official sources.
               </Typography>
               <Typography level="body-md">
                 You do not know where to start? We created carefully selected
-                collections for you.
+                collections for you, such as{" "}
+                <Link href="/?tags=Dokukratie">Dokukratie</Link>,{" "}
+                <Link href="/?tags=investigraph.eu">EU Datasets</Link> or{" "}
+                <Link href="/?tags=OpenSanctions">OpenSanctions</Link>.
               </Typography>
             </Box>
           </FixedColumn>
