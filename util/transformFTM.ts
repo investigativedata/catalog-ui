@@ -11,7 +11,7 @@ import {
 } from "@investigativedata/ftmq";
 
 export interface ICatalogTransformed {
-  readonly datasets: IDatasetTransformed[] | null;
+  readonly datasets: IDatasetTransformed[];
 }
 
 export interface IDatasetTransformed {
@@ -37,7 +37,7 @@ export function transformFTMCatalog(catalog: ICatalog): ICatalogTransformed {
 
 export function transformFTMDataset(
   dataset: IDataset & { tags?: string[] | null },
-) {
+): IDatasetTransformed {
   const {
     aleph_url,
     category,

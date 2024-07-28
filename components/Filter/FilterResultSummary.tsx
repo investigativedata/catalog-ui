@@ -1,9 +1,9 @@
 import Divider from "@mui/joy/Divider";
 import Typography from "@mui/joy/Typography";
 
-export type TFilterResultSummary = {
-  active: number;
-  total: number;
+type TFilterResultSummary = {
+  readonly active: number;
+  readonly total: number;
 };
 
 export default function FilterResultSummary({

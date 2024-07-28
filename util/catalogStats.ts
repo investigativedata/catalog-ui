@@ -1,4 +1,3 @@
-import { ICountry } from "@investigativedata/ftmq";
 import filterOptions, { TFilterField } from "./filterOptions";
 import { IDatasetTransformed } from "./transformFTM";
 

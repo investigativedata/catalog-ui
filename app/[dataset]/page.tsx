@@ -36,7 +36,6 @@ export default async function DatasetPage({ params }: { params: Params }) {
       label: "Back to Data Catalog",
       url: "/",
     },
-    // { label: dataset.title || dataset.name },
   ];
 
   return (
@@ -48,6 +47,7 @@ export default async function DatasetPage({ params }: { params: Params }) {
 
 export async function generateStaticParams() {
   const catalog = await getCatalog(CATALOG_URI);
-  if (catalog.datasets) return catalog.datasets.map(({ name }) => ({ dataset: name }));
-  return []
+  if (catalog.datasets)
+    return catalog.datasets.map(({ name }) => ({ dataset: name }));
+  return [];
 }
