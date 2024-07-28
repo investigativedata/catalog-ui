@@ -1,3 +1,5 @@
+const withMDX = require("@next/mdx")();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
@@ -6,6 +8,7 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     unoptimized: true,
   },
+  pageExtensions: ["mdx", "ts", "tsx"],
 };
 
-export default nextConfig;
+module.exports = withMDX(nextConfig);
