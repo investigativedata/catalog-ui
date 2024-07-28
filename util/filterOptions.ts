@@ -1,17 +1,20 @@
+import { ReadonlyURLSearchParams } from "next/navigation";
+import { TFilterValueCounts } from "./catalogStats";
+
 export type TFilterField = "contentType" | "frequency" | "tags" | "countries";
 
 export type TFilterOption = {
-  label: string;
-  field: TFilterField;
-  type?: string;
-  options?: string[];
+  readonly label: string;
+  readonly field: TFilterField;
+  readonly type?: string;
+  readonly options?: string[];
 };
 
 export type TActiveFilters = {
-  contentType: string[];
-  frequency: string[];
-  tags: string[];
-  countries: string[];
+  readonly contentType: string[];
+  readonly frequency: string[];
+  readonly tags: string[];
+  readonly countries: string[];
 };
 
 const filterOptions: TFilterOption[] = [
@@ -39,3 +42,30 @@ const filterOptions: TFilterOption[] = [
 ];
 
 export default filterOptions;
+
+export const getFiltersFromUrlParams = (
+  searchParams: ReadonlyURLSearchParams,
+): TActiveFilters =>
+  filterOptions.reduce(
+    (acc, { field }) => ({ ...acc, [field]: searchParams.getAll(field) }),
+    {
+      contentType: [],
+      frequency: [],
+      tags: [],
+      countries: [],
+    },
+  );
+
+export const emptyFilters: TActiveFilters = {
+  contentType: [],
+  frequency: [],
+  tags: [],
+  countries: [],
+};
+
+export const emptyFilterValueCounts: TFilterValueCounts = {
+  contentType: [],
+  frequency: [],
+  tags: [],
+  countries: [],
+};

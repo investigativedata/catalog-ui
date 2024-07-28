@@ -116,7 +116,6 @@ const DatasetMetadataEntities = ({
                 {item.plural}
               </Typography>
             )}
-            showAllByDefault
           />
         </>
       )}
@@ -128,7 +127,6 @@ const DatasetMetadataEntities = ({
             renderLabel={(item) => (
               <CountryLabel iso={item.code} label={item.label} />
             )}
-            showAllByDefault={false}
           />
         </>
       )}

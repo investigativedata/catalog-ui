@@ -1,26 +1,25 @@
-import React, { useCallback, useContext } from "react";
-import Image from "next/image";
+import React, { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Box from "@mui/joy/Box";
-import Input from "@mui/joy/Input";
 import Stack from "@mui/joy/Stack";
-import iconSearch from "~/assets/icons/search.svg";
-import calculateCatalogStats from "~/util/catalogStats";
 import { TFilterField } from "~/util/filterOptions";
+import { useStoreState } from "~/util/store";
 import FilterCount from "../Filter/FilterCount";
 import FilterModal from "../Filter/FilterModal";
 import FilterResultSummary from "../Filter/FilterResultSummary";
 import Filters from "../Filter/Filters";
-import { CatalogContext } from "./CatalogContext";
+import SearchForm from "../SearchForm";
 
-export type TCatalogControls = {
-  totalCount: number;
-};
-
-export default function CatalogControls({ totalCount }: TCatalogControls) {
+export default function CatalogControls() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const totalCount = useStoreState((state) => state.totalCount);
+  const activeCount = useStoreState((state) => state.activeCount);
+  const activeFilterCount = useStoreState((state) => state.activeFilterCount);
+  const activeFilters = useStoreState((state) => state.activeFilters);
+  const filterValueCounts = useStoreState((state) => state.filterValueCounts);
 
   const createQueryString = useCallback(
     (name: string, value?: string) => {
@@ -53,24 +52,15 @@ export default function CatalogControls({ totalCount }: TCatalogControls) {
     router.push(pathname + "?" + createQueryString(field));
   };
 
-  const populatedContext = useContext(CatalogContext);
-  if (!populatedContext) {
-    return null;
-  }
-  const { searchValue, setSearchValue, activeFilters, filteredItems } =
-    populatedContext;
-
-  const activeFilterCount = Object.values(activeFilters).flat().length;
-
   const filtersComponentProps = {
     filters: activeFilters,
-    filterValueCounts: calculateCatalogStats(filteredItems),
+    filterValueCounts,
     toggleFilter,
     clearFilterGroup,
   };
 
   const resultSummary = (
-    <FilterResultSummary active={filteredItems.length} total={totalCount} />
+    <FilterResultSummary active={activeCount} total={totalCount} />
   );
 
   return (
@@ -82,21 +72,7 @@ export default function CatalogControls({ totalCount }: TCatalogControls) {
         alignItems="center"
         spacing={2}
       >
-        <Input
-          color="neutral"
-          variant="plain"
-          size="sm"
-          placeholder="Search in Data Catalog"
-          value={searchValue}
-          onChange={(event) => setSearchValue(event.target.value)}
-          startDecorator={<Image src={iconSearch} alt="search icon" />}
-          sx={{
-            "--Input-focusedThickness": "0rem",
-            background: "#fff",
-            padding: "13px 18px",
-            flexGrow: 1,
-          }}
-        />
+        <SearchForm />
         <Stack
           direction="row"
           justifyContent="space-between"

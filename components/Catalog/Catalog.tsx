@@ -1,32 +1,28 @@
-import { useContext } from "react";
 import Image from "next/image";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Grid from "@mui/joy/Grid";
 import Typography from "@mui/joy/Typography";
 import iconOkHand from "~/assets/icons/ok.svg";
-import { CatalogContext } from "./CatalogContext";
+import { useStoreState } from "~/util/store";
+import Loading from "../Loading";
 import CatalogItem from "./CatalogItem";
 
 export default function Catalog() {
-  const populatedContext = useContext(CatalogContext);
-  if (!populatedContext) {
-    return null;
-  }
-  const { filteredItems } = populatedContext;
+  const datasets = useStoreState((state) => state.filteredDatasets);
+  const loading = useStoreState((state) => state.loading);
+  const Datasets = datasets.map((d) => (
+    <Grid key={d.name} xs={12} sm={6} md={12} lg={6}>
+      <CatalogItem key={d.name} item={d} />
+    </Grid>
+  ));
+
+  console.log("LOADING", loading);
 
   return (
     <Box>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-        {filteredItems
-          .sort((a, b) =>
-            a.updatedAt && (!b.updatedAt || a.updatedAt > b.updatedAt) ? 1 : -1,
-          )
-          .map((d) => (
-            <Grid key={d.name} xs={12} sm={6} md={12} lg={6}>
-              <CatalogItem key={d.name} item={d} />
-            </Grid>
-          ))}
+        {loading ? <Loading /> : Datasets}
       </Grid>
       <Box
         padding="4rem 0 4rem"
