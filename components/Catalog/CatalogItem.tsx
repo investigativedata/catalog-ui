@@ -1,3 +1,4 @@
+import NLink from "next/link";
 import type { Theme } from "@mui/joy";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
@@ -13,6 +14,17 @@ import CatalogItemDetails from "./CatalogItemDetails";
 type CatalogItemProps = {
   item: IDatasetTransformed;
 };
+
+const DatasetLink = ({
+  href,
+  children,
+}: React.PropsWithChildren<{ href: string }>) => (
+  <NLink href={href} passHref legacyBehavior>
+    <Link overlay underline="none" href={href} sx={{ textDecoration: "none" }}>
+      {children}
+    </Link>
+  </NLink>
+);
 
 export default function CatalogItem({ item }: CatalogItemProps) {
   return (
@@ -45,16 +57,11 @@ export default function CatalogItem({ item }: CatalogItemProps) {
               color: theme.vars.palette.common.black,
             })}
           />
-          <Link
-            overlay
-            underline="none"
-            href={`/${item.name}`}
-            sx={{ textDecoration: "none" }}
-          >
+          <DatasetLink href={`/${item.name}`}>
             <Typography level="body-md" sx={{ fontWeight: "bold" }}>
               {item.title || item.name}
             </Typography>
-          </Link>
+          </DatasetLink>
           <Tags items={item.tags} />
         </Stack>
         <CatalogItemDetails item={item} />
