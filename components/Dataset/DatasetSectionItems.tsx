@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
-import Add from "@mui/icons-material/Add";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import type { Theme } from "@mui/joy";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
@@ -11,13 +12,13 @@ const SHOWN_ITEM_CUTOFF = 5;
 type DatasetSectionItemsProps = {
   items: any[];
   renderLabel: (item: any) => ReactNode;
-  showAllByDefault: boolean;
+  showAllByDefault?: boolean;
 };
 
 const DatasetSectionItems = ({
   items,
   renderLabel,
-  showAllByDefault,
+  showAllByDefault = false,
 }: DatasetSectionItemsProps) => {
   const [showAll, setShowAll] = useState(showAllByDefault);
 
@@ -47,7 +48,15 @@ const DatasetSectionItems = ({
           variant="plain"
           color="neutral"
           startDecorator={
-            <Add sx={(theme) => ({ color: theme.palette.common.black })} />
+            showAll ? (
+              <RemoveIcon
+                sx={(theme) => ({ color: theme.palette.common.black })}
+              />
+            ) : (
+              <AddIcon
+                sx={(theme) => ({ color: theme.palette.common.black })}
+              />
+            )
           }
           onClick={() => setShowAll(!showAll)}
           sx={{
@@ -61,7 +70,7 @@ const DatasetSectionItems = ({
             textDecoration: "underline",
           }}
         >
-          {showAll ? "Hide" : "Show all"}
+          {showAll ? "Show less" : "Show all"}
         </Button>
       )}
     </>
