@@ -9,7 +9,7 @@ import Typography from "@mui/joy/Typography";
 import Catalog from "~/components/Catalog/Catalog";
 import CatalogControls from "~/components/Catalog/CatalogControls";
 import { getFiltersFromUrlParams } from "~/util/filterOptions";
-import { useStoreActions, useStoreState } from "~/util/store";
+import { useStoreActions } from "~/util/store";
 import { HeaderScrollContext } from "../components/PageContext";
 
 type IFixedColumn = {
@@ -94,6 +94,9 @@ export default function CatalogScreen() {
             <Link href="/?tags=dokukratie">Dokukratie</Link>,{" "}
             <Link href="/?tags=investigraph.eu">EU Datasets</Link> or{" "}
             <Link href="/?tags=OpenSanctions">OpenSanctions</Link>.
+          </Typography>
+          <Typography level="body-md">
+            <Link href="/about">About</Link>
           </Typography>
         </Box>
       </FixedColumn>
