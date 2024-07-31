@@ -40,10 +40,18 @@ export default function CTADrawer({ open, onClose }: TCTADrawer) {
         },
       }}
     >
-      <ModalClose />
+      <ModalClose
+        sx={(theme) => ({
+          backgroundColor: "inherit",
+          "&:hover": {
+            backgroundColor: "inherit",
+          },
+          color: theme.vars.palette.common.black,
+        })}
+      />
       <Stack
         sx={{
-          padding: "3rem 3rem",
+          padding: { xs: "0.5rem", sm: "1rem", md: "1.5rem", lg: "3rem" },
           position: "relative",
           top: "50%",
           transform: "translateY(-50%)",

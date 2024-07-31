@@ -28,7 +28,7 @@ const Footer = () => {
         zIndex: 10,
         padding: "2rem 1.5rem",
         backgroundColor: theme.vars.palette.success[300],
-        position: "absolute",
+        position: { md: "absolute" },
         bottom: 0,
       })}
     >
@@ -39,7 +39,7 @@ const Footer = () => {
         spacing={5}
       >
         <Stack
-          direction={{ xs: "column", md: "row" }}
+          direction={{ xs: "column", sm: "row" }}
           alignItems="center"
           spacing={5}
           alignSelf="center"
@@ -48,7 +48,7 @@ const Footer = () => {
             href="https://investigativedata.io/contact"
             label="Legal Notice"
           />
-          <FooterLink href={"/"} label="Code of Conduct" />
+          <FooterLink href={"/about"} label="About this page" />
           <FooterLink
             href="https://investigativedata.io/about"
             label="About investigativedata.io"
@@ -66,7 +66,7 @@ const Footer = () => {
             color: theme.vars.palette.common.black,
           })}
         >
-          This project has been funded by
+          This project has been funded by{" "}
           <FooterLink
             href="https://www.media-lab.de/en/offering/media-tech-lab/"
             label="Media Tech Lab Bayern"
